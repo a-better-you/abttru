@@ -14,6 +14,10 @@ module.exports = function (sequelize, DataTypes) {
         password: {
             type: DataTypes.STRING,
         },
+        
+        status: {
+            type: DataTypes.BOOLEAN, defaultValue: true
+        },
 
         fav_recipe: {
             type: DataTypes.STRING,

@@ -7,17 +7,13 @@ module.exports = function (app) {
         res.render(path.join(__dirname, "../views/main-page.handlebars"));
     });
 
-    // app.get("/doctor", function (req, res) {
-    //     res.render(path.join(__dirname, "../views/patient.handlebars"));
-    // });
-
     app.get("/profile", function (req, res) {
         res.render(path.join(__dirname, "../views/user-info.handlebars"));
     });
 
     app.get("/doctor", function (req, res) {
         db.nutriModel.findAll({
-            attributes: ['patient_name', 'fav_recipe', 'diet_option', 'diet_restriction']
+            attributes: ['patient_name', 'fav_recipe', 'risk_factor', 'diet_option', 'diet_restriction']
         }).then(nutriModel => {
             const hbsObj = {patients: nutriModel.map(x => x.dataValues)};
             console.log(hbsObj);

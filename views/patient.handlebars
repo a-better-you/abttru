@@ -7,9 +7,11 @@
         <h1>PATIENT LIST</h1>
         <div class="row">
             <div class="col-md-4 patient-info">
-                {{!-- {{#each patients}} --}}
-                    {{patients}}
-                {{!-- {{/each}} --}}
+                {{#each patients}}
+                    {{#unless status}}
+                        {{> patients/patient-block status=true}}
+                    {{/unless}}
+                {{/each}}
             </div>
             <div class="col-md-6">
                 <br>

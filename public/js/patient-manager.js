@@ -33,7 +33,7 @@ $(document).ready(function () {
 
     function createPatient(patientInfo) {
         $.post("/api/patient", patientInfo)
-            .then(getPatients);
+            // .then(getPatients);
     }
 
     function createPatientRow(patientData) {
@@ -52,7 +52,6 @@ $(document).ready(function () {
 
     function getPatients() {
         $.get("/doctor", function (data) {
-            
         });
     }
 
