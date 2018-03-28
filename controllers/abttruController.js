@@ -33,15 +33,25 @@ module.exports = function (app) {
 
     app.post("/api/patient", function (req, res) {
         // Create an patient with the data available to us in req.body
-        db.nutriModel.create(req.body).then(function (dbPatients) {
-            res.json(dbPatients);
-        });
+        console.log("HELLO");
+        console.log(req.body.newPatient);
+        console.log("Patient Data:");
+        console.log(JSON.stringify(req.body,null,2));
+        db.nutriModel.create({
+            patient_name: req.body.patient_name,
+            password: "",
+            fav_recipe: "",
+            diet_option: req.body.diet_option,
+            risk_factor: req.body.risk_factor,
+            diet_restriction: req.body.diet_restriction,
+        }).then(() => res.end());
+    
     });
 
     app.get("/api/patient", function (req, res) {
         // Getting all the patients for the doctor
         db.nutriModel.findAll({}).then(function (dbPatients) {
-            res.json(dbPatients);
+            // res.json(dbPatients);
         });
     });
 

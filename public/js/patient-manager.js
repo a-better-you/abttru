@@ -1,68 +1,34 @@
-$(document).ready(function () {
+// $(document).ready(function () {
     console.log("patient-manager working!");
     var patientList = $(".patient-container");
     var patientContainer = $(".patient-container");
     var currentURL = window.location.origin;
-    getPatients();
+    // getPatients();
 
-    $(document).on('click', ".add-patient", function (event) {
-        alert('patient added!');
+    $(".add-patient").on('click', function(event) {
         event.preventDefault();
-
-        patientName = $("#patient-name").val().trim();
-        riskOption = $("#risk-factor").val().toLowerCase().trim();
-        dietOption = $("#diet-factor").val().toLowerCase().trim();
-        dietRestriction = $("#diet-restriction").val().toLowerCase().trim();
-        addNewPatient();
+        alert("created new patient");
+        var newPatient = {
+            patient_name: $("#patient-name").val().trim(),
+            password: "",
+            fav_recipe: "",
+            diet_option: $("#diet-factor").val().toLowerCase().trim(),
+            risk_factor: $("#risk-factor").val().toLowerCase().trim(),
+            diet_restriction: $("#diet-restriction").val().toLowerCase().trim(),
+        };
+          // Send the POST request.
+          $.ajax("/api/patient", {
+            type: "POST",
+            data: newPatient
+          }).then(function() {
+ 
+              // Reload the page to get the updated list
+              location.reload();
+          });
     });
 
-
-    function addNewPatient(event) {
-        if (!patientName) {
-            return;
-        }
-        createPatient({
-            patient_name: patientName,
-            fav_recipe: "",
-            diet_option: dietOption,
-            risk_factor: riskOption,
-            diet_restriction: dietRestriction,
-        });
-    }
-
-
-    function createPatient(patientInfo) {
-        $.post("/api/patient", patientInfo)
-            // .then(getPatients);
-    }
-
-    function createPatientRow(patientData) {
-        console.log(patientData);
-
-        var newDiv = $("<div>");
-        newDiv.data("patient", patientData);
-        newDiv.append("<div>" + patientData.patient_name + "</div>");
-        newDiv.append("<div>" + patientData.risk_factor + "</div>");
-        newDiv.append("<div>" + patientData.diet_restriction + "</div>");
-        newDiv.append("<br>");
-
-        return newDiv;
-    }
-
-
     function getPatients() {
-        $.get("/doctor", function (data) {
-        });
-    }
-
-    function renderPatients(rows) {
-        if (rows.length) {
-            console.log(rows);
-            patientList.prepend(rows);
-        }
-        else {
-            renderEmpty();
-        }
+        $.get("/doctor", function(data) {});
     }
 
     function renderEmpty() {
@@ -71,4 +37,4 @@ $(document).ready(function () {
         alertDiv.text("You must create a Patient before you can create a Post.");
         patientContainer.append(alertDiv);
     }
-});
+// });
