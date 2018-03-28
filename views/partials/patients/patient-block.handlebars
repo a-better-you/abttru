@@ -1,8 +1,10 @@
-	<p>Patient: {{patient_name}}</p></n>
-	<p>Health Concerns: {{risk_factor}}</p></n>
-	<p>Diet: {{diet_option}}</p></n>
-	<p>Restrictions: {{diet_restriction}}</p></n>
 	{{!-- <button class="change-status" data-id="{{id}}" data-newstatus="{{status}}">
 		{{#if status}}DEACTIVATE!{{else}}ACTIVATE!{{/if}}
 	</button> --}}
-	<br>
+<tr>
+    <td>{{patient_name}}</td>
+	<td>{{risk_factor}}</td>
+	<td>{{diet_option}}</td>
+	<td>{{diet_restriction}}</td>
+	<td><a href={{fav_recipe}}>This Recipe</a></td>
+</tr>

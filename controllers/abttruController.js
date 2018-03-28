@@ -13,7 +13,7 @@ module.exports = function (app) {
 
     app.get("/doctor", function (req, res) {
         db.nutriModel.findAll({
-            attributes: ['patient_name', 'fav_recipe', 'risk_factor', 'diet_option', 'diet_restriction']
+            attributes: ['patient_name', 'risk_factor', 'diet_option', 'diet_restriction', 'fav_recipe']
         }).then(nutriModel => {
             const hbsObj = {patients: nutriModel.map(x => x.dataValues)};
             console.log(hbsObj);
