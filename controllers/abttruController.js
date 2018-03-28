@@ -2,7 +2,6 @@ var path = require("path");
 var db = require("../models");
 
 module.exports = function (app) {
-    //The following 3 direct page routes
     app.get("/home", function (req, res) {
         res.render(path.join(__dirname, "../views/main-page.handlebars"));
     });
@@ -47,6 +46,24 @@ module.exports = function (app) {
             res.send(savedRecipe);
         });
     });
+
+    app.get("/api/profile/save-recipe/:id", function (req, res) {
+        // Save a recipe with the data available to us in req.body
+        db.savedRecipes.findAll({
+            attributes:['recipe'],
+            where: {patient_id: req.params.id}
+        }).then(function (savedRecipe){
+            console.log(savedRecipe);
+            $.ajax({
+                url: `https://api.edamam.com/search?q=${userQ}&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99&from=0&to=5&calories=591-722&Diet=${risk_factor}&Health=${diet_option}`,
+                method: "GET"
+            }).done(function(response) {
+                res.json()
+            });
+        });
+    });
+
+    // ******* DOCTOR ROUTES ******* //
 
     app.get("/doctor", function (req, res) {
         db.nutriModel.findAll({
