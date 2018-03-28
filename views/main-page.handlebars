@@ -1,0 +1,156 @@
+{{!-- <div class="content" id="MainContent"> --}}
+		    {{!-- <div class="row"> --}}
+		        {{!-- <div class="jumbotron"> --}}
+                    {{!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                         <a class="navbar-brand" href="#">ABTTRU</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <form class="nav-link user-login" method"get">User Login</form>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/doctor">Doctor Login</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Risk Factor</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <select class="form-control form-control-lg" id="risk-factor">
+                                            <option class="risk-option">Healthy</option>
+                                            <option class="risk-option">High Blood Pressure</option>
+                                            <option class="risk-option">High Cholesterol</option>
+                                            <option class="risk-option">Diabetes</option>
+                                            <option class="risk-option">Obesity</option>
+                                            <option class="risk-option">Malnourishment</option>
+                                        </select>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diet Recommendation</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <select class="form-control form-control-lg" id="diet-factor">
+                                            <option class="diet-option">Balanced</option>
+                                            <option class="diet-option">High-Fiber</option>
+                                            <option class="diet-option">High-Protein</option>
+                                            <option class="diet-option">Low-Carb</option>
+                                            <option class="diet-option">Low-Fat</option>
+                                            <option class="diet-option">Low-Sodium</option>
+                                        </select>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diet Restrictions</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <select class="form-control form-control-lg" id="diet-restriction">
+                                            <option class="restrict-option">Crustacean-Free</option>
+                                            <option class="restrict-option">Dairy-Free</option>
+                                            <option class="restrict-option">Kosher</option>
+                                            <option class="restrict-option">Gluten-Free</option>
+                                            <option class="restrict-option">Low-Sugar</option>
+                                            <option class="restrict-option">Paleo</option>
+                                            <option class="restrict-option">Peanut-free</option>
+                                            <option class="restrict-option">Pescatarian</option>
+                                            <option class="restrict-option">Vegan</option>
+                                        </select>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" id="user-input" type="text" placeholder="Ingredient" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0 search" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </nav> --}}
+		        {{!-- </div> --}}
+            {{!-- </div> --}}
+
+        <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-2">
+                <a class="btn btn-default" href="/profile">User Login</a>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <a class="btn btn-default" href="/doctor">Doctor Login</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+                <h1>WELCOME TO A BETTER YOU!</h1>
+                <h2>GUEST SEARCH</h2>
+            </div>
+            <div class="col-md-5">
+                <form action="/api/profile" method="get">
+                    <div class="form-group row">
+                        <label for="inputUserName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputUsername" placeholder="User Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" value="Submit">Sign in</button>
+                        </div>
+                    </div>     
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <br>
+                <form id="patient-input">
+                    <div class="form-group">
+                        <label for="patient-name">Ingredient:</label>
+                        <input placeholder="Name" type="text" class="form-control" id="user-input">
+                        <br>
+                        <label for="risk-factor">Risk Factor:</label>
+                        <select class="form-control form-control-lg" id="risk-factor">
+                            <option class="risk-option">Healthy</option>
+                            <option class="risk-option">High Blood Pressure</option>
+                            <option class="risk-option">High Cholesterol</option>
+                            <option class="risk-option">Diabetes</option>
+                            <option class="risk-option">Obesity</option>
+                            <option class="risk-option">Malnourishment</option>
+                        </select>
+                        <br>
+                        <label for="risk-factor">Diet Recommendation:</label>
+                        <select class="form-control form-control-lg" id="diet-factor">
+                            <option class="diet-option">Balanced</option>
+                            <option class="diet-option">High-Fiber</option>
+                            <option class="diet-option">High-Protein</option>
+                            <option class="diet-option">Low-Carb</option>
+                            <option class="diet-option">Low-Fat</option>
+                            <option class="diet-option">Low-Sodium</option>
+                        </select>
+                        <br>
+                        <label for="diet-restriction">Diet Restriction:</label>
+                        <select class="form-control form-control-lg" id="diet-restriction">
+                            <option class="restrict-option">Crustacean-Free</option>
+                            <option class="restrict-option">Dairy-Free</option>
+                            <option class="restrict-option">Kosher</option>
+                            <option class="restrict-option">Gluten-Free</option>
+                            <option class="restrict-option">Low-Sugar</option>
+                            <option class="restrict-option">Paleo</option>
+                            <option class="restrict-option">Peanut-free</option>
+                            <option class="restrict-option">Pescatarian</option>
+                            <option class="restrict-option">Vegan</option>
+                        </select>
+                        <br />
+                            <button class="search">Search for Recipes</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8 col-lg-8" id="recipe-area"></div>
+        </div>
+    </div>
