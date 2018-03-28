@@ -6,6 +6,13 @@
         </div>
         <h1>USER INFO</h1>
         <div class="row">
+            <div class="col-md-12 panel panel-default patient-info">
+                {{#each patients}}
+                    {{> users/user-block status=true}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-4">
                 <div class="patient-info"></div>
                 <form class="create-form">
@@ -16,7 +23,7 @@
                     <div class="form-group">
                     </div>
                     <a href="api/recipes">
-                        <button class="ingredient-1">Search For Recipes</button>
+                        <button class="search">Search For Recipes</button>
                     </a>
                 </form>
             </div>
@@ -33,20 +40,9 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h2 class="modal-title">
-                        <strong>User Login</strong>
                     </h2>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="user-name">Name</label>
-                            <input type="text" class="form-control name-input" id="" placeholder="Enter name">
-                        </div>
-                        <div class="form-group">
-                            <label for="user-id">Password</label>
-                            <input type="text" class="form-control pw-input" id="" placeholder="Enter Password">
-                        </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary submit">Submit</button>
@@ -54,5 +50,4 @@
             </div>
         </div>
     </div>
-    <script src="js/patient-manager.js" type="text/javascript"></script>
-    <script src="js/user-info.js" type="text/javascript"></script>
+<script src="js/user-info.js" type="text/javascript"></script>

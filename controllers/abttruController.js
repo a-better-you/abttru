@@ -8,7 +8,44 @@ module.exports = function (app) {
     });
 
     app.get("/profile", function (req, res) {
-        res.render(path.join(__dirname, "../views/user-info.handlebars"));
+        db.nutriModel.findAll({
+            where: {id: 2}
+        }).then(nutriModel => {
+            let hbsPatient = {patients: nutriModel.map(x => x.dataValues)};
+            console.log(hbsPatient);
+            // res.json(nutriModel.map(x => x.dataValues));
+            res.render("user-info", hbsPatient);
+        })
+    });
+
+    app.get("/api/profile/:id", function (req, res) {
+        //User login process
+        db.nutriModel.findAll({
+            where: {id: req.params.id}
+        }).then(nutriModel => {
+            const hbsPatient = {patients: nutriModel.map(x => x.dataValues)};
+            res.render("user-info", hbsPatient)
+        })
+    });
+
+    app.put("/api/profile/fave-recipe/:id", function (req, res) {
+        // Make a recipe your favorite with the data available to us in req.body
+        db.nutriModel.update({
+            fav_recipe: req.body.fav_recipe,
+        }, {where: {id: req.params.id}
+        }).then(function (recipeUpdate) {
+            res.send(recipeUpdate);
+        });
+    });
+
+    app.post("/api/profile/save-recipe/:id", function (req, res) {
+        // Save a recipe with the data available to us in req.body
+        db.savedRecipes.create({
+            recipe: req.body.save_recipe,
+            patient_id: req.params.id
+        }).then(function (savedRecipe) {
+            res.send(savedRecipe);
+        });
     });
 
     app.get("/doctor", function (req, res) {
@@ -20,6 +57,7 @@ module.exports = function (app) {
             res.render("patient", hbsObj);
         });
     });
+
 
     app.get("/api/nutriModel/:patient_name", function (req, res) {
         //User login process
@@ -33,7 +71,6 @@ module.exports = function (app) {
 
     app.post("/api/patient", function (req, res) {
         // Create an patient with the data available to us in req.body
-        console.log("HELLO");
         console.log(req.body.newPatient);
         console.log("Patient Data:");
         console.log(JSON.stringify(req.body,null,2));
@@ -46,33 +83,6 @@ module.exports = function (app) {
             diet_restriction: req.body.diet_restriction,
         }).then(() => res.end());
     
-    });
-
-    app.get("/api/patient", function (req, res) {
-        // Getting all the patients for the doctor
-        db.nutriModel.findAll({}).then(function (dbPatients) {
-            // res.json(dbPatients);
-        });
-    });
-
-    app.put("/api/patient/fav-recipe/:id", function (req, res) {
-        // Make a recipe your favorite with the data available to us in req.body
-        db.nutriModel.update({
-            fav_recipe: req.body.fav_recipe,
-        }, {where: {id: req.params.id}
-        }).then(function (recipeUpdate) {
-            res.send(recipeUpdate);
-        });
-    });
-
-    app.post("/api/patient/save-recipe/:id", function (req, res) {
-        // Save a recipe with the data available to us in req.body
-        db.savedRecipes.create({
-            recipe: req.body.save_recipe,
-            patient_id: req.params.id
-        }).then(function (savedRecipe) {
-            res.send(savedRecipe);
-        });
     });
 
 };
