@@ -2,6 +2,7 @@ var path = require("path");
 var db = require("../models");
 
 module.exports = function (app) {
+    //The following 3 direct page routes
     app.get("/home", function (req, res) {
         res.render(path.join(__dirname, "../views/main-page.handlebars"));
     });
@@ -14,63 +15,48 @@ module.exports = function (app) {
         res.render(path.join(__dirname, "../views/user-info.handlebars"));
     });
 
-
-
     app.get("/api/nutriModel", function (req, res) {
-        db.nutriModel.findAll({})
-            .then(nutriModel => {
-                console.log(nutriModel.map(x => x.dataValues));
-                res.send(nutriModel.map(x => x.dataValues));
-            })
+        db.nutriModel.findAll({
+        }).then(nutriModel => {
+            res.send(nutriModel.map(x => x.dataValues));
+        })
     });
 
     app.get("/api/nutriModel/:patient_name", function (req, res) {
+        //User login process
         db.nutriModel.findAll({
             where: { patient_name: req.params.patient_name }
+        }).then(nutriModel => {
+            res.send(nutriModel.map(x => x.dataValues));
         })
-            .then(nutriModel => {
-                console.log(nutriModel.map(x => x.dataValues));
-                res.send(nutriModel.map(x => x.dataValues));
-            })
     });
 
     app.post("/api/patient", function (req, res) {
-        // Create an Author with the data available to us in req.body
-        console.log("adding to the database");
-        console.log(req.body);
+        // Create an patient with the data available to us in req.body
         db.nutriModel.create(req.body).then(function (recipeUpdate) {
             res.json(dbPatients);
         });
     });
 
     app.get("/api/patient", function (req, res) {
-        console.log("finding all");
+        // Getting all the patients for the doctor
         db.nutriModel.findAll({}).then(function (dbPatients) {
             res.json(dbPatients);
         });
     });
 
     app.put("/api/patient/fav-recipe/:id", function (req, res) {
-        // Create an Author with the data available to us in req.body
-        console.log("updating to the database favorite recipe");
-        console.log(req.params.id);
-        console.log(req.body);
+        // Make a recipe your favorite with the data available to us in req.body
         db.nutriModel.update({
             fav_recipe: req.body.fav_recipe,
-        }, {
-                where: {
-                    id: req.params.id,
-                }
-            }).then(function (recipeUpdate) {
-                res.send(recipeUpdate);
-            });
+        }, {where: {id: req.params.id}
+        }).then(function (recipeUpdate) {
+            res.send(recipeUpdate);
+        });
     });
 
     app.post("/api/patient/save-recipe/:id", function (req, res) {
-        // Create an Author with the data available to us in req.body
-        console.log("updating to the recipe model");
-        console.log(req.params.id);
-        console.log(req.body);
+        // Save a recipe with the data available to us in req.body
         db.savedRecipes.create({
             recipe: req.body.save_recipe,
             patient_id: req.params.id
