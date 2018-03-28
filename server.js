@@ -16,17 +16,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Set Handlebars.
-// const exphbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
 
-// app.engine("hbs", exphbs({ defaultLayout: "main" }));
-// app.set("view engine", "hbs");
-// // app.use(routes);
-// require('./controllers/recipeController.js')(app);
-require("./routes/html-routes")(app);
-require("./routes/api-routes")(app);
+app.engine("handlebars", exphbs({ defaultLayout: "main", extname: "handlebars"   }));
+app.set("view engine", "handlebars");
+
+// Import routes and give the server access to them.
+const abttruRoutes = require("./controllers/abttruController")(app);
+app.use(express.static("/home", abttruRoutes));
+
+app.get("/",(req, res) => { res.redirect("/home")});
+
 // Start our server so that it can begin listening to client requests.
-// 
-
 db.sequelize.sync().then(function () {
     app.listen(PORT, function () {
         console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);

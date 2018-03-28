@@ -2,17 +2,19 @@ var path = require("path");
 var db = require("../models");
 
 module.exports = function (app) {
-    app.get("/", function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/main-page.html"));
+    app.get("/home", function (req, res) {
+        res.render(path.join(__dirname, "../views/main-page.handlebars"));
+    });
+
+    app.get("/doctor", function (req, res) {
+        res.render(path.join(__dirname, "../views/patient.handlebars"));
+    });
+
+    app.get("/profile", function (req, res) {
+        res.render(path.join(__dirname, "../views/user-info.handlebars"));
     });
 
 
-    // app.get("/api/recipes", function (req, res) {
-    //     console.log("got it");
-    //     console.log(req.query.query);
-    //     res.send("poopoo");
-
-    // });
 
     app.get("/api/nutriModel", function (req, res) {
         db.nutriModel.findAll({})
@@ -31,8 +33,6 @@ module.exports = function (app) {
                 res.send(nutriModel.map(x => x.dataValues));
             })
     });
-
-
 
     app.post("/api/patient", function (req, res) {
         // Create an Author with the data available to us in req.body
