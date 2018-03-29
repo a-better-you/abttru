@@ -241,7 +241,7 @@ function createPlots(response, i) {
         labels: []
     }
 
-    arrayDigest.forEach(nutrient => {
+    arrayDigest.forEach((nutrient, i) => {
         // console.log(nutrient);
         // push nutrient servings for each nutrient
         if (nutrient.label === "Fat" || nutrient.label === "Carbs" || nutrient.label === "Protein") {
@@ -258,14 +258,30 @@ function createPlots(response, i) {
             }
         }
 
-        else if (nutrient.label != "Cholesterol" & nutrient.label != "Folate equivalent (total)" & nutrient.label != "Folate (food)") {
-            // thirdPlot.x.push(nutrient.daily / reciYield);
-            // thirdPlot.y.push(nutrient.label);
+        // else if (nutrient.label != "Cholesterol" & nutrient.label != "Folate equivalent (total)" & nutrient.label != "Folate (food)") {
+        //     console.log(nutrient);
+        //     console.log(arrayDigest.slice(1, 5));
+        //     thirdPlot.values.push(nutrient.daily / reciYield);
+        //     thirdPlot.labels.push(nutrient.label);
+
+        // }
+        else if (i > 3 & i < 11) {
+            console.log(nutrient, i);
+            // console.log(arrayDigest.slice(1, 5));
+            thirdPlot.values.push(nutrient.daily / reciYield);
+            thirdPlot.labels.push(nutrient.label);
+
+        }
+        else if (i > 10 & i < 24) {
+            console.log(nutrient, i);
+            // console.log(arrayDigest.slice(1, 5));
+            fourthPlot.values.push(nutrient.daily / reciYield);
+            fourthPlot.labels.push(nutrient.label);
 
         }
 
     });
-    console.log(secondPlot);
+    // console.log(secondPlot);
     // console.log(plotObject);
 
     // process nutrition data
@@ -302,14 +318,70 @@ function createPlots(response, i) {
         hoverinfo: 'label+percent+name',
         hole: .4,
         type: 'pie'
+    }, {
+        values: thirdPlot.values,
+        labels: thirdPlot.labels,
+        domain: {
+            x: [.3, .48]
+        },
+        name: 'GHG Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
+    }, {
+        values: fourthPlot.values,
+        labels: fourthPlot.labels,
+        text: 'CO2',
+        textposition: 'inside',
+        domain: { x: [.52, 1] },
+        name: 'CO2 Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
     }];
+
+    var data2 = [{
+        values: thirdPlot.values,
+        labels: thirdPlot.labels,
+        domain: {
+            x: [0, .48]
+        },
+        name: 'GHG Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
+    }, {
+        values: fourthPlot.values,
+        labels: fourthPlot.labels,
+        text: 'CO2',
+        textposition: 'inside',
+        domain: { x: [.52, 1] },
+        name: 'CO2 Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
+    }];
+
+
 
     var layout = {
         title: 'Macros and Fat Distribution',
         legend: {
             "orientation": "h"
         },
-        height: 375,
+        height: 800,
+        width: 600,
+        grid: {
+            ygap: 0.8
+        }
+    };
+
+    var layout2 = {
+        title: 'Macros and Fat Distribution',
+        legend: {
+            "orientation": "h"
+        },
+        height: 600,
         width: 550,
         grid: {
             ygap: 0.8
@@ -318,5 +390,6 @@ function createPlots(response, i) {
 
 
     Plotly.newPlot('tester', data, layout);
+    // Plotly.newPlot('tester-2', data2, layout2);
 
 }
