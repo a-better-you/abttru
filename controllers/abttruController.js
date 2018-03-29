@@ -91,7 +91,7 @@ module.exports = function (app) {
 
         if (errors) {
             console.log(`errors: ${JSON.stringify(errors)}`);
-            res.render('error', { errors: errors });
+            res.render('patient', { errors: errors });
         } else {
 
             const patientName = req.body.patient_name;

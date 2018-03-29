@@ -1,3 +1,74 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input placeholder="Ingredients(e.g. chicken)" type="text" class="form-control" id="user-input">
+                </div>
+                {{!--
+                <button type="submit" class="btn btn-default">Submit</button> --}}
+                <button class="search btn btn-default">Search for Recipes</button>
+            </form>
+            <ul class="nav navbar-nav">
+                <li class="dropdown-select">
+                    <select class="form-control form-control-lg" id="risk-factor">
+                        <option class="risk-option">Healthy</option>
+                        {{!--
+                        <option class="risk-option">High Blood Pressure</option> --}}
+                        <option class="risk-option">High Cholesterol</option>
+                        <option class="risk-option">Diabetes</option>
+                        <option class="risk-option">Obesity</option>
+                    </select>
+                </li>
+                <li class="dropdown-select">
+                    <select class="form-control form-control-lg" id="diet-factor">
+                        <option class="diet-option">Balanced</option>
+                        {{!--
+                        <option class="diet-option">High-Fiber</option> --}}
+                        <option class="diet-option">High-Protein</option>
+                        <option class="diet-option">Low-Carb</option>
+                        <option class="diet-option">Low-Fat</option>
+                        {{!--
+                        <option class="diet-option">Low-Sodium</option> --}}
+                    </select>
+                </li>
+                <li class="dropdown-select">
+                    <select class="form-control form-control-lg" id="diet-restriction">
+                        {{!--
+                        <option class="restrict-option">Crustacean-Free</option> --}}
+                        {{!--
+                        <option class="restrict-option">Dairy-Free</option> --}}{{!--
+                        <option class="restrict-option">Kosher</option> --}}
+                        {{!--
+                        <option class="restrict-option">Gluten-Free</option>
+                        <option class="restrict-option">Low-Sugar</option>
+                        <option class="restrict-option">Paleo</option> --}}
+                        <option class="restrict-option">Peanut-free</option>
+                        {{!--
+                        <option class="restrict-option">Pescatarian</option> --}}
+                        <option class="restrict-option">Vegan</option>
+                        <option class="restrict-option">Vegetarian</option>
+                        <option class="restrict-option">Sugar-conscious</option>
+                        <option class="restrict-option">Alcohol-free</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 <div class="container">
     <div class="row">
         <div class="col-md-2 col-sm-2">
