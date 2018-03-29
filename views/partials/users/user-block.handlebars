@@ -1,5 +1,42 @@
+<div class="row">
+    <div class="col-md-12 panel panel-default patient-info">
+        <table style="width:100%">
+            <tr>
+                <th>Patient Name</th>
+                <th>Risk Factor</th>
+                <th>Diet Recommendation</th>
+                <th>Allergies/Restrictions</th>
+                <th>Favorite Recipe</th>
+            </tr>
+            <tr>
+                <td>
+                    <p id=1 data-value={{id}}>{{patient_name}}</p>
+                </td>
+
+                <td>
+                    <p id=2 data-value={{risk_factor}}>{{risk_factor}}</p>
+                </td>
+                <td>
+                    <p id=3 data-value={{diet_option}}>{{diet_option}}</p>
+                </td>
+                <td>
+                    <p id=4 data-value={{diet_restriction}}>{{diet_restriction}}</p>
+                </td>
+                <td>
+                    <p id=5 data-value={{fav_recipe}}>
+                        <a href={{fav_recipe}} target="_blank">This Recipe</a>
+                    </p>
+                </td>
+            </tr>
+            {{!-- {{#each patients}} {{#unless status}} {{> patients/patient-block status=true}} {{/unless}} {{/each}} --}}
+        </table>
+    </div>
+</div>
+{{!--
 <p id=1 data-value={{id}}>User: {{patient_name}}</p>
 <p id=2 data-value={{risk_factor}}>Risk Factor: {{risk_factor}}</p>
 <p id=3 data-value={{diet_option}}>Diet Recommendation: {{diet_option}}</p>
 <p id=4 data-value={{diet_restriction}}>Allergies/Restrictions: {{diet_restriction}}</p>
-<p id=5 data-value={{fav_recipe}}>Favorite Recipe: <a href={{fav_recipe}} target="_blank">This Recipe</a></p>
+<p id=5 data-value={{fav_recipe}}>Favorite Recipe:
+    <a href={{fav_recipe}} target="_blank">This Recipe</a>
+</p> --}}
