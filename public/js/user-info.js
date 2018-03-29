@@ -18,7 +18,8 @@ $(".search").on('click', function (event) {
     $.ajax({
         url: `https://api.edamam.com/search?q=${userQ}&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99&from=0&to=5&calories=591-722&Diet=${risk_factor}&Health=${diet_recommendation}`,
         method: "GET"
-    }).done(function (response) {
+    }).done(function (response) 
+    {
 
         responseObject = response;
         // console.log(response);
@@ -32,6 +33,7 @@ $(".search").on('click', function (event) {
             "data-id": 0,
             "class": "img-responsive"
         });
+        // let activeCaption = $("<h3>").text(response.hits[0].recipe.label);
 
         var activeCaption = $(`<a>`);
         activeCaption.attr({
@@ -52,7 +54,6 @@ $(".search").on('click', function (event) {
             "role": "button"
         });
         addFavBttn.text("Fave This!");
-
         // make function
         var addSaveBttn = $("<a>");
         addSaveBttn.addClass("btn btn default save-this");
@@ -61,8 +62,8 @@ $(".search").on('click', function (event) {
             "class": "btn btn-info",
             "role": "button"
         });
-        addSaveBttn.text("Save This!");
 
+        addSaveBttn.text("Save This!");
         // let activeImg = $("<img src = 'response.hits[0].recipe.image' alt = 'recipe'>");
         itemActive.append(activeCaption);
         itemActive.append(activeImg);
@@ -71,7 +72,6 @@ $(".search").on('click', function (event) {
 
         $('.carousel').carousel("pause");
         $("#panel-slider").show();
-
         console.log(response.hits[0].recipe.image);
         console.log(response.hits[1].recipe.image);
         // start of plotly code
@@ -120,6 +120,7 @@ $(".search").on('click', function (event) {
             addFaveBttn.attr("id", saveLink);
             addFaveBttn.text("Fave This!");
 
+        var saveLink = response.hits[i].recipe.uri;
 
             // make function
             addSaveBttn = $("<a>");
@@ -136,81 +137,108 @@ $(".search").on('click', function (event) {
             $("#item-list").prepend(itemDiv);
         }
 
-        // let activeDiv = $(".item active");
-        console.log($(`#item-active`).hasClass("active"));
 
-        $(".right").on('click', function (event) {
-            console.log('right clicked modafoca!');
-            nextSlide++;
-            if (nextSlide > 4) {
-                nextSlide = 0;
-                createPlots(responseObject, nextSlide);
-            }
-            // console.log(nextSlide);
-            createPlots(responseObject, nextSlide);
-        });
+    });
+    // let activeDiv = $(".item active");
+    console.log($(`#item-active`).hasClass("active"));
+});
+    
 
-        $(".left").on('click', function (event) {
-            console.log('right clicked modafoca!');
-            nextSlide--;
-            if (nextSlide < 0) {
-                nextSlide = 4;
-                createPlots(responseObject, nextSlide);
-            }
-            // console.log(nextSlide);
-            createPlots(responseObject, nextSlide);
-        });
+$(".right").on('click', function (event) {
+    console.log('right clicked modafoca!');
 
-        $(".fave-this").on('click', function (event) {
-            uri = event.currentTarget.id;
-            console.log(uri);
-            console.log(this_id);
-            var id = this_id;
-            $.ajax({
-                url: "api/profile/fave-recipe/" + id,
-                method: "PUT",
-                data: { fav_recipe: uri }
-            }).done(function (response) {
-                console.log(response);
-            });
+    nextSlide++;
 
-        });
+    if (nextSlide > 4) {
+        nextSlide = 0;
+        createPlots(responseObject, nextSlide);
+    }
 
-        $(".save-this").on('click', function (event) {
-            uri = event.currentTarget.id;
-            console.log(uri);
-            console.log(this_id);
-            var id = this_id;
-            $.ajax({
-                url: "api/profile/save-recipe/" + id,
-                method: "POST",
-                data: { save_recipe: uri }
-            }).done(function (response) {
-                console.log(response);
-            });
-        });
+    // console.log(nextSlide);
+    createPlots(responseObject, nextSlide);
+});
+
+$(".left").on('click', function (event) {
+    console.log('right clicked modafoca!');
+
+    nextSlide--;
+    if (nextSlide < 0) {
+        nextSlide = 4;
+        createPlots(responseObject, nextSlide);
+    }
+
+    // console.log(nextSlide);
+    createPlots(responseObject, nextSlide);
+});
+
+// $("#0").addClass("active");
+
+$(".fav-this").on('click', function (event) {
+    uri = event.currentTarget.id;
+    console.log(uri);
+    console.log(thisId);
+    var id = thisId;
+    $.ajax({
+        url: "api/patient/fav-recipe/" + id,
+        method: "PUT",
+        data: { fave_recipe: uri }
+    }).done(function (response) {
+        console.log(response);
     });
 
-    function createPlots(response, i) {
-        let arrayDigest = response.hits[i].recipe.digest;
-        let reciYield = response.hits[i].recipe.yield;
+});
 
-        let servingArray = [];
-        let firstPlot = {
-            values: [],
-            labels: []
-        };
+$(".save-this").on('click', function (event) {
+    uri = event.currentTarget.id;
+    console.log(uri);
+    console.log(thisId);
+    var id = thisId;
+    $.ajax({
+        url: "api/patient/save-recipe/" + id,
+        method: "POST",
+        data: { save_recipe: uri }
+    }).done(function (response) {
+        console.log(response);
+    });
+});
 
-        let secondPlot = {
-            values: [],
-            labels: []
-        };
 
-        let thirdPlot = {
-            x: [],
-            y: [],
-            marker: {
-                color: ['#64609A', '#933709', '#14A989', '#469A84', '#D05340', '#436CB9', '#469496', '#3AA8C1', '#353839', '#ABAD48', '#B07080', '#BD559C', '#AA4069', '#2D5DA1', '#832A0D', '#B56917', '#E97451', '#C62D42']
+function createPlots(response, i) {
+    let arrayDigest = response.hits[i].recipe.digest;
+    let reciYield = response.hits[i].recipe.yield;
+
+    let servingArray = [];
+    let firstPlot = {
+        values: [],
+        labels: []
+    };
+    let secondPlot = {
+        values: [],
+        labels: []
+    }
+    let thirdPlot = {
+        values: [],
+        labels: []
+    }
+    let fourthPlot = {
+        values: [],
+        labels: []
+    }
+
+    arrayDigest.forEach((nutrient, i) => {
+        // console.log(nutrient);
+        // push nutrient servings for each nutrient
+        if (nutrient.label === "Fat" || nutrient.label === "Carbs" || nutrient.label === "Protein") {
+            firstPlot.values.push(nutrient.total / reciYield);
+            firstPlot.labels.push(nutrient.label);
+
+            if (nutrient.label === "Fat") {
+                nutrient.sub.forEach(fat => {
+
+                    secondPlot.values.push(fat.total / reciYield);
+                    secondPlot.labels.push(fat.label);
+                })
+
             }
         };
 
@@ -284,5 +312,101 @@ $(".search").on('click', function (event) {
         };
 
         Plotly.newPlot('tester', data, layout);
-    }
-});
+    });
+    // populate the website with beautiful plots
+    var data = [{
+        values: firstPlot.values,
+        labels: firstPlot.labels,
+        domain: {
+            x: [0, .48]
+        },
+        name: 'GHG Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
+    }, {
+        values: secondPlot.values,
+        labels: secondPlot.labels,
+        text: 'CO2',
+        textposition: 'inside',
+        domain: { x: [.52, 1] },
+        name: 'CO2 Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
+    }, {
+        values: thirdPlot.values,
+        labels: thirdPlot.labels,
+        domain: {
+            x: [.3, .48]
+        },
+        name: 'GHG Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
+    }, {
+        values: fourthPlot.values,
+        labels: fourthPlot.labels,
+        text: 'CO2',
+        textposition: 'inside',
+        domain: { x: [.52, 1] },
+        name: 'CO2 Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
+    }];
+
+    var data2 = [{
+        values: thirdPlot.values,
+        labels: thirdPlot.labels,
+        domain: {
+            x: [0, .48]
+        },
+        name: 'GHG Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
+    }, {
+        values: fourthPlot.values,
+        labels: fourthPlot.labels,
+        text: 'CO2',
+        textposition: 'inside',
+        domain: { x: [.52, 1] },
+        name: 'CO2 Emissions',
+        hoverinfo: 'label+percent+name',
+        hole: .4,
+        type: 'pie'
+    }];
+
+
+
+    var layout = {
+        title: 'Macros and Fat Distribution',
+        legend: {
+            "orientation": "h"
+        },
+        height: 800,
+        width: 600,
+        grid: {
+            ygap: 0.8
+        }
+    };
+
+    var layout2 = {
+        title: 'Macros and Fat Distribution',
+        legend: {
+            "orientation": "h"
+        },
+        height: 600,
+        width: 550,
+        grid: {
+            ygap: 0.8
+        }
+    };
+
+
+    Plotly.newPlot('tester', data, layout);
+    // Plotly.newPlot('tester-2', data2, layout2);
+
+}
+
