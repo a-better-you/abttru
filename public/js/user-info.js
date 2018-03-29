@@ -18,7 +18,9 @@ $(".search").on('click', function (event) {
         method: "GET"
     }).done(function (response) {
 
-
+        responseObject = response;
+        console.log(response);
+        console.log(responseObject);
         // we create indicators - we will target this 
         // in the for loop with <li> items
         let itemActive = $("#item-active");
@@ -87,11 +89,6 @@ $(".search").on('click', function (event) {
             recipeLink.attr("href", response.hits[i].recipe.url);
             recipeLink.text("Get Recipe");
 
-
-            responseObject = response;
-            console.log(response);
-            console.log(responseObject);
-
             // console.log(response.hits[i])
             let itemDiv = $("<div class='col-md-4 recipe'>").attr({
                 class: "item",
@@ -130,11 +127,11 @@ $(".search").on('click', function (event) {
 
             itemDiv.append(itemCaption);
             itemDiv.append(itemImg);
-            itemDiv.append("<p>" + response.hits[i].recipe.label + "</p>");
+            // itemDiv.append("<p>" + response.hits[i].recipe.label + "</p>");
             itemDiv.append(addFaveBttn);
             itemDiv.append(addSaveBttn);
             itemDiv.append(recipeLink);
-            $("#recipe-area").prepend(itemDiv);
+            $("#item-list").prepend(itemDiv);
         }
 
         // let activeDiv = $(".item active");
