@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.BOOLEAN, defaultValue: true
         },
 
-        fav_recipe: {
+        fave_recipe: {
             type: DataTypes.STRING,
         },
 
