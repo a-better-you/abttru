@@ -50,7 +50,7 @@ module.exports = function (app) {
     app.get("/api/profile/save-recipe/:id", function (req, res) {
         // Save a recipe with the data available to us in req.body
         db.savedRecipes.findAll({
-            attributes:['uri',],
+            attributes:['uri'],
             where: {patient_id: req.params.id}
         }).then(function(savedRecipe){
             console.log(savedRecipe);
