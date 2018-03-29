@@ -1,10 +1,21 @@
+
+{{!-- <button class="change-status" data-id="{{id}}" data-newstatus="{{status}}">
+		{{#if status}}DEACTIVATE!{{else}}ACTIVATE!{{/if}}
+	</button> --}}
+{{#if errors}}
+	{{#each errors}}
+		{{this.msg}}
+	{{/each}}
+{{/if}}
+
 <tr>
-    <td>{{patient_name}}</td>
+	<td>{{patient_name}}</td>
 	<td>{{risk_factor}}</td>
 	<td>{{diet_option}}</td>
 	<td>{{diet_restriction}}</td>
-	<td><a href={{fave_recipe}}>This Recipe</a></td>
+
+	<td>
+		<a href= {{fave_recipe}}>This Recipe</a>
+	</td>
 </tr>
-	{{!-- <button class="change-status" data-id="{{id}}" data-newstatus="{{status}}">
-		{{#if status}}DEACTIVATE!{{else}}ACTIVATE!{{/if}}
-	</button> --}}
+
