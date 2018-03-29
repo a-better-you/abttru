@@ -1,10 +1,12 @@
-	{{!-- <button class="change-status" data-id="{{id}}" data-newstatus="{{status}}">
-		{{#if status}}DEACTIVATE!{{else}}ACTIVATE!{{/if}}
-	</button> --}}
+{{!-- <button class="change-status" data-id="{{id}}" data-newstatus="{{status}}">
+	{{#if status}}DEACTIVATE!{{else}}ACTIVATE!{{/if}}
+</button> --}}
 <tr>
-    <td>{{patient_name}}</td>
-	<td>{{risk_factor}}</td>
-	<td>{{diet_option}}</td>
-	<td>{{diet_restriction}}</td>
-	<td><a href={{fave_recipe}}>This Recipe</a></td>
+	<td>{{patient_name}}</td>
+	<td>{{healthStat.risk_factor}}</td>
+	<td>{{healthStat.diet_recommendation}}</td>
+	<td>{{healthStat.diet_restriction}}</td>
+	<td>
+		<a href= {{savedRecipe.favorite}}>This Recipe</a>
+	</td>
 </tr>

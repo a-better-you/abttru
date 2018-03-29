@@ -1,11 +1,14 @@
 module.exports = function (sequelize, DataTypes) {
-    var patient = sequelize.define("patient", {
+    var doctor = sequelize.define("doctor", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        patient_name: {
+        patient_id: {
+            type: DataTypes.STRING,
+        },
+        doctor_name: {
             type: DataTypes.STRING,
         },
         user_name: {
@@ -22,5 +25,5 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    return patient;
+    return doctor;
 };

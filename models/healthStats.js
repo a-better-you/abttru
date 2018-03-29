@@ -1,17 +1,20 @@
 module.exports = function (sequelize, DataTypes) {
-    var patient = sequelize.define("patient", {
+    var healthStats = sequelize.define("healthStats", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        patient_name: {
+        patient_id: {
             type: DataTypes.STRING,
         },
-        user_name: {
+        risk_factor: {
             type: DataTypes.STRING,
         },
-        password: {
+        diet_recommendation: {
+            type: DataTypes.STRING,
+        },
+        diet_restriction: {
             type: DataTypes.STRING,
         },
         createdAt: {
@@ -22,5 +25,5 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    return patient;
+    return healthStats;
 };

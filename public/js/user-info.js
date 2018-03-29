@@ -49,10 +49,10 @@ $(".search").on('click', function (event) {
 
         // make function
         var addFavBttn = $("<a>");
-        addFavBttn.addClass("btn btn default fav-this");
+        // addFavBttn.addClass("btn btn default fav-this");
         addFavBttn.attr({
             "id": saveLink,
-            "class": "btn btn-info",
+            "class": "btn btn-info fave-this",
             "role": "button"
         });
         addFavBttn.text("Fave This!");
@@ -60,10 +60,10 @@ $(".search").on('click', function (event) {
 
         // make function
         var addSaveBttn = $("<a>");
-        addSaveBttn.addClass("btn btn default save-this");
+        // addSaveBttn.addClass("btn btn default save-this");
         addSaveBttn.attr({
             "id": saveLink,
-            "class": "btn btn-info",
+            "class": "btn btn-info save-this",
             "role": "button"
         });
         addSaveBttn.text("Save This!");
@@ -94,10 +94,14 @@ $(".search").on('click', function (event) {
 
         // populate our slider with text content
 
-        for (let i = 1; i < response.hits.length; i++) {
-            console.log(response.hits[i])
+      
+            var recipeLink = $(`<a>`);
+            recipeLink.attr("href", response.hits[i].recipe.url);
+            recipeLink.text("Get Recipe");
 
-            let itemDiv = $("<div>").attr({
+            // console.log(response.hits[i])
+            let itemDiv = $("<div class='col-md-4 recipe'>").attr({
+
                 class: "item",
                 "data-id": i
             });
@@ -193,7 +197,7 @@ $(".search").on('click', function (event) {
             $.ajax({
                 url: "api/patient/fav-recipe/" + id,
                 method: "PUT",
-                data: { fav_recipe: uri }
+                data: { fave_recipe: uri }
             }).done(function (response) {
                 console.log(response);
             });
@@ -296,6 +300,9 @@ function createPlots(response, i) {
         }
     }
 
+});
+
+
 
     // populate the website with beautiful plots
     var data = [{
@@ -393,3 +400,4 @@ function createPlots(response, i) {
     // Plotly.newPlot('tester-2', data2, layout2);
 
 }
+
