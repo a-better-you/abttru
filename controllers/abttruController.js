@@ -30,7 +30,7 @@ module.exports = function (app) {
     app.put("/api/profile/fave-recipe/:id", function (req, res) {
         // Make a recipe your favorite with the data available to us in req.body
         db.nutriModel.update({
-            fav_recipe: req.body.fav_recipe,
+            fave_recipe: req.body.fave_recipe,
         }, {where: {id: req.params.id}
         }).then(function (recipeUpdate) {
             res.send(recipeUpdate);
@@ -94,7 +94,7 @@ module.exports = function (app) {
         db.nutriModel.create({
             patient_name: req.body.patient_name,
             password: "",
-            fav_recipe: "",
+            fave_recipe: "",
             diet_option: req.body.diet_option,
             risk_factor: req.body.risk_factor,
             diet_restriction: req.body.diet_restriction,
