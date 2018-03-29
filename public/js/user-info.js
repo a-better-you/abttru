@@ -2,6 +2,7 @@ let this_id = $("#1").data().value;
 let risk_factor = $("#2").data().value;
 let diet_option = $("#3").data().value;
 let diet_restriction = $("#4").data().value;
+let fave_recipe = $("#5").data().value;
 let responseObject;
 let id;
 let nextSlide = 0;
@@ -13,13 +14,15 @@ $(".search").on('click', function (event) {
     console.log(risk_factor);
     console.log(diet_option);
     console.log(diet_restriction);
+    console.log(fave_recipe);
     $.ajax({
         url: `https://api.edamam.com/search?q=${userQ}&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99&from=0&to=5&calories=591-722&Diet=${risk_factor}&Health=${diet_option}`,
         method: "GET"
     }).done(function (response) {
 
         responseObject = response;
-
+        // console.log(response);
+        // console.log(responseObject);
         // we create indicators - we will target this 
         // in the for loop with <li> items
         let itemActive = $("#item-active");
@@ -35,7 +38,7 @@ $(".search").on('click', function (event) {
 
         var activeCaption = $(`<a>`);
         activeCaption.attr({
-            "href": response.hits[0].recipe.url,
+            "href": response.hits[0].recipe.uri,
             "class": "btn btn-info",
             "role": "button"
 

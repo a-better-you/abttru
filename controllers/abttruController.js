@@ -8,7 +8,7 @@ module.exports = function (app) {
 
     app.get("/profile", function (req, res) {
         db.nutriModel.findAll({
-            where: {id: 2}
+            where: {id: 1}
         }).then(nutriModel => {
             let hbsPatient = {patients: nutriModel.map(x => x.dataValues)};
             console.log(hbsPatient);
@@ -47,7 +47,7 @@ module.exports = function (app) {
         });
     });
 
-    app.get("/api/profile/save-recipe/:id", function (req, res) {
+    app.get("/api/profile/fave-recipe/:id", function (req, res) {
         // Save a recipe with the data available to us in req.body
         db.savedRecipes.findAll({
             attributes:['uri'],
@@ -55,7 +55,7 @@ module.exports = function (app) {
         }).then(function(savedRecipe){
             console.log(savedRecipe);
             $.ajax({
-                url: `https://api.edamam.com/search?q=${userQ}&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99&from=0&to=5&calories=591-722&Diet=${risk_factor}&Health=${diet_option}`,
+                url: req.body.recipe,
                 method: "GET"
             }).done(function (res) {
                 res.json()
@@ -67,7 +67,7 @@ module.exports = function (app) {
 
     app.get("/doctor", function (req, res) {
         db.nutriModel.findAll({
-            attributes: ['patient_name', 'risk_factor', 'diet_option', 'diet_restriction', 'fav_recipe']
+            attributes: ['patient_name', 'risk_factor', 'diet_option', 'diet_restriction', 'fave_recipe']
         }).then(nutriModel => {
             const hbsObj = {patients: nutriModel.map(x => x.dataValues)};
             console.log(hbsObj);

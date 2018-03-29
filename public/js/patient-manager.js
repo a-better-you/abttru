@@ -3,7 +3,7 @@
         var newPatient = {
             patient_name: $("#patient-name").val().trim(),
             password: "",
-            fav_recipe: "",
+            fave_recipe: "",
             diet_option: $("#diet-factor").val().toLowerCase().trim(),
             risk_factor: $("#risk-factor").val().toLowerCase().trim(),
             diet_restriction: $("#diet-restriction").val().toLowerCase().trim(),
