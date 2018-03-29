@@ -1,129 +1,12 @@
-<<<<<<< HEAD
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input placeholder="Ingredients(e.g. chicken)" type="text" class="form-control" id="user-input">
-                </div>
-                {{!--
-                <button type="submit" class="btn btn-default">Submit</button> --}}
-                <button class="search btn btn-default">Search for Recipes</button>
-            </form>
-            <ul class="nav navbar-nav">
-                <li class="dropdown-select">
-                    <select class="form-control form-control-lg" id="risk-factor">
-                        <option class="risk-option">Healthy</option>
-                        {{!--
-                        <option class="risk-option">High Blood Pressure</option> --}}
-                        <option class="risk-option">High Cholesterol</option>
-                        <option class="risk-option">Diabetes</option>
-                        <option class="risk-option">Obesity</option>
-                    </select>
-                </li>
-                <li class="dropdown-select">
-                    <select class="form-control form-control-lg" id="diet-factor">
-                        <option class="diet-option">Balanced</option>
-                        {{!--
-                        <option class="diet-option">High-Fiber</option> --}}
-                        <option class="diet-option">High-Protein</option>
-                        <option class="diet-option">Low-Carb</option>
-                        <option class="diet-option">Low-Fat</option>
-                        {{!--
-                        <option class="diet-option">Low-Sodium</option> --}}
-                    </select>
-                </li>
-                <li class="dropdown-select">
-                    <select class="form-control form-control-lg" id="diet-restriction">
-                        {{!--
-                        <option class="restrict-option">Crustacean-Free</option> --}}
-                        {{!--
-                        <option class="restrict-option">Dairy-Free</option> --}}{{!--
-                        <option class="restrict-option">Kosher</option> --}}
-                        {{!--
-                        <option class="restrict-option">Gluten-Free</option>
-                        <option class="restrict-option">Low-Sugar</option>
-                        <option class="restrict-option">Paleo</option> --}}
-                        <option class="restrict-option">Peanut-free</option>
-                        {{!--
-                        <option class="restrict-option">Pescatarian</option> --}}
-                        <option class="restrict-option">Vegan</option>
-                        <option class="restrict-option">Vegetarian</option>
-                        <option class="restrict-option">Sugar-conscious</option>
-                        <option class="restrict-option">Alcohol-free</option>
-                    </select>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
-=======
-
->>>>>>> 84a3280e924b15a661918f1120e60e62f1e65f87
 <div class="container">
     <div class="row">
         <div class="col-md-2 col-sm-2">
             <a class="btn btn-default" href="/home">Go Home</a>
-
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input placeholder="Ingredients(e.g. chicken)" type="text" class="form-control" id="user-input">
-                </div>
-                {{!--
-                <button type="submit" class="btn btn-default">Submit</button> --}}
-                <a href="api/recipes">
-                    <button class="search btn btn-default">Search For Recipes</button>
-                </a>
-                {{!--
-                <button class="search btn btn-default" href="">Search for Recipes</button> --}}
-            </form>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="/home">Home</a>
-                </li>
-
-
-        </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
-</nav>
-
-<div class="container">
     <h1>USER INFO</h1>
     <div class="row">
         <div class="col-md-12 panel panel-default patient-info">
-
             <table style="width:100%">
                 <tr>
                     <th>Patient Name</th>
@@ -156,7 +39,6 @@
             <div class="col-md-8" id="recipe-area">
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-8" id="plot-area">
             <div class="row">
@@ -171,7 +53,7 @@
                 <div class="panel-body">
                     <!-- Where the carousel goes -->
                     <div id="sliders" class="slide carousel" data-ride="carousel" data-pause="true">
-
+                        
                         <!-- Carousel slides -->
                         <div id="carousel" class="carousel carousel-inner">
                             <ol class='carousel-indicators'>
@@ -190,7 +72,7 @@
                             <a class="left" href="#sliders" data-slide="prev" title="Previous Slide">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
                             </a>
-                            <!-- <i id="pause" class="fa fa-pause" title="Pause"></i>
+                                <!-- <i id="pause" class="fa fa-pause" title="Pause"></i>
                                 <i id="play" class="fa fa-play" title="Play"></i> -->
                             <a class="right" href="#sliders" data-slide="next" title="Next Slide">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
@@ -206,24 +88,23 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div id="login-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title">
-                </h2>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary submit">Submit</button>
+    <!-- Modal -->
+    <div id="login-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">
+                    </h2>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary submit">Submit</button>
+                </div>
             </div>
         </div>
     </div>
-
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
 <script src="js/user-info.js" type="text/javascript"></script>
