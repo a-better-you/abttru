@@ -1,14 +1,14 @@
 // $(document).ready(function () {
-    // let isModalShowing = false;
-    // const loginModal = $("#login-modal");
-    // $(function () {
-    //     event.preventDefault();
-    //     if (isModalShowing) return;
-    //     isModalShowing = true;
-    //     loginModal.attr({
-    //         "class": "modal fade in",
-    //         "style": "display: block"});
-    // });
+// let isModalShowing = false;
+// const loginModal = $("#login-modal");
+// $(function () {
+//     event.preventDefault();
+//     if (isModalShowing) return;
+//     isModalShowing = true;
+//     loginModal.attr({
+//         "class": "modal fade in",
+//         "style": "display: block"});
+// });
 // });
 
 let this_id = $("#1").data().value;
@@ -16,7 +16,7 @@ let risk_factor = $("#2").data().value;
 let diet_option = $("#3").data().value;
 let diet_restriction = $("#4").data().value;
 
-$(".search").on('click', function(event) {
+$(".search").on('click', function (event) {
     event.preventDefault();
     userQ = $("#user-input").val().trim();
     console.log(userQ);
@@ -45,14 +45,14 @@ $(".search").on('click', function(event) {
             addFaveBttn.addClass("btn btn default fave-this");
             addFaveBttn.attr("id", saveLink);
             addFaveBttn.text("Fave This!");
-            
+
 
             // make function
             var addSaveBttn = $("<a>");
             addSaveBttn.addClass("btn btn default save-this");
             addSaveBttn.attr("id", saveLink);
             addSaveBttn.text("Save This!");
-            
+
 
 
             row.append(img);
