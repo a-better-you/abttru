@@ -90,7 +90,7 @@ $(".search").on('click', function (event) {
         // start of plotly code
         id = 1;
 
-        // createPlots(responseObject, 0);
+        createPlots(responseObject, 0);
 
         // populate our slider with text content
 
@@ -259,8 +259,8 @@ function createPlots(response, i) {
         }
 
         else if (nutrient.label != "Cholesterol" & nutrient.label != "Folate equivalent (total)" & nutrient.label != "Folate (food)") {
-            thirdPlot.x.push(nutrient.daily / reciYield);
-            thirdPlot.y.push(nutrient.label);
+            // thirdPlot.x.push(nutrient.daily / reciYield);
+            // thirdPlot.y.push(nutrient.label);
 
         }
 
