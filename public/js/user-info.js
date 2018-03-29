@@ -45,20 +45,20 @@ $(".search").on('click', function (event) {
 
         // make function
         var addFavBttn = $("<a>");
-        addFavBttn.addClass("btn btn default fav-this");
+        // addFavBttn.addClass("btn btn default fav-this");
         addFavBttn.attr({
             "id": saveLink,
-            "class": "btn btn-info",
+            "class": "btn btn-info fave-this",
             "role": "button"
         });
         addFavBttn.text("Fave This!");
 
         // make function
         var addSaveBttn = $("<a>");
-        addSaveBttn.addClass("btn btn default save-this");
+        // addSaveBttn.addClass("btn btn default save-this");
         addSaveBttn.attr({
             "id": saveLink,
-            "class": "btn btn-info",
+            "class": "btn btn-info save-this",
             "role": "button"
         });
         addSaveBttn.text("Save This!");
@@ -81,12 +81,6 @@ $(".search").on('click', function (event) {
 
         for (let i = 1; i < response.hits.length; i++) {
 
-            console.log(response.hits[i])
-            console.log(this_id);
-            // var itemDiv = $("<div class='col-md-4 recipe'>");
-            // var img = $("<img class='img-responsive'>");
-            // img.attr("src", response.hits[i].recipe.image);
-            // itemDiv.append("<a class='btn' href=" + response.hits[i].recipe.url + ">" + 'Get Recipe' + "</a>");
             var recipeLink = $(`<a>`);
             recipeLink.attr("href", response.hits[i].recipe.url);
             recipeLink.text("Get Recipe");
@@ -102,8 +96,6 @@ $(".search").on('click', function (event) {
                 "id": "image" + i,
                 "class": "img-responsive"
             });
-
-            // let itemCaption = $("<h3>").text(response.hits[0].recipe.label);
 
             var itemCaption = $(`<a>`);
             itemCaption.attr({
@@ -169,7 +161,7 @@ $(".search").on('click', function (event) {
             $.ajax({
                 url: "api/profile/fave-recipe/" + id,
                 method: "PUT",
-                data: { fav_recipe: uri }
+                data: { fave_recipe: uri }
             }).done(function (response) {
                 console.log(response);
             });
@@ -286,5 +278,3 @@ $(".search").on('click', function (event) {
         Plotly.newPlot('tester', data, layout);
     }
 });
-
-
