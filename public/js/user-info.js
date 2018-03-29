@@ -18,7 +18,8 @@ $(".search").on('click', function (event) {
     $.ajax({
         url: `https://api.edamam.com/search?q=${userQ}&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99&from=0&to=5&calories=591-722&Diet=${risk_factor}&Health=${diet_option}`,
         method: "GET"
-    }).done(function (response) {
+    }).done(function (response) 
+    {
 
         responseObject = response;
         // console.log(response);
@@ -32,8 +33,6 @@ $(".search").on('click', function (event) {
             "data-id": 0,
             "class": "img-responsive"
         });
-
-
         // let activeCaption = $("<h3>").text(response.hits[0].recipe.label);
 
         var activeCaption = $(`<a>`);
@@ -56,6 +55,73 @@ $(".search").on('click', function (event) {
             "role": "button"
         });
         addFavBttn.text("Fave This!");
+        // make function
+        var addSaveBttn = $("<a>");
+        // addSaveBttn.addClass("btn btn default save-this");
+        addSaveBttn.attr({
+            "id": saveLink,
+            "class": "btn btn-info save-this",
+            "role": "button"
+        });
+
+        addSaveBttn.text("Save This!");
+        // let activeImg = $("<img src = 'response.hits[0].recipe.image' alt = 'recipe'>");
+        itemActive.append(activeCaption);
+        itemActive.append(activeImg);
+
+        itemActive.append(addSaveBttn);
+
+        itemActive.append(addFavBttn);
+
+        $('.carousel').carousel("pause");
+        $("#panel-slider").show();
+        console.log(response.hits[0].recipe.image);
+        console.log(response.hits[1].recipe.image);
+        // start of plotly code
+        id = 1;
+
+        createPlots(responseObject, 0);
+        // populate our slider with text content
+
+      
+        var recipeLink = $(`<a>`);
+        recipeLink.attr("href", response.hits[i].recipe.url);
+        recipeLink.text("Get Recipe");
+
+        // console.log(response.hits[i])
+        let itemDiv = $("<div class='col-md-4 recipe'>").attr({
+
+            class: "item",
+            "data-id": i
+        });
+
+
+        var itemImg = $("<img>").attr({
+            "src": response.hits[i].recipe.image,
+            "id": "image" + i,
+            "class": "img-responsive"
+        });
+
+        var itemCaption = $(`<a>`);
+        itemCaption.attr({
+            "href": response.hits[i].recipe.url,
+            "class": "btn btn-info",
+            "role": "button"
+        });
+        itemCaption.text(response.hits[i].recipe.label);
+
+
+        var saveLink = response.hits[i].recipe.uri;
+
+        // make function
+        var addFavBttn = $("<a>");
+        // addFavBttn.addClass("btn btn default fav-this");
+        addFavBttn.attr({
+            "id": saveLink,
+            "class": "btn btn-info fav-this",
+            "role": "button"
+        });
+        addFavBttn.text("Fave This!");
 
 
         // make function
@@ -68,159 +134,79 @@ $(".search").on('click', function (event) {
         });
         addSaveBttn.text("Save This!");
 
+        itemDiv.append(itemCaption);
+        itemDiv.append(itemImg);
+
+        itemDiv.append(addSaveBttn);
+
+        itemDiv.append(addFavBttn);
+
+        $("#item-list").append(itemDiv);
 
 
-        // let activeImg = $("<img src = 'response.hits[0].recipe.image' alt = 'recipe'>");
-        itemActive.append(activeCaption);
-        itemActive.append(activeImg);
+    });
+    // let activeDiv = $(".item active");
+    console.log($(`#item-active`).hasClass("active"));
+});
+    
 
-        itemActive.append(addSaveBttn);
+$(".right").on('click', function (event) {
+    console.log('right clicked modafoca!');
 
-        itemActive.append(addFavBttn);
+    nextSlide++;
 
+    if (nextSlide > 4) {
+        nextSlide = 0;
+        createPlots(responseObject, nextSlide);
+    }
 
+    // console.log(nextSlide);
+    createPlots(responseObject, nextSlide);
+});
 
-        $('.carousel').carousel("pause");
+$(".left").on('click', function (event) {
+    console.log('right clicked modafoca!');
 
-        $("#panel-slider").show();
+    nextSlide--;
+    if (nextSlide < 0) {
+        nextSlide = 4;
+        createPlots(responseObject, nextSlide);
+    }
 
+    // console.log(nextSlide);
+    createPlots(responseObject, nextSlide);
+});
 
-        console.log(response.hits[0].recipe.image);
-        console.log(response.hits[1].recipe.image);
-        // start of plotly code
-        id = 1;
+// $("#0").addClass("active");
 
-        createPlots(responseObject, 0);
-
-        // populate our slider with text content
-
-      
-            var recipeLink = $(`<a>`);
-            recipeLink.attr("href", response.hits[i].recipe.url);
-            recipeLink.text("Get Recipe");
-
-            // console.log(response.hits[i])
-            let itemDiv = $("<div class='col-md-4 recipe'>").attr({
-
-                class: "item",
-                "data-id": i
-            });
-
-
-            var itemImg = $("<img>").attr({
-                "src": response.hits[i].recipe.image,
-                "id": "image" + i,
-                "class": "img-responsive"
-            });
-
-            var itemCaption = $(`<a>`);
-            itemCaption.attr({
-                "href": response.hits[i].recipe.url,
-                "class": "btn btn-info",
-                "role": "button"
-            });
-            itemCaption.text(response.hits[i].recipe.label);
-
-
-            var saveLink = response.hits[i].recipe.uri;
-
-            // make function
-            var addFavBttn = $("<a>");
-            // addFavBttn.addClass("btn btn default fav-this");
-            addFavBttn.attr({
-                "id": saveLink,
-                "class": "btn btn-info fav-this",
-                "role": "button"
-            });
-            addFavBttn.text("Fave This!");
-
-
-            // make function
-            var addSaveBttn = $("<a>");
-            // addSaveBttn.addClass("btn btn default save-this");
-            addSaveBttn.attr({
-                "id": saveLink,
-                "class": "btn btn-info save-this",
-                "role": "button"
-            });
-            addSaveBttn.text("Save This!");
-
-            itemDiv.append(itemCaption);
-            itemDiv.append(itemImg);
-
-            itemDiv.append(addSaveBttn);
-
-            itemDiv.append(addFavBttn);
-
-            $("#item-list").append(itemDiv);
-
-
-        }
-
-        // let activeDiv = $(".item active");
-        console.log($(`#item-active`).hasClass("active"));
-
-        $(".right").on('click', function (event) {
-            console.log('right clicked modafoca!');
-
-            nextSlide++;
-
-            if (nextSlide > 4) {
-                nextSlide = 0;
-                createPlots(responseObject, nextSlide);
-            }
-
-            // console.log(nextSlide);
-            createPlots(responseObject, nextSlide);
-        });
-
-        $(".left").on('click', function (event) {
-            console.log('right clicked modafoca!');
-
-            nextSlide--;
-            if (nextSlide < 0) {
-                nextSlide = 4;
-                createPlots(responseObject, nextSlide);
-            }
-
-            // console.log(nextSlide);
-            createPlots(responseObject, nextSlide);
-        });
-
-        // $("#0").addClass("active");
-
-        $(".fav-this").on('click', function (event) {
-            uri = event.currentTarget.id;
-            console.log(uri);
-            console.log(thisId);
-            var id = thisId;
-            $.ajax({
-                url: "api/patient/fav-recipe/" + id,
-                method: "PUT",
-                data: { fave_recipe: uri }
-            }).done(function (response) {
-                console.log(response);
-            });
-
-        });
-
-        $(".save-this").on('click', function (event) {
-            uri = event.currentTarget.id;
-            console.log(uri);
-            console.log(thisId);
-            var id = thisId;
-            $.ajax({
-                url: "api/patient/save-recipe/" + id,
-                method: "POST",
-                data: { save_recipe: uri }
-            }).done(function (response) {
-                console.log(response);
-            });
-        });
+$(".fav-this").on('click', function (event) {
+    uri = event.currentTarget.id;
+    console.log(uri);
+    console.log(thisId);
+    var id = thisId;
+    $.ajax({
+        url: "api/patient/fav-recipe/" + id,
+        method: "PUT",
+        data: { fave_recipe: uri }
+    }).done(function (response) {
+        console.log(response);
     });
 
 });
 
+$(".save-this").on('click', function (event) {
+    uri = event.currentTarget.id;
+    console.log(uri);
+    console.log(thisId);
+    var id = thisId;
+    $.ajax({
+        url: "api/patient/save-recipe/" + id,
+        method: "POST",
+        data: { save_recipe: uri }
+    }).done(function (response) {
+        console.log(response);
+    });
+});
 
 
 function createPlots(response, i) {
@@ -299,11 +285,6 @@ function createPlots(response, i) {
 
         }
     }
-
-});
-
-
-
     // populate the website with beautiful plots
     var data = [{
         values: firstPlot.values,
