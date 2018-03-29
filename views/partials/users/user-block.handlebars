@@ -1,3 +1,4 @@
+
 <tr>
     <td id=1 data-value={{id}}>{{patient_name}}</td>
 	<td id=2 data-value={{risk_factor}}>{{healthStat.risk_factor}}</td>
@@ -5,3 +6,39 @@
 	<td id=4 data-value={{diet_restriction}}>{{healthStat.diet_restriction}}</td>
 	<td id=5 data-value={{fave_recipe}}><a href={{savedRecipe.favorite}}>This Recipe</a></td>
 </tr>
+
+<div class="row">
+    <div class="col-md-12 panel panel-default patient-info">
+        <table style="width:100%">
+            <tr>
+                <th>Patient Name</th>
+                <th>Risk Factor</th>
+                <th>Diet Recommendation</th>
+                <th>Allergies/Restrictions</th>
+                <th>Favorite Recipe</th>
+            </tr>
+            <tr>
+                <td>
+                    <p id=1 data-value={{id}}>{{patient_name}}</p>
+                </td>
+
+                <td>
+                    <p id=2 data-value={{risk_factor}}>{{risk_factor}}</p>
+                </td>
+                <td>
+                    <p id=3 data-value={{diet_option}}>{{diet_option}}</p>
+                </td>
+                <td>
+                    <p id=4 data-value={{diet_restriction}}>{{diet_restriction}}</p>
+                </td>
+                <td>
+                    <p id=5 data-value={{fav_recipe}}>
+                        <a href={{fav_recipe}} target="_blank">This Recipe</a>
+                    </p>
+                </td>
+            </tr>
+            {{!-- {{#each patients}} {{#unless status}} {{> patients/patient-block status=true}} {{/unless}} {{/each}} --}}
+        </table>
+    </div>
+</div>
+
