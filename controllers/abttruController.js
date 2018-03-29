@@ -7,20 +7,23 @@ module.exports = function (app) {
         res.render(path.join(__dirname, "../views/main-page.handlebars"));
     });
 
-    app.get("/profile/", function (req, res) {
+    app.post("/profile", function (req, res) {
+        console.log("--------------------------");
+        console.log(req.body);
+        const user = req.body.patient_name;
         db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
         db.patient.findAll({
-            where: { user_name: "JohnDoe" },
-            include: [{ model: db.healthStats }, {model: db.savedRecipes}], // load all healthStats 
-          }).then(patient => {
+            where: { user_name: user },
+            include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats 
+        }).then(patient => {
             // console.log(patient.map(x => x.dataValues));
             // console.log(patient.map(x => x.dataValues.healthStat.dataValues))
             // console.log(patient.map(x => x.dataValues.savedRecipe.dataValues))
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
             // console.log(hbsPatient);
             res.render("user-info", hbsPatient);
-          })
+        });
     });
 
     app.post("/api/profile/save-recipe/:id", function (req, res) {
@@ -55,11 +58,11 @@ module.exports = function (app) {
         db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
         db.patient.findAll({
-            include: [{ model: db.healthStats }, {model: db.savedRecipes}], // load all healthStats 
-          }).then(patient => {
+            include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats 
+        }).then(patient => {
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
             res.render("patient", hbsPatient);
-          })
+        })
     });
 
     app.get("/patient/list", function (req, res) {
@@ -76,11 +79,11 @@ module.exports = function (app) {
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
         db.patient.findAll({
             where: { user_name: "JohnDoe" },
-            include: [{ model: db.healthStats }, {model: db.savedRecipes}], // load all healthStats 
-          }).then(patient => {
+            include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats 
+        }).then(patient => {
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
             res.render("patient", hbsPatient);
-          })
+        })
     });
 
     app.post("/api/patient", function (req, res) {
@@ -107,13 +110,14 @@ module.exports = function (app) {
                 user_name: 'default_username',
                 password: 'default_password'
             }),
-            db.healthStats.create({
-                patient_id: db.patient.id,
-                risk_factor: req.body.risk_factor,
-                diet_recommendation: req.body.diet_recommendation,
-                diet_restriction: req.body.diet_restriction
-            }).then(() => {
-                res.redirect('/doctor')});
+                db.healthStats.create({
+                    patient_id: db.patient.id,
+                    risk_factor: req.body.risk_factor,
+                    diet_recommendation: req.body.diet_recommendation,
+                    diet_restriction: req.body.diet_restriction
+                }).then(() => {
+                    res.redirect('/doctor')
+                });
         }
 
     });

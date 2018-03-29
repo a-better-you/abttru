@@ -95,26 +95,41 @@
             <h2>GUEST SEARCH</h2>
         </div>
         <div class="col-md-5">
-            <form action="/api/profile" method="get">
+            <form id="patient-login" method="get" action="/profile">
                 <div class="form-group row">
-                    <label for="inputUserName" class="col-sm-2 col-form-label">Name</label>
+                    <label for="patient-name" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputUsername" placeholder="User Name">
+                        <input type="text" class="form-control" id="patient-name" placeholder="User Name" name="patient_name">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                    <label for="password" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        <input type="password" class="form-control" id="password" placeholder="Password" name="password">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" value="Submit">Sign in</button>
+                        <input type="submit" class="btn btn-primary" value="Submit">
                     </div>
                 </div>
             </form>
         </div>
+    </div>
+    <div class="col-md-6 panel panel-default">
+        <br>
+        <h2>ADD A PATIENT</h2>
+        <form id="patient-input" method="post" action="/profile">
+            <div class="form-group">
+                <label for="patient-name">Patient Name:</label>
+                <input placeholder="Name" type="text" class="form-control" id="patient-name" name="patient_name">
+                <br>
+                <label for="patient-password">Patient Name:</label>
+                <input placeholder="Name" type="text" class="form-control" id="patient-password" name="password">
+                <br>
+                <input type="submit" value="Add Patient">
+            </div>
+        </form>
     </div>
 </div>
 <div class="col-md-4" id="recipe-area">
