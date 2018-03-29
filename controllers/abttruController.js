@@ -18,10 +18,13 @@ module.exports = function (app) {
         })
     });
 
-    app.get("/api/profile/:id", function (req, res) {
+    app.get("/api/profile/:username", function (req, res) {
         //User login process
         db.nutriModel.findAll({
+
             where: { id: req.params.id }
+
+
         }).then(nutriModel => {
             const hbsPatient = { patients: nutriModel.map(x => x.dataValues) };
             res.render("user-info", hbsPatient)
@@ -37,6 +40,7 @@ module.exports = function (app) {
             }).then(function (recipeUpdate) {
                 res.send(recipeUpdate);
             });
+
     });
 
     app.post("/api/profile/save-recipe/:id", function (req, res) {
@@ -96,6 +100,7 @@ module.exports = function (app) {
     });
 
     app.post("/api/patient", function (req, res) {
+
         req.checkBody('patient_name', 'Username field cannot be empty.').notEmpty();
         req.checkBody('patient_name', 'Username must be between 4-15 characters long.').len(4, 15);
 
@@ -124,6 +129,7 @@ module.exports = function (app) {
                 diet_restriction: req.body.diet_restriction,
             }).then(() => res.redirect('/doctor'));
         }
+
     });
 
 };

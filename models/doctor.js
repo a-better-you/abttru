@@ -1,14 +1,11 @@
 
 
 module.exports = function (sequelize, DataTypes) {
-    var nutriModel = sequelize.define("nutriModel", {
+    var nutriModel = sequelize.define("doctor", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-        },
-        patient_name: {
-            type: DataTypes.STRING,
         },
         user_name: {
             type: DataTypes.STRING,
@@ -16,19 +13,7 @@ module.exports = function (sequelize, DataTypes) {
         password: {
             type: DataTypes.STRING,
         },
-        status: {
-            type: DataTypes.BOOLEAN, defaultValue: true
-        },
-        fave_recipe: {
-            type: DataTypes.STRING,
-        },
-        diet_option: {
-            type: DataTypes.STRING,
-        },
-        risk_factor: {
-            type: DataTypes.STRING,
-        },
-        diet_restriction: {
+        patient_id: {
             type: DataTypes.STRING,
         },
         createdAt: {
@@ -39,5 +24,5 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    return nutriModel;
+    return doctor;
 };
