@@ -21,20 +21,20 @@
                     <th>Favorite Recipe</th>
                 </tr>
                 {{#each patients}}
-                    {{> patients/patient-block status=true}}
+                    {{> patients/patient-block}}
                 {{/each}}
             </table>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 panel panel-default">
             <br>
             <h2>ADD A PATIENT</h2>
             <form id="patient-input" method="post" action="/api/patient">
                 <div class="form-group">
                     <label for="patient-name">Patient Name:</label>
-                    <input placeholder="Name" type="text" class="form-control" name="patient_name" id="patient-name">
+                    <input placeholder="Name" type="text" class="form-control" id="patient-name" name="patient_name">
                     <br>
-                    <label for="risk-factor" name="risk_factor">Risk Factor:</label>
-                    <select class="form-control form-control-lg" id="risk-factor" name="risk_factor">
+                    <label for="risk_factor" name="risk_factor">Risk Factor:</label>
+                    <select class="form-control form-control-lg" id="risk_factor" name="risk_factor">
                         <option class="risk-option">Healthy</option>
                         <option class="risk-option">High Blood Pressure</option>
                         <option class="risk-option">High Cholesterol</option>
@@ -43,8 +43,8 @@
                         <option class="risk-option">Malnourishment</option>
                     </select>
                     <br>
-                    <label for="diet-factor">Diet Recommendation:</label>
-                    <select class="form-control form-control-lg" id="diet-factor" name="diet_factor">
+                    <label for="diet-recommendation">Diet Recommendation:</label>
+                    <select class="form-control form-control-lg" id="diet_recommendation" name="diet_recommendation">
                         <option class="diet-option">Balanced</option>
                         <option class="diet-option">High-Fiber</option>
                         <option class="diet-option">High-Protein</option>
@@ -69,6 +69,13 @@
                     <input type="submit" value="Add Patient">
                 </div>
             </form>
+        </div>
+         <div class="col-md-6 panel panel-default error-info">
+            {{#if errors}}
+	            {{#each errors}}
+		            {{> errors/error-block}}
+	            {{/each}}
+            {{/if}}
         </div>
     </div>
     <div class="row">

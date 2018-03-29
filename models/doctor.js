@@ -1,19 +1,20 @@
-
-
 module.exports = function (sequelize, DataTypes) {
-    var nutriModel = sequelize.define("doctor", {
+    var doctor = sequelize.define("doctor", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
+        patient_id: {
+            type: DataTypes.STRING,
+        },
+        doctor_name: {
+            type: DataTypes.STRING,
+        },
         user_name: {
             type: DataTypes.STRING,
         },
         password: {
-            type: DataTypes.STRING,
-        },
-        patient_id: {
             type: DataTypes.STRING,
         },
         createdAt: {

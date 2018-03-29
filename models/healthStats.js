@@ -1,7 +1,7 @@
 
 
 module.exports = function (sequelize, DataTypes) {
-    var nutriModel = sequelize.define("healthStats", {
+    var healthStats = sequelize.define("healthStats", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -10,13 +10,10 @@ module.exports = function (sequelize, DataTypes) {
         patient_id: {
             type: DataTypes.STRING,
         },
-        fave_recipe: {
-            type: DataTypes.STRING,
-        },
-        diet_option: {
-            type: DataTypes.STRING,
-        },
         risk_factor: {
+            type: DataTypes.STRING,
+        },
+        diet_recommendation: {
             type: DataTypes.STRING,
         },
         diet_restriction: {

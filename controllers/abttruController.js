@@ -7,40 +7,20 @@ module.exports = function (app) {
         res.render(path.join(__dirname, "../views/main-page.handlebars"));
     });
 
-    app.get("/profile", function (req, res) {
-        db.nutriModel.findAll({
-            where: { id: 1 }
-        }).then(nutriModel => {
-            let hbsPatient = { patients: nutriModel.map(x => x.dataValues) };
-            console.log(hbsPatient);
-            // res.json(nutriModel.map(x => x.dataValues));
+    app.get("/profile/", function (req, res) {
+        db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
+        db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
+        db.patient.findAll({
+            where: { user_name: "JohnDoe" },
+            include: [{ model: db.healthStats }, {model: db.savedRecipes}], // load all healthStats 
+          }).then(patient => {
+            // console.log(patient.map(x => x.dataValues));
+            // console.log(patient.map(x => x.dataValues.healthStat.dataValues))
+            // console.log(patient.map(x => x.dataValues.savedRecipe.dataValues))
+            let hbsPatient = { patients: patient.map(x => x.dataValues) };
+            // console.log(hbsPatient);
             res.render("user-info", hbsPatient);
-        })
-    });
-
-    app.get("/api/profile/:username", function (req, res) {
-        //User login process
-        db.nutriModel.findAll({
-
-            where: { id: req.params.id }
-
-
-        }).then(nutriModel => {
-            const hbsPatient = { patients: nutriModel.map(x => x.dataValues) };
-            res.render("user-info", hbsPatient)
-        })
-    });
-
-    app.put("/api/profile/fave-recipe/:id", function (req, res) {
-        // Make a recipe your favorite with the data available to us in req.body
-        db.nutriModel.update({
-            fav_recipe: req.body.fav_recipe,
-        }, {
-                where: { id: req.params.id }
-            }).then(function (recipeUpdate) {
-                res.send(recipeUpdate);
-            });
-
+          })
     });
 
     app.post("/api/profile/save-recipe/:id", function (req, res) {
@@ -72,38 +52,41 @@ module.exports = function (app) {
     // ******* DOCTOR ROUTES ******* //
 
     app.get("/doctor", function (req, res) {
-        db.nutriModel.findAll({
-        }).then(nutriModel => {
-            hbsObj = { patients: nutriModel.map(x => x.dataValues) };
-            console.log(hbsObj);
-            res.render("patient", hbsObj);
-        });
+        db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
+        db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
+        db.patient.findAll({
+            include: [{ model: db.healthStats }, {model: db.savedRecipes}], // load all healthStats 
+          }).then(patient => {
+            let hbsPatient = { patients: patient.map(x => x.dataValues) };
+            res.render("patient", hbsPatient);
+          })
     });
 
     app.get("/patient/list", function (req, res) {
-        db.nutriModel.findAll({
-        }).then(nutriModel => {
-            hbsObj = { patients: nutriModel.map(x => x.dataValues) };
+        db.patient.findAll({
+        }).then(patient => {
+            hbsObj = { patients: patient.map(x => x.dataValues) };
             console.log(hbsObj);
             res.render("patient", hbsObj);
         });
     });
 
-    app.get("/api/nutriModel/:patient_name", function (req, res) {
-        //User login process
-        db.nutriModel.findAll({
-            where: { patient_name: req.params.patient_name }
-        }).then(nutriModel => {
-            const hbsPatient = { patients: nutriModel.map(x => x.dataValues) };
-            res.render("user-info", hbsPatient);
-        });
+    app.get("/api/patient/:patient_name", function (req, res) {
+        db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
+        db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
+        db.patient.findAll({
+            where: { user_name: "JohnDoe" },
+            include: [{ model: db.healthStats }, {model: db.savedRecipes}], // load all healthStats 
+          }).then(patient => {
+            let hbsPatient = { patients: patient.map(x => x.dataValues) };
+            res.render("patient", hbsPatient);
+          })
     });
 
     app.post("/api/patient", function (req, res) {
 
         req.checkBody('patient_name', 'Username field cannot be empty.').notEmpty();
         req.checkBody('patient_name', 'Username must be between 4-15 characters long.').len(4, 15);
-
         const errors = req.validationErrors();
 
         if (errors) {
@@ -115,19 +98,22 @@ module.exports = function (app) {
             console.log('-------------------------------------------');
             console.log(req.body);
 
-
             // Create an patient with the data available to us in req.body
-
+            db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
             console.log("Patient Data:");
             console.log(JSON.stringify(req.body, null, 2));
-            db.nutriModel.create({
+            db.patient.create({
                 patient_name: req.body.patient_name,
-                password: "",
-                fav_recipe: "",
-                diet_option: req.body.diet_option,
+                user_name: 'default_username',
+                password: 'default_password'
+            }),
+            db.healthStats.create({
+                patient_id: db.patient.id,
                 risk_factor: req.body.risk_factor,
-                diet_restriction: req.body.diet_restriction,
-            }).then(() => res.redirect('/doctor'));
+                diet_recommendation: req.body.diet_recommendation,
+                diet_restriction: req.body.diet_restriction
+            }).then(() => {
+                res.redirect('/doctor')});
         }
 
     });

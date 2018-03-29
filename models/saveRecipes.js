@@ -5,11 +5,20 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true,
             autoIncrement: true,
         },
+        patient_id: {
+            type: DataTypes.INTEGER,
+        },
         recipe: {
             type: DataTypes.STRING,
         },
-        patient_id: {
-            type: DataTypes.INTEGER,
+        favorite: {
+            type: DataTypes.BOOLEAN, defaultValue: false
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
         }
     });
 
