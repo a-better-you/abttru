@@ -17,10 +17,10 @@ module.exports = function (app) {
         })
     });
 
-    app.get("/api/profile/:id", function (req, res) {
+    app.get("/api/profile/:username", function (req, res) {
         //User login process
         db.nutriModel.findAll({
-            where: {id: req.params.id}
+            where: {user_name: req.params.name}
         }).then(nutriModel => {
             const hbsPatient = {patients: nutriModel.map(x => x.dataValues)};
             res.render("user-info", hbsPatient)
