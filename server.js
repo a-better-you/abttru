@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 8080;
 
 const app = express();
-
+const expressValidator = require("express-validator");
 var db = require("./models");
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static("public"));
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse application/json
 app.use(bodyParser.json());
-
+app.use(expressValidator());
 // Set Handlebars.
 const exphbs = require("express-handlebars");
 
