@@ -7,18 +7,9 @@
     <h1>USER INFO</h1>
     <div class="row">
         <div class="col-md-12 panel panel-default patient-info">
-            <table style="width:100%">
-                <tr>
-                    <th>Patient Name</th>
-                    <th>Risk Factor</th>
-                    <th>Diet Recommendation</th>
-                    <th>Allergies/Restrictions</th>
-                    <th>Favorite Recipe</th>
-                </tr>
-                {{#each patients}}
-                    {{> users/user-block}}
-                {{/each}}
-            </table>
+            {{#each patients}}
+                {{> users/user-block status=true}}
+            {{/each}}
         </div>
     </div>
     <div class="row">
