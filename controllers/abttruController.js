@@ -27,7 +27,7 @@ module.exports = function (app) {
         db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
         db.patient.findAll({
-            where: { user_name: "JohnDoe" },
+            where: { patient_name: req.session.user_name },
             include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats 
         }).then(patient => {
             // console.log(patient.map(x => x.dataValues));
