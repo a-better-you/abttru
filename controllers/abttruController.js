@@ -2,23 +2,42 @@ var path = require("path");
 var db = require("../models");
 var expressValidator = require("express-validator");
 let hbsObj;
+let user_name;
+let password;
 module.exports = function (app) {
     app.get("/home", function (req, res) {
         res.render(path.join(__dirname, "../views/main-page.handlebars"));
     });
 
-    app.get("/creds/", function (req, res) {
+    app.post("/creds/", function (req, res) {
+        req.checkBody('patient_name', 'Username field cannot be empty.').notEmpty();
+        req.checkBody('patient_name', 'Username must be between 4-15 characters long.').len(4, 15);
+        const errors = req.validationErrors();
+
+        if (errors) {
+            console.log(`errors: ${JSON.stringify(errors)}`);
+            res.render("main-page", { errors: errors });
+        } else {
         console.log("HELLO");
+        console.log(req.body);
+        // console.log(req.body.user_name);
+        // console.log(req.body.password);
+        user_name = req.body.user_name;
+        password = req.body.password;
+        var okay = "/profile";
+        res.send(okay);
+        }
     });
 
     app.get("/profile/", function (req, res) {
+
         db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
         db.patient.findAll({
-            where: { user_name: "JohnDoe" },
+            where: { patient_name: user_name },
             include: [{ model: db.healthStats }, {model: db.savedRecipes}], // load all healthStats 
           }).then(patient => {
-            let recipeUri = patient.map(x => x.dataValues.savedRecipe.dataValues.recipe);
+            // let recipeUri = patient.map(x => x.dataValues.savedRecipe.dataValues.recipe);
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
             // $.ajax({
             //     url: recipeUri,

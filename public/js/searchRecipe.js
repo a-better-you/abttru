@@ -22,21 +22,21 @@
 
     $(document).on('click', ".patient-login", function (event) {
         event.preventDefault();
-    console.log("click");
-    var userName = $("#inputUsername").val();
-    var passWord = $("#inputPassword").val();
-    console.log(userName);
-    console.log(passWord);
-    
+        console.log("click");
+        var userName = $("#inputUsername").val();
+        var passWord = $("#inputPassword").val();
+        // console.log(userName);
+        // console.log(passWord);
         $.ajax({
             url: "/creds/",
-            method: "GET",
-            body: {
+            method: "POST",
+            data: {
                 user_name: userName,
                 password: passWord
             }
         }).done(function (response) {
-            console.log("I got it!");
+            console.log(response);
+            window.location.href = response; //causes the browser to refresh and load the requested url
         })
     });
 

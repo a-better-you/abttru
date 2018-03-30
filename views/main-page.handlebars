@@ -73,7 +73,7 @@
     {{#if errors}}
         <div class="alert alert-danger">
             {{#each errors}}
-                <h1>{{this.msg}}</h1>
+                {{> errors/error-block}}
             {{/each}}
         </div>
         <form action="/doctor" method="get">
@@ -101,7 +101,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary patient-login" value="Submit">Sign in</button>
+                        <button type="submit" class="btn btn-primary patient-login" value="Submit" href="/profile">Sign in</button>
                     </div>
                 </div>
             </form>
