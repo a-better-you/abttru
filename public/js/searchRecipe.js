@@ -22,6 +22,26 @@ $(document).ready(function () {
     });
 });
 
+//     $(document).on('click', ".patient-login", function (event) {
+//         event.preventDefault();
+//     console.log("click");
+//     alert("click")
+//     var userName = $("#inputUsername").val();
+//     var passWord = $("#inputPassword").val();
+//     console.log(userName);
+//     console.log(passWord);
+    
+//         $.ajax({
+//             url: "/profile",
+//             method: "GET",
+//             body: {
+//                 user_name: userName,
+//                 password: passWord
+//             }
+//         }).done();
+//     });
+// //  });
+
 function createSlider(response) {
     // we create indicators - we will target this 
     // in the for loop with <li> items

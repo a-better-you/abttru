@@ -3,27 +3,43 @@ var db = require("../models");
 var expressValidator = require("express-validator");
 let hbsObj;
 module.exports = function (app) {
+
+
     app.get("/home", function (req, res) {
         res.render(path.join(__dirname, "../views/main-page.handlebars"));
     });
 
     app.post("/profile", function (req, res) {
-        console.log("--------------------------");
         console.log(req.body);
-        const user = req.body.patient_name;
+        var userName = req.body.patient_name;
+        req.session.user_name = userName;
+
+        res.redirect('/profile');
+
+    });
+
+
+
+    app.get("/profile", function (req, res) {
+        console.log("--------------------------");
+        console.log(req);
+
         db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
         db.patient.findAll({
-            where: { user_name: user },
+            where: { patient_name: req.session.user_name },
             include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats 
         }).then(patient => {
             // console.log(patient.map(x => x.dataValues));
-            // console.log(patient.map(x => x.dataValues.healthStat.dataValues))
-            // console.log(patient.map(x => x.dataValues.savedRecipe.dataValues))
+            // console.log(patient.map(x => x.healthStat.dataValues))
+            // console.log(patient.map(x => x.savedRecipe.dataValues))
+            console.log(patient);
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
             // console.log(hbsPatient);
             res.render("user-info", hbsPatient);
-        });
+        }).catch(function (error) {
+            console.log(error);
+        });;
     });
 
     app.post("/api/profile/save-recipe/:id", function (req, res) {
