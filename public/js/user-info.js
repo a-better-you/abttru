@@ -23,7 +23,7 @@ $(".search").on('click', function (event) {
 
         responseObject = response;
         // console.log(response);
-        // console.log(responseObject);
+        console.log(responseObject);
         // we create indicators - we will target this 
         // in the for loop with <li> items
         let itemActive = $("#item-active");
@@ -232,7 +232,7 @@ function createPlots(response, i) {
     ];
 
     arrayDigest.forEach((nutrient, i) => {
-        // console.log(nutrient);
+        // console.log(nutrient.label, nutrient.unit);
         // push nutrient servings for each nutrient
         if (nutrient.label === "Fat" || nutrient.label === "Carbs" || nutrient.label === "Protein") {
             firstPlot.values.push(nutrient.total / reciYield);
@@ -256,23 +256,21 @@ function createPlots(response, i) {
 
         // }
         else if (i > 3 & i < 11) {
-            console.log(nutrient, i);
+            console.log(nutrient.label, nutrient.unit, i);
             // console.log(arrayDigest.slice(1, 5));
-            thirdPlot.values.push(nutrient.daily / reciYield);
+            thirdPlot.values.push((nutrient.total) / reciYield);
             thirdPlot.labels.push(nutrient.label);
 
         }
         else if (i > 10 & i < 24) {
-            console.log(nutrient, i);
+            console.log(nutrient.label, nutrient.unit, i);
             // console.log(arrayDigest.slice(1, 5));
-            fourthPlot.values.push(nutrient.daily / reciYield);
+            fourthPlot.values.push(nutrient.total / reciYield);
             fourthPlot.labels.push(nutrient.label);
 
         }
 
     });
-    // console.log(secondPlot);
-    // console.log(plotObject);
 
     // process nutrition data
     let totalNutrients = response.hits[1].recipe.digest;
@@ -346,7 +344,8 @@ function createPlots(response, i) {
 
     var layout = {
         title: 'Nutrient Breakdown',
-        opacity: 1,
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
         annotations: [
             {
                 font: {
@@ -388,10 +387,7 @@ function createPlots(response, i) {
         ],
         showlegend: false,
         height: 500,
-        width: 500,
-        grid: {
-            ygap: 0.8
-        },
+        width: 500
         //plot_bgcolor='rgb(254, 247, 234, 0.2)'
     };
 
