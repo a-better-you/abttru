@@ -5,10 +5,10 @@ $(document).ready(function () {
     $(document).on('click', ".search", function (event) {
         event.preventDefault();
         userQ = $("#user-input").val().trim();
-        risk_factor = $("#risk-factor").val().toLowerCase().trim();
+        // risk_factor = $("#risk-factor").val().toLowerCase().trim();
         diet_option = $("#diet-factor").val().toLowerCase().trim();
         diet_restriction = $("#diet-restriction").val().toLowerCase().trim();
-        console.log(risk_factor);
+        // console.log(risk_factor);
         console.log(diet_option);
         console.log(diet_restriction);
         $.ajax({
@@ -22,6 +22,29 @@ $(document).ready(function () {
     });
 });
 
+<<<<<<< HEAD
+=======
+//     $(document).on('click', ".patient-login", function (event) {
+//         event.preventDefault();
+//     console.log("click");
+//     alert("click")
+//     var userName = $("#inputUsername").val();
+//     var passWord = $("#inputPassword").val();
+//     console.log(userName);
+//     console.log(passWord);
+
+//         $.ajax({
+//             url: "/profile",
+//             method: "GET",
+//             body: {
+//                 user_name: userName,
+//                 password: passWord
+//             }
+//         }).done();
+//     });
+// //  });
+
+>>>>>>> f1559f84df0170fa3a9c4cd19b29fb19944c79e1
 function createSlider(response) {
     // we create indicators - we will target this 
     // in the for loop with <li> items

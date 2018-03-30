@@ -2,13 +2,12 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a href="/home">
+                    <img src="css/A Better You.png" id="brand-logo">
+                </a>
+            </div>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
@@ -21,16 +20,6 @@
                 <button class="search btn btn-default">Search for Recipes</button>
             </form>
             <ul class="nav navbar-nav">
-                <li class="dropdown-select">
-                    <select class="form-control form-control-lg" id="risk-factor">
-                        <option class="risk-option">Healthy</option>
-                        {{!--
-                        <option class="risk-option">High Blood Pressure</option> --}}
-                        <option class="risk-option">High Cholesterol</option>
-                        <option class="risk-option">Diabetes</option>
-                        <option class="risk-option">Obesity</option>
-                    </select>
-                </li>
                 <li class="dropdown-select">
                     <select class="form-control form-control-lg" id="diet-factor">
                         <option class="diet-option">Balanced</option>
@@ -46,11 +35,9 @@
                 <li class="dropdown-select">
                     <select class="form-control form-control-lg" id="diet-restriction">
                         {{!--
-                        <option class="restrict-option">Crustacean-Free</option> --}}
-                        {{!--
+                        <option class="restrict-option">Crustacean-Free</option> --}} {{!--
                         <option class="restrict-option">Dairy-Free</option> --}}{{!--
-                        <option class="restrict-option">Kosher</option> --}}
-                        {{!--
+                        <option class="restrict-option">Kosher</option> --}} {{!--
                         <option class="restrict-option">Gluten-Free</option>
                         <option class="restrict-option">Low-Sugar</option>
                         <option class="restrict-option">Paleo</option> --}}
@@ -70,6 +57,7 @@
     <!-- /.container-fluid -->
 </nav>
 <div class="container">
+<<<<<<< HEAD
     {{#if errors}}
         <div class="alert alert-danger">
             {{#each errors}}
@@ -79,6 +67,25 @@
         <form action="/doctor" method="get">
             <input type="submit" class="alert alert-danger" value="GO BACK TO PATIENT REGISTRATION">
         </form>
+=======
+    {{!--
+    <div class="row">
+        <div class="col-md-2 col-sm-2">
+            <a class="btn btn-default" href="/profile">User Login</a>
+        </div>
+        <div class="col-md-2 col-sm-2">
+            <a class="btn btn-default" href="/doctor">Doctor Login</a>
+        </div>
+    </div> --}} {{#if errors}}
+    <div class="alert alert-danger">
+        {{#each errors}}
+        <h1>{{this.msg}}</h1>
+        {{/each}}
+    </div>
+    <form action="/doctor" method="get">
+        <input type="submit" class="alert alert-danger" value="GO BACK TO PATIENT REGISTRATION">
+    </form>
+>>>>>>> f1559f84df0170fa3a9c4cd19b29fb19944c79e1
     {{/if}}
     <div class="row">
         <div class="col-md-7">
@@ -131,34 +138,37 @@
         </div>
     </div>
 </div>
-<div class="col-md-4" id="recipe-area">
-    <div class="panel panel-default" style="display:none" id="panel-slider">
-        <div class="panel-body">
-            <!-- Where the carousel goes -->
-            <div id="sliders" class="slide carousel" data-ride="carousel" data-pause="true">
-                <!-- Carousel slides -->
-                <div id="carousel" class="carousel carousel-inner">
-                    <ol class='carousel-indicators'>
-                    </ol>
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner" role="listbox" id="item-list">
-                        <div class="item active" id="item-active">
-                        </div>
-                        <!-- <div class="item" id="item-one">
+<div class="row">
+    <div class="col-md-7"></div>
+    <div class="col-md-4" id="recipe-area">
+        <div class="panel panel-default" style="display:none" id="panel-slider">
+            <div class="panel-body">
+                <!-- Where the carousel goes -->
+                <div id="sliders" class="slide carousel" data-ride="carousel" data-pause="true">
+                    <!-- Carousel slides -->
+                    <div id="carousel" class="carousel carousel-inner">
+                        <ol class='carousel-indicators'>
+                        </ol>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox" id="item-list">
+                            <div class="item active" id="item-active">
+                            </div>
+                            <!-- <div class="item" id="item-one">
             
                                                 </div> -->
+                        </div>
                     </div>
-                </div>
-                <!-- Carosel Controls -->
-                <div id="controls">
-                    <a class="left" href="#sliders" data-slide="prev" title="Previous Slide">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <!-- <i id="pause" class="fa fa-pause" title="Pause"></i>
+                    <!-- Carosel Controls -->
+                    <div id="controls">
+                        <a class="left" href="#sliders" data-slide="prev" title="Previous Slide">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <!-- <i id="pause" class="fa fa-pause" title="Pause"></i>
                                         <i id="play" class="fa fa-play" title="Play"></i> -->
-                    <a class="right" href="#sliders" data-slide="next" title="Next Slide">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
+                        <a class="right" href="#sliders" data-slide="next" title="Next Slide">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
