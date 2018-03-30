@@ -43,6 +43,12 @@ module.exports = function (app) {
     });
 
     app.post("/api/profile/save-recipe/:id", function (req, res) {
+        console.log(req.body);
+        var userName = req.body.patient_name;
+        req.session.user_name = userName;
+
+        res.redirect('/profile');
+
         // Save a recipe with the data available to us in req.body
         db.savedRecipes.create({
             recipe: req.body.save_recipe,
