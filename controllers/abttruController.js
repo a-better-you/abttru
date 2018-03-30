@@ -21,8 +21,6 @@ module.exports = function (app) {
 
     });
 
-
-
     app.get("/profile", function (req, res) {
         console.log("--------------------------");
         console.log(req);
@@ -88,8 +86,32 @@ module.exports = function (app) {
     });
 
     // ******* DOCTOR ROUTES ******* //
+    app.post("/doctor", function (req, res) {
+        console.log(req.body);
+        var userName = req.body.doctor_name;
+        req.session.user_name = userName;
+        console.log("----------------------");
+        console.log(userName);
+        db.doctor.findAll({
+            where: {
+                doctor_name: userName
+            }
+        }).then(function (response) {
+            var doctorObj = response;
+            console.log(doctorObj.length);
+            if (doctorObj.length == 0) {
+                res.redirect('/');
+            }
+            else {
+                res.redirect('/doctor/form');
+            }
 
-    app.get("/doctor", function (req, res) {
+        });
+
+
+    });
+
+    app.get("/doctor/form", function (req, res) {
         db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
         db.patient.findAll({
@@ -145,9 +167,11 @@ module.exports = function (app) {
                     risk_factor: req.body.risk_factor,
                     diet_recommendation: req.body.diet_recommendation,
                     diet_restriction: req.body.diet_restriction
-                }).then(() => res.redirect('/doctor'));
-            });
-
+                }).then(() => {
+                    res.redirect('/doctor/form')
+                });
+        
+            })
         }
     });
 };

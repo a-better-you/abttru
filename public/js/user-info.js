@@ -11,6 +11,7 @@ $(".search").on('click', function (event) {
     event.preventDefault();
     userQ = $("#user-input").val().trim();
     console.log(userQ);
+    console.log("--------------------");
     console.log(risk_factor);
     console.log(diet_recommendation);
     console.log(diet_restriction);
