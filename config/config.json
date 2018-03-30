@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "root",
+    "username": "user",
     "password": "password",
     "database": "nutri_db",
     "host": "localhost",
