@@ -22,7 +22,7 @@ module.exports = function (app) {
 
     app.get("/profile", function (req, res) {
         console.log("--------------------------");
-        console.log(req);
+        // console.log(req);
 
         db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
@@ -33,8 +33,9 @@ module.exports = function (app) {
             // console.log(patient.map(x => x.dataValues));
             // console.log(patient.map(x => x.healthStat.dataValues))
             // console.log(patient.map(x => x.savedRecipe.dataValues))
-            console.log(patient);
+            // console.log(patient);
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
+            let hbsRecipe = { recipes: patient.map(x => x.savedRecipe.dataValues)};
             // console.log(hbsPatient);
             res.render("user-info", hbsPatient);
         }).catch(function (error) {
@@ -42,28 +43,38 @@ module.exports = function (app) {
         });;
     });
 
-    app.post("/api/profile/save-recipe/:id", function (req, res) {
+    app.post("/profile/save", function (req, res) {
+        console.log(req.body);
         // Save a recipe with the data available to us in req.body
         db.savedRecipes.create({
             recipe: req.body.save_recipe,
-            patient_id: req.params.id
+            patient_id: req.body.id
         }).then(function (savedRecipe) {
             res.send(savedRecipe);
         });
     });
 
-    app.get("/api/profile/fave-recipe/:id", function (req, res) {
+    app.put("/profile/fave", function (req, res) {
         // Save a recipe with the data available to us in req.body
-        db.savedRecipes.findAll({
-            attributes: ['uri'],
-            where: { patient_id: req.params.id }
-        }).then(function (savedRecipe) {
-            console.log(savedRecipe);
-            $.ajax({
-                url: req.body.recipe,
-                method: "GET"
-            }).done(function (res) {
-                res.json()
+        console.log(req.body);
+        console.log(req.body.id);
+        console.log("------------------------");
+
+            db.savedRecipes.update({
+                favorite: false
+            },{
+                where: { 
+                    favorite: true,
+                    patient_id: req.body.id }
+            }).then(function (savedRecipes) {    
+                db.savedRecipes.update({
+                    favorite: req.body.favorite
+                },{
+                    where: { patient_id: req.body.id,
+                    recipe: req.body.recipe }
+            }).then(function (savedRecipe) {
+                console.log(savedRecipe);
+ 
             });
         });
     });
@@ -71,7 +82,7 @@ module.exports = function (app) {
     // ******* DOCTOR ROUTES ******* //
     app.post("/doctor", function (req, res) {
         console.log(req.body);
-        var userName = req.body.doctor_name;
+        var userName = req.body.user_name;
         req.session.user_name = userName;
         console.log("----------------------");
         console.log(userName);
