@@ -90,7 +90,7 @@ module.exports = function (app) {
           })
     });
 
-    app.post("/api/patient", function (req, res) {
+    app.post("/patient", function (req, res) {
 
         req.checkBody('patient_name', 'Username field cannot be empty.').notEmpty();
         req.checkBody('patient_name', 'Username must be between 4-15 characters long.').len(4, 15);
