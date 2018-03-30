@@ -340,12 +340,13 @@ function createPlots(response, i) {
         name: 'Vitamins',
         hoverinfo: 'label+percent+name',
         hole: .6,
-        type: 'pie'
+        type: 'pie',
 
     }];
 
     var layout = {
         title: 'Nutrient Breakdown',
+        opacity: 1,
         annotations: [
             {
                 font: {
@@ -391,7 +392,7 @@ function createPlots(response, i) {
         grid: {
             ygap: 0.8
         },
-        // paper_bgcolor='rgb(254, 247, 234)'
+        //plot_bgcolor='rgb(254, 247, 234, 0.2)'
     };
 
     Plotly.newPlot('tester', data, layout);
