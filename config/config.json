@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
+    "password": "root",
     "database": "nutri_db",
     "host": "localhost",
     "dialect": "mysql"
