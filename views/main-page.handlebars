@@ -96,10 +96,10 @@
         </div>
         <div class="col-md-5">
             <form action="/profile" method="post">
-                <div class="form-group row">
+                <div class="form-group row patient-form">
                     <label for="inputUserName" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputUsername" placeholder="User Name" name="patient_name">
+                        <input type="text" class="form-control" id="inputUsername" placeholder="Patient Name" name="patient_name">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -114,6 +114,29 @@
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="row">
+            <div class="col-md-5 doctor-form">
+                <form action="/doctor" method="post">
+                    <div class="form-group row">
+                        <label for="inputUserName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="doctor-name" placeholder="Doctor Name" name="doctor_name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="doctor-password" placeholder="Password" name="password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" value="Submit">Sign in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
