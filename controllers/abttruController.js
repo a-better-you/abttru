@@ -9,8 +9,6 @@ module.exports = function (app) {
         res.render(path.join(__dirname, "../views/main-page.handlebars"));
     });
 
-
-
     app.post("/profile", function (req, res) {
         console.log(req.body);
         var userName = req.body.patient_name;
