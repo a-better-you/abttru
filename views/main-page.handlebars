@@ -70,15 +70,6 @@
     <!-- /.container-fluid -->
 </nav>
 <div class="container">
-    {{!--
-    <div class="row">
-        <div class="col-md-2 col-sm-2">
-            <a class="btn btn-default" href="/profile">User Login</a>
-        </div>
-        <div class="col-md-2 col-sm-2">
-            <a class="btn btn-default" href="/doctor">Doctor Login</a>
-        </div>
-    </div> --}}
     {{#if errors}}
         <div class="alert alert-danger">
             {{#each errors}}
@@ -110,7 +101,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" value="Submit">Sign in</button>
+                        <button type="submit" class="btn btn-primary patient-login" value="Submit">Sign in</button>
                     </div>
                 </div>
             </form>
