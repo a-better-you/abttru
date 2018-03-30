@@ -10,12 +10,12 @@ let nextSlide = 0;
 $(".search").on('click', function (event) {
     event.preventDefault();
     userQ = $("#user-input").val().trim();
-    console.log(userQ);
-    console.log("--------------------");
-    console.log(risk_factor);
-    console.log(diet_recommendation);
-    console.log(diet_restriction);
-    console.log(fave_recipe);
+    // console.log(userQ);
+    // console.log("--------------------");
+    // console.log(risk_factor);
+    // console.log(diet_recommendation);
+    // console.log(diet_restriction);
+    // console.log(fave_recipe);
     $.ajax({
         url: `https://api.edamam.com/search?q=${userQ}&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99&from=0&to=5&calories=591-722&Diet=${risk_factor}&Health=${diet_recommendation}`,
         method: "GET"
@@ -23,98 +23,121 @@ $(".search").on('click', function (event) {
 
         responseObject = response;
         // console.log(response);
-        console.log(responseObject);
+        // console.log(responseObject);
         // we create indicators - we will target this 
         // in the for loop with <li> items
-        let itemActive = $("#item-active");
+        // let itemActive = $("#item-active");
 
-        var activeImg = $("<img>").attr({
-            "src": response.hits[0].recipe.image,
-            "data-id": 0,
-            "class": "img-responsive"
-        });
+        // var activeImg = $("<img>").attr({
+        //     "src": response.hits[0].recipe.image,
+        //     "data-id": 0,
+        //     "class": "img-responsive"
+        // });
 
-        var activeCaption = $(`<a>`);
-        activeCaption.attr({
-            "href": response.hits[0].recipe.url,
-            "target": "_blank",
-            "role": "button"
-        });
-        activeCaption.text(response.hits[0].recipe.label);
+        // var activeCaption = $(`<a>`);
+        // activeCaption.attr({
+        //     "href": response.hits[0].recipe.uri,
+        //     "class": "btn btn-info",
+        //     "role": "button"
+        // });
+        // activeCaption.text(response.hits[0].recipe.label);
 
-        var saveLink = response.hits[0].recipe.uri;
+        // var saveLink = response.hits[0].recipe.uri;
 
-        // make function
-        var addFavBttn = $("<a>");
-        addFavBttn.addClass("btn btn default fav-this");
-        addFavBttn.attr({
-            "id": saveLink,
-            "class": "btn btn-info",
-            "role": "button"
-        });
-        addFavBttn.text("Fave This!");
+        // let activeImg = $("<img src = 'response.hits[0].recipe.image' alt = 'recipe'>");
+        // itemActive.append(activeCaption);
+        // itemActive.append(activeImg);
+        // itemActive.append(addSaveBttn);
 
-        // make function
-        var addSaveBttn = $("<a>");
-        addSaveBttn.addClass("btn btn default save-this");
-        addSaveBttn.attr({
-            "id": saveLink,
-            "class": "btn btn-info",
-            "role": "button"
-        });
-        addSaveBttn.text("Save This!");
 
-        itemActive.append(activeCaption);
-        itemActive.append(activeImg);
-        itemActive.append(addSaveBttn);
-        itemActive.append(addFavBttn);
+        // $('.carousel').carousel("pause");
+        // $("#panel-slider").show();
 
-        $('.carousel').carousel("pause");
-        $("#panel-slider").show();
-
-        console.log(response.hits[0].recipe.image);
-        console.log(response.hits[1].recipe.image);
+        // console.log(response.hits[0].recipe.image);
+        // console.log(response.hits[1].recipe.image);
         // start of plotly code
-        id = 1;
-        responseObject = response;
-        createPlots(responseObject, 0);
+        // id = 1;
+        // responseObject = response;
+        // createPlots(responseObject, 0);
 
-        for (let i = 1; i < response.hits.length; i++) {
-
-            console.log(response.hits[i])
-            console.log(this_id);
-            // var itemDiv = $("<div class='col-md-4 recipe'>");
-            // var img = $("<img class='img-responsive'>");
-            // img.attr("src", response.hits[i].recipe.image);
-            // itemDiv.append("<a class='btn' href=" + response.hits[i].recipe.url + ">" + 'Get Recipe' + "</a>");
-            var recipeLink = $(`<a>`);
-            recipeLink.attr("href", response.hits[i].recipe.url);
-            recipeLink.text("Get Recipe");
+        for (let i = 0; i < response.hits.length; i++) {
 
             // console.log(response.hits[i])
+            // console.log(this_id);
+            // console.log(response.hits[i])
+            let itemActive = $("#item-active");
+            var saveLink = response.hits[0].recipe.uri;
             let itemDiv = $("<div class='col-md-4 recipe'>").attr({
-                class: "item",
+                "class": "item",
                 "data-id": i
             });
+            if (i < 1) {
 
-            var itemImg = $("<img>").attr({
+                var activeImg = $("<img>").attr({
+                    "src": response.hits[i].recipe.image,
+                    "data-id": 0,
+                    "class": "img-responsive"
+                });
+
+                var activeCaption = $(`<a>`);
+                activeCaption.attr({
+                    "href": response.hits[i].recipe.uri,
+                    "role": "button"
+                });
+                activeCaption.text(response.hits[i].recipe.label);
+
+                var addSaveBttn = $("<a>");
+                addSaveBttn.attr({
+                    "id": saveLink,
+                    "class": "btn btn-info save-this",
+                    "role": "button"
+                });
+                addSaveBttn.text("Save This!");
+
+                console.log("its zero");
+
+                // make function
+                var addFavBttn = $("<a>");
+                addFavBttn.addClass("btn btn default fav-this");
+                addFavBttn.attr({
+                    "id": saveLink,
+                    "class": "btn btn-info",
+                    "role": "button"
+                });
+                addFavBttn.text("Fave This!");
+
+                itemActive.append(activeCaption);
+                itemActive.append(activeImg);
+                itemActive.append(addSaveBttn);
+                itemActive.append(addFavBttn);
+
+                $('.carousel').carousel("pause");
+                $("#panel-slider").show();
+                id = 1;
+                responseObject = response;
+                createPlots(responseObject, i);
+
+                continue;
+            }
+
+            activeImg = $("<img>").attr({
                 "src": response.hits[i].recipe.image,
-                "id": "image" + i,
+                "data-id": i,
                 "class": "img-responsive"
             });
 
-            var itemCaption = $(`<a>`);
-            itemCaption.attr({
+            activeCaption = $(`<a>`);
+            activeCaption.attr({
                 "href": response.hits[i].recipe.url,
                 "target": "_blank",
                 "role": "button"
             });
-            itemCaption.text(response.hits[i].recipe.label);
+            activeCaption.text(response.hits[i].recipe.label);
 
-            var saveLink = response.hits[i].recipe.uri;
+            saveLink = response.hits[i].recipe.uri;
+
             // make function
-            var addFavBttn = $("<a>");
-            // addFavBttn.addClass("btn btn default fav-this");
+            addFavBttn = $("<a>");
             addFavBttn.attr({
                 "id": saveLink,
                 "class": "btn btn-info fave-this",
@@ -122,10 +145,8 @@ $(".search").on('click', function (event) {
             });
             addFavBttn.text("Fave This!");
 
-
             // make function
-            var addSaveBttn = $("<a>");
-            // addSaveBttn.addClass("btn btn default save-this");
+            addSaveBttn = $("<a>");
             addSaveBttn.attr({
                 "id": saveLink,
                 "class": "btn btn-info save-this",
@@ -133,21 +154,56 @@ $(".search").on('click', function (event) {
             });
             addSaveBttn.text("Save This!");
 
-            itemDiv.append(itemCaption);
-            itemDiv.append(itemImg);
-
+            itemDiv.append(activeCaption);
+            itemDiv.append(activeImg);
             itemDiv.append(addSaveBttn);
-
             itemDiv.append(addFavBttn);
 
             $("#item-list").append(itemDiv);
+
         }
 
-
-        // let activeDiv = $(".item active");
         console.log($(`#item-active`).hasClass("active"));
-    });
 
+        $(".fave-this").on('click', function (event) {
+            console.log("favorited");
+            uri = event.currentTarget.id;
+            console.log(uri);
+            console.log(this_id);
+            var id = this_id;
+            var newFavorite = $(this).data("true");
+            // var newFavoriteState = { favorite: newFavorite }
+            $.ajax({
+                url: "profile/fave",
+                method: "PUT",
+                data: {
+                    favorite: true,
+                    id: id,
+                    recipe: uri
+                }
+            }).done(function (response) {
+                console.log("This is your new favorite!");
+            });
+        });
+
+        $(".save-this").on('click', function (event) {
+            console.log('saved');
+            uri = event.currentTarget.id;
+            console.log(uri);
+            console.log(this_id);
+            var id = this_id;
+            $.ajax({
+                url: "/profile/save",
+                method: "POST",
+                data: {
+                    save_recipe: uri,
+                    id: id
+                }
+            }).done(function (response) {
+                console.log(response);
+            });
+        });
+    });
 });
 
 $(".right").on('click', function (event) {
@@ -172,34 +228,7 @@ $(".left").on('click', function (event) {
     createPlots(responseObject, nextSlide);
 });
 
-$(".fave-this").on('click', function (event) {
-    uri = event.currentTarget.id;
-    console.log(uri);
-    console.log(this_id);
-    var id = this_id;
-    $.ajax({
-        url: "api/profile/fave-recipe/" + id,
-        method: "PUT",
-        data: { fav_recipe: uri }
-    }).done(function (response) {
-        console.log(response);
-    });
 
-});
-
-$(".save-this").on('click', function (event) {
-    uri = event.currentTarget.id;
-    console.log(uri);
-    console.log(this_id);
-    var id = this_id;
-    $.ajax({
-        url: "api/profile/save-recipe/" + id,
-        method: "POST",
-        data: { save_recipe: uri }
-    }).done(function (response) {
-        console.log(response);
-    });
-});
 
 
 function createPlots(response, i) {
@@ -256,14 +285,14 @@ function createPlots(response, i) {
 
         // }
         else if (i > 3 & i < 11) {
-            console.log(nutrient.label, nutrient.unit, i);
+            // console.log(nutrient, i);
             // console.log(arrayDigest.slice(1, 5));
             thirdPlot.values.push((nutrient.total) / reciYield);
             thirdPlot.labels.push(nutrient.label);
 
         }
         else if (i > 10 & i < 24) {
-            console.log(nutrient.label, nutrient.unit, i);
+            // console.log(nutrient, i);
             // console.log(arrayDigest.slice(1, 5));
             fourthPlot.values.push(nutrient.total / reciYield);
             fourthPlot.labels.push(nutrient.label);
