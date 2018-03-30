@@ -1,4 +1,4 @@
-$(document).ready(function () {
+
     var currentURL = window.location.origin;
     let userQ;
 
@@ -17,10 +17,33 @@ $(document).ready(function () {
         }).done(function (response) {
 
             createSlider(response);
-
         });
     });
-});
+
+    $(document).on('click', ".patient-login", function (event) {
+        event.preventDefault();
+        console.log("click");
+        var userName = $("#inputUsername").val();
+        var passWord = $("#inputPassword").val();
+        // console.log(userName);
+        // console.log(passWord);
+        $.ajax({
+            url: "/creds/",
+            method: "POST",
+            data: {
+                user_name: userName,
+                password: passWord
+            }
+        }).done(function (response) {
+            console.log(response);
+            window.location.href = response; //causes the browser to refresh and load the requested url
+        })
+    });
+
+
+
+
+
 
 //     $(document).on('click', ".patient-login", function (event) {
 //         event.preventDefault();

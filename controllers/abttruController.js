@@ -2,12 +2,15 @@ var path = require("path");
 var db = require("../models");
 var expressValidator = require("express-validator");
 let hbsObj;
+let user_name;
+let password;
 module.exports = function (app) {
 
 
     app.get("/home", function (req, res) {
         res.render(path.join(__dirname, "../views/main-page.handlebars"));
     });
+
 
     app.post("/profile", function (req, res) {
         console.log(req.body);
@@ -24,6 +27,7 @@ module.exports = function (app) {
         console.log("--------------------------");
         console.log(req);
 
+
         db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
         db.patient.findAll({
@@ -34,12 +38,20 @@ module.exports = function (app) {
             // console.log(patient.map(x => x.healthStat.dataValues))
             // console.log(patient.map(x => x.savedRecipe.dataValues))
             console.log(patient);
+
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
-            // console.log(hbsPatient);
+            // $.ajax({
+            //     url: recipeUri,
+            //     method: "GET"
+            // }).done(function (response) {
+            //     console.log("Hello");
+            // });
             res.render("user-info", hbsPatient);
+
         }).catch(function (error) {
             console.log(error);
         });;
+
     });
 
     app.post("/api/profile/save-recipe/:id", function (req, res) {
@@ -52,20 +64,27 @@ module.exports = function (app) {
         });
     });
 
-    app.get("/api/profile/fave-recipe/:id", function (req, res) {
-        // Save a recipe with the data available to us in req.body
-        db.savedRecipes.findAll({
-            attributes: ['uri'],
-            where: { patient_id: req.params.id }
-        }).then(function (savedRecipe) {
-            console.log(savedRecipe);
-            $.ajax({
-                url: req.body.recipe,
-                method: "GET"
-            }).done(function (res) {
-                res.json()
-            });
-        });
+    app.get("/api/profile/save-recipe/:id", function (req, res) {
+        patient.hasMany(savedRecipes)
+        patient.belongsTo(savedRecipes, { as: 'patient_id', constraints: false })
+        
+        user.getRecipes() // gets you all recipes
+        user.getFaveRecipe() // gets you only the favorite recipe
+        
+        patient.findAll({
+            where: { user_name: req.params.user_name },
+          include: [
+            { model: savedRecipes }, // load all recipes
+            { model: savedRecipes, as: 'savedRecipes' }, // load the savedRecipes.
+            // Notice that the spelling must be the exact same as the one in the association
+          ]
+          }).then(patient => {
+            let hbsPatient = { patients: patient.map(x => x.dataValues) };
+            console.log(hbsPatient);
+            // res.json(patient.map(x => x.dataValues));
+            res.render("user-info", hbsPatient);
+          })
+        
     });
 
     // ******* DOCTOR ROUTES ******* //
@@ -81,14 +100,6 @@ module.exports = function (app) {
         })
     });
 
-    app.get("/patient/list", function (req, res) {
-        db.patient.findAll({
-        }).then(patient => {
-            hbsObj = { patients: patient.map(x => x.dataValues) };
-            console.log(hbsObj);
-            res.render("patient", hbsObj);
-        });
-    });
 
     app.get("/api/patient/:patient_name", function (req, res) {
         db.patient.belongsTo(db.healthStats, { foreignKey: 'id', constraints: false });
@@ -102,7 +113,7 @@ module.exports = function (app) {
         })
     });
 
-    app.post("/api/patient", function (req, res) {
+    app.post("/patient", function (req, res) {
 
         req.checkBody('patient_name', 'Username field cannot be empty.').notEmpty();
         req.checkBody('patient_name', 'Username must be between 4-15 characters long.').len(4, 15);
@@ -125,17 +136,18 @@ module.exports = function (app) {
                 patient_name: req.body.patient_name,
                 user_name: 'default_username',
                 password: 'default_password'
-            }),
+
+            }).then((patients) => {
+                let userId = patients.id;
+                console.log(userId);
                 db.healthStats.create({
-                    patient_id: db.patient.id,
+                    patient_id: patients.id,
                     risk_factor: req.body.risk_factor,
                     diet_recommendation: req.body.diet_recommendation,
                     diet_restriction: req.body.diet_restriction
-                }).then(() => {
-                    res.redirect('/doctor')
-                });
+                }).then(() => res.redirect('/doctor'));
+            });
+
         }
-
     });
-
 };
