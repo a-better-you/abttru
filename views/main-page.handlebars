@@ -76,11 +76,36 @@
     </form>
     {{/if}}
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-12">
             <h1>WELCOME TO A BETTER YOU!</h1>
             <h2>GUEST SEARCH</h2>
         </div>
-        <div class="col-md-5">
+    </div>
+    <div class="row please-login">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Please Select A Login Option</h1>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-control form-control-lg login" id="login" name="login">
+                        <option class="login-potion"></option>
+                        <option class="login-option">Patient</option>
+                        <option class="login-option">Doctor</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+   
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6 patient-form">
             <form action="/profile" method="post">
                 <div class="form-group row patient-form">
                     <label for="inputUserName" class="col-sm-2 col-form-label">Name</label>
@@ -96,33 +121,32 @@
                 </div>
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" value="Submit">Sign in</button>
+                        <button type="submit" class="patient btn btn-primary" value="Submit">Sign in</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="row">
-            <div class="col-md-5 doctor-form">
-                <form action="/doctor" method="post">
-                    <div class="form-group row">
-                        <label for="inputUserName" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="doctor-name" placeholder="Doctor Name" name="doctor_name">
-                        </div>
+        
+        <div class="col-md-6 doctor-form">
+            <form action="/doctor" method="post">
+                <div class="form-group row">
+                    <label for="inputUserName" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="doctor-name" placeholder="Doctor Name" name="doctor_name">
                     </div>
-                    <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="doctor-password" placeholder="Password" name="password">
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="doctor-password" placeholder="Password" name="password">
                     </div>
-                    <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary" value="Submit">Sign in</button>
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <button type="submit" class="doctor btn btn-primary" value="Submit">Sign in</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

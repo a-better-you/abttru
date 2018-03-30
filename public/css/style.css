@@ -56,4 +56,17 @@ body {
 
 #doctor-panel {
     padding: 5;
-} 
+}
+
+.patient-form {
+    display: none;
+}
+
+.doctor-form {
+    display: none;
+}
+
+.please-login {
+    margin: 10px 0px 10px 0px;
+    padding: 10px;
+}
