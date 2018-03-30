@@ -18,136 +18,135 @@ $(".search").on('click', function (event) {
     console.log(fave_recipe);
     $.ajax({
         url: `https://api.edamam.com/search?q=${userQ}&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99&from=0&to=5&calories=591-722&Diet=${risk_factor}&Health=${diet_recommendation}`,
-method: "GET"
+        method: "GET"
     }).done(function (response) {
 
-    responseObject = response;
-    // console.log(response);
-    // console.log(responseObject);
-    // we create indicators - we will target this 
-    // in the for loop with <li> items
-    let itemActive = $("#item-active");
+        responseObject = response;
+        // console.log(response);
+        // console.log(responseObject);
+        // we create indicators - we will target this 
+        // in the for loop with <li> items
+        let itemActive = $("#item-active");
 
-    var activeImg = $("<img>").attr({
-        "src": response.hits[0].recipe.image,
-        "data-id": 0,
-        "class": "img-responsive"
-    });
-
-    var activeCaption = $(`<a>`);
-    activeCaption.attr({
-        "href": response.hits[0].recipe.uri,
-        "class": "btn btn-info",
-        "role": "button"
-    });
-    activeCaption.text(response.hits[0].recipe.label);
-
-    var saveLink = response.hits[0].recipe.uri;
-
-    // make function
-    var addFavBttn = $("<a>");
-    addFavBttn.addClass("btn btn default fav-this");
-    addFavBttn.attr({
-        "id": saveLink,
-        "class": "btn btn-info",
-        "role": "button"
-    });
-    addFavBttn.text("Fave This!");
-
-    // make function
-    var addSaveBttn = $("<a>");
-    addSaveBttn.addClass("btn btn default save-this");
-    addSaveBttn.attr({
-        "id": saveLink,
-        "class": "btn btn-info",
-        "role": "button"
-    });
-    addSaveBttn.text("Save This!");
-
-    // let activeImg = $("<img src = 'response.hits[0].recipe.image' alt = 'recipe'>");
-    itemActive.append(activeCaption);
-    itemActive.append(activeImg);
-    itemActive.append(addSaveBttn);
-    itemActive.append(addFavBttn);
-
-    $('.carousel').carousel("pause");
-    $("#panel-slider").show();
-
-    console.log(response.hits[0].recipe.image);
-    console.log(response.hits[1].recipe.image);
-    // start of plotly code
-    id = 1;
-    responseObject = response;
-    createPlots(responseObject, 0);
-
-    for (let i = 1; i < response.hits.length; i++) {
-
-        console.log(response.hits[i])
-        console.log(this_id);
-        // var itemDiv = $("<div class='col-md-4 recipe'>");
-        // var img = $("<img class='img-responsive'>");
-        // img.attr("src", response.hits[i].recipe.image);
-        // itemDiv.append("<a class='btn' href=" + response.hits[i].recipe.url + ">" + 'Get Recipe' + "</a>");
-        var recipeLink = $(`<a>`);
-        recipeLink.attr("href", response.hits[i].recipe.url);
-        recipeLink.text("Get Recipe");
-
-        // console.log(response.hits[i])
-        let itemDiv = $("<div class='col-md-4 recipe'>").attr({
-            class: "item",
-            "data-id": i
-        });
-
-        var itemImg = $("<img>").attr({
-            "src": response.hits[i].recipe.image,
-            "id": "image" + i,
+        var activeImg = $("<img>").attr({
+            "src": response.hits[0].recipe.image,
+            "data-id": 0,
             "class": "img-responsive"
         });
 
-        var itemCaption = $(`<a>`);
-        itemCaption.attr({
-            "href": response.hits[i].recipe.url,
-            "class": "btn btn-info",
+        var activeCaption = $(`<a>`);
+        activeCaption.attr({
+            "href": response.hits[0].recipe.url,
+            "target": "_blank",
             "role": "button"
         });
-        itemCaption.text(response.hits[i].recipe.label);
+        activeCaption.text(response.hits[0].recipe.label);
 
-        var saveLink = response.hits[i].recipe.uri;
+        var saveLink = response.hits[0].recipe.uri;
+
         // make function
         var addFavBttn = $("<a>");
-        // addFavBttn.addClass("btn btn default fav-this");
+        addFavBttn.addClass("btn btn default fav-this");
         addFavBttn.attr({
             "id": saveLink,
-            "class": "btn btn-info fave-this",
+            "class": "btn btn-info",
             "role": "button"
         });
         addFavBttn.text("Fave This!");
 
-
         // make function
         var addSaveBttn = $("<a>");
-        // addSaveBttn.addClass("btn btn default save-this");
+        addSaveBttn.addClass("btn btn default save-this");
         addSaveBttn.attr({
             "id": saveLink,
-            "class": "btn btn-info save-this",
+            "class": "btn btn-info",
             "role": "button"
         });
         addSaveBttn.text("Save This!");
 
-        itemDiv.append(itemCaption);
-        itemDiv.append(itemImg);
+        itemActive.append(activeCaption);
+        itemActive.append(activeImg);
+        itemActive.append(addSaveBttn);
+        itemActive.append(addFavBttn);
 
-        itemDiv.append(addSaveBttn);
+        $('.carousel').carousel("pause");
+        $("#panel-slider").show();
 
-        itemDiv.append(addFavBttn);
+        console.log(response.hits[0].recipe.image);
+        console.log(response.hits[1].recipe.image);
+        // start of plotly code
+        id = 1;
+        responseObject = response;
+        createPlots(responseObject, 0);
 
-        $("#item-list").append(itemDiv);
-    }
+        for (let i = 1; i < response.hits.length; i++) {
+
+            console.log(response.hits[i])
+            console.log(this_id);
+            // var itemDiv = $("<div class='col-md-4 recipe'>");
+            // var img = $("<img class='img-responsive'>");
+            // img.attr("src", response.hits[i].recipe.image);
+            // itemDiv.append("<a class='btn' href=" + response.hits[i].recipe.url + ">" + 'Get Recipe' + "</a>");
+            var recipeLink = $(`<a>`);
+            recipeLink.attr("href", response.hits[i].recipe.url);
+            recipeLink.text("Get Recipe");
+
+            // console.log(response.hits[i])
+            let itemDiv = $("<div class='col-md-4 recipe'>").attr({
+                class: "item",
+                "data-id": i
+            });
+
+            var itemImg = $("<img>").attr({
+                "src": response.hits[i].recipe.image,
+                "id": "image" + i,
+                "class": "img-responsive"
+            });
+
+            var itemCaption = $(`<a>`);
+            itemCaption.attr({
+                "href": response.hits[i].recipe.url,
+                "target": "_blank",
+                "role": "button"
+            });
+            itemCaption.text(response.hits[i].recipe.label);
+
+            var saveLink = response.hits[i].recipe.uri;
+            // make function
+            var addFavBttn = $("<a>");
+            // addFavBttn.addClass("btn btn default fav-this");
+            addFavBttn.attr({
+                "id": saveLink,
+                "class": "btn btn-info fave-this",
+                "role": "button"
+            });
+            addFavBttn.text("Fave This!");
 
 
-    // let activeDiv = $(".item active");
-    console.log($(`#item-active`).hasClass("active"));
-});
+            // make function
+            var addSaveBttn = $("<a>");
+            // addSaveBttn.addClass("btn btn default save-this");
+            addSaveBttn.attr({
+                "id": saveLink,
+                "class": "btn btn-info save-this",
+                "role": "button"
+            });
+            addSaveBttn.text("Save This!");
+
+            itemDiv.append(itemCaption);
+            itemDiv.append(itemImg);
+
+            itemDiv.append(addSaveBttn);
+
+            itemDiv.append(addFavBttn);
+
+            $("#item-list").append(itemDiv);
+        }
+
+
+        // let activeDiv = $(".item active");
+        console.log($(`#item-active`).hasClass("active"));
+    });
 
 });
 
@@ -391,19 +390,10 @@ function createPlots(response, i) {
         width: 500,
         grid: {
             ygap: 0.8
-        }
-    };
-
-    var layout2 = {
-        title: 'Vitamins and Minerals',
-        showlegend: false,
-        height: 500,
-        width: 500,
-        grid: {
-            ygap: 0.8
-        }
+        },
+        // paper_bgcolor='rgb(254, 247, 234)'
     };
 
     Plotly.newPlot('tester', data, layout);
-    // Plotly.newPlot('tester-2', data2, layout2);
+
 }

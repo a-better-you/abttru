@@ -26,4 +26,17 @@ body {
     background-size: cover;
     height: 100%;
 }
+
+#brand-logo {
+    height: 61px;
+    width: 120px;
+}
+
+.container-fluid {
+    padding-left: 0;
+}
+
+.panel-default {
+    padding: 0;
+}
   
