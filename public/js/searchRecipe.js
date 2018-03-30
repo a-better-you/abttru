@@ -5,10 +5,10 @@ $(document).ready(function () {
     $(document).on('click', ".search", function (event) {
         event.preventDefault();
         userQ = $("#user-input").val().trim();
-        risk_factor = $("#risk-factor").val().toLowerCase().trim();
+        // risk_factor = $("#risk-factor").val().toLowerCase().trim();
         diet_option = $("#diet-factor").val().toLowerCase().trim();
         diet_restriction = $("#diet-restriction").val().toLowerCase().trim();
-        console.log(risk_factor);
+        // console.log(risk_factor);
         console.log(diet_option);
         console.log(diet_restriction);
         $.ajax({
@@ -30,7 +30,7 @@ $(document).ready(function () {
 //     var passWord = $("#inputPassword").val();
 //     console.log(userName);
 //     console.log(passWord);
-    
+
 //         $.ajax({
 //             url: "/profile",
 //             method: "GET",
