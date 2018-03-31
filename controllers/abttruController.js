@@ -46,7 +46,7 @@ module.exports = function (app) {
             where: { patient_name: req.session.user_name },
             include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats 
         }).then(patient => {
-            // console.log(patient.map(x => x.dataValues));
+            console.log(patient.map(x => x.dataValues));
             // console.log(patient.map(x => x.healthStat.dataValues))
             // console.log(patient.map(x => x.savedRecipe.dataValues))
             // console.log(patient);
