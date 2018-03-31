@@ -22,43 +22,6 @@ $(".search").on('click', function (event) {
     }).done(function (response) {
 
         responseObject = response;
-        // console.log(response);
-        // console.log(responseObject);
-        // we create indicators - we will target this 
-        // in the for loop with <li> items
-        // let itemActive = $("#item-active");
-
-        // var activeImg = $("<img>").attr({
-        //     "src": response.hits[0].recipe.image,
-        //     "data-id": 0,
-        //     "class": "img-responsive"
-        // });
-
-        // var activeCaption = $(`<a>`);
-        // activeCaption.attr({
-        //     "href": response.hits[0].recipe.uri,
-        //     "class": "btn btn-info",
-        //     "role": "button"
-        // });
-        // activeCaption.text(response.hits[0].recipe.label);
-
-        // var saveLink = response.hits[0].recipe.uri;
-
-        // let activeImg = $("<img src = 'response.hits[0].recipe.image' alt = 'recipe'>");
-        // itemActive.append(activeCaption);
-        // itemActive.append(activeImg);
-        // itemActive.append(addSaveBttn);
-
-
-        // $('.carousel').carousel("pause");
-        // $("#panel-slider").show();
-
-        // console.log(response.hits[0].recipe.image);
-        // console.log(response.hits[1].recipe.image);
-        // start of plotly code
-        // id = 1;
-        // responseObject = response;
-        // createPlots(responseObject, 0);
 
         for (let i = 0; i < response.hits.length; i++) {
 
@@ -134,7 +97,7 @@ $(".search").on('click', function (event) {
                 "role": "button"
             });
             activeCaption.text(response.hits[i].recipe.label);
-            activeCaption.css("color","black");
+            activeCaption.css("color", "black");
 
             saveLink = response.hits[i].recipe.uri;
 
@@ -376,9 +339,9 @@ function createPlots(response, i) {
     var layout = {
         title: 'Nutrient Breakdown',
         titlefont:
-         {
-            size: 30
-         },
+            {
+                size: 30
+            },
         paper_bgcolor: 'transparent',
         plot_bgcolor: 'transparent',
         annotations: [
