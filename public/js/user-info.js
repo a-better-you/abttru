@@ -100,7 +100,7 @@ $(".search").on('click', function (event) {
                 "role": "button"
             });
             activeCaption.text(response.hits[i].recipe.label);
-            activeCaption.css("color","black");
+            activeCaption.css("color", "black");
 
             saveLink = response.hits[i].recipe.url;
 
@@ -368,9 +368,9 @@ function createPlots(response, i) {
     var layout = {
         title: 'Nutrient Breakdown',
         titlefont:
-         {
-            size: 30
-         },
+            {
+                size: 30
+            },
         paper_bgcolor: 'transparent',
         plot_bgcolor: 'transparent',
         annotations: [
