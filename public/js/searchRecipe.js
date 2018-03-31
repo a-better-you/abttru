@@ -3,6 +3,9 @@ $(document).ready(function () {
     let userQ;
 
     $(document).on('click', ".search", function (event) {
+        $(".patient-form").hide();
+        $(".doctor-form").hide();
+        $(".please-login").hide();
         event.preventDefault();
         userQ = $("#user-input").val().trim();
         // risk_factor = $("#risk-factor").val().toLowerCase().trim();
@@ -26,7 +29,7 @@ $(document).ready(function () {
             $(".patient-form").show();
             $(".doctor-form").hide();
         }
-        else if (login_option === "doctor") {
+        else if (login_option === "dietitian") {
             $(".patient-form").hide();
             $(".doctor-form").show();
         }
@@ -75,13 +78,15 @@ function createSlider(response) {
     var activeCaption = $(`<a>`);
     activeCaption.attr({
         "href": response.hits[0].recipe.url,
-        "class": "btn btn-info",
+ /*        "class": "btn btn-info", */
         "role": "button"
 
     });
     activeCaption.text(response.hits[0].recipe.label);
+    activeCaption.css("color", "black");
 
     var saveLink = response.hits[0].recipe.uri;
+    
 
     // make function
     var addFavBttn = $("<a>");
@@ -148,11 +153,11 @@ function createSlider(response) {
         var itemCaption = $(`<a>`);
         itemCaption.attr({
             "href": response.hits[i].recipe.url,
-            "class": "btn btn-info",
+            /* "class": "btn btn-info", */
             "role": "button"
         });
         itemCaption.text(response.hits[i].recipe.label);
-
+        itemCaption.css("color", "black");
 
         var saveLink = response.hits[i].recipe.uri;
 

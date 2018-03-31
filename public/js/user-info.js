@@ -85,6 +85,7 @@ $(".search").on('click', function (event) {
                     "role": "button"
                 });
                 activeCaption.text(response.hits[i].recipe.label);
+                activeCaption.css("color", "black");
 
                 var addSaveBttn = $("<a>");
                 addSaveBttn.attr({
@@ -133,6 +134,7 @@ $(".search").on('click', function (event) {
                 "role": "button"
             });
             activeCaption.text(response.hits[i].recipe.label);
+            activeCaption.css("color","black");
 
             saveLink = response.hits[i].recipe.uri;
 
@@ -373,6 +375,10 @@ function createPlots(response, i) {
 
     var layout = {
         title: 'Nutrient Breakdown',
+        titlefont:
+         {
+            size: 30
+         },
         paper_bgcolor: 'transparent',
         plot_bgcolor: 'transparent',
         annotations: [
@@ -415,8 +421,8 @@ function createPlots(response, i) {
 
         ],
         showlegend: false,
-        height: 500,
-        width: 500
+        height: 750,
+        width: 750
         //plot_bgcolor='rgb(254, 247, 234, 0.2)'
     };
 
