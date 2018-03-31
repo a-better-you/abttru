@@ -1,0 +1,34 @@
+DESCRIPTION - Davey
+What does everyone want in their life? To be a little better. So, we asked ourselves, how, with the tools we've been given by Randy, Alper, and the rest of the cohort, could we make a better you?
+
+MOTIVATION  - Josh
+The inception of our project came together throughout a collaboration of shared experiences and a passion for food nutrition. Within our group, we have the knowledge of a professional nutritionist, a software developer, and two guys that like to eat and have been around the food service industry for way too long. So, we wanted a better way, that way is a better you.  A Better You.
+
+RESULTS  - Alberto
+We think the results are phenomenal. Our application connects you to recipes from all over the web, and helps your dietitian convey their recommendations to you dynamically. You pick your ingredients, we make a better you.
+
+ROLE – Josh
+I'm Josh, my dietician says that I need be on a low carb diet.  But I’m too busy googling, for the hundredth time, how to center a div within a div.
+ROLE – Alberto
+I’m Alberto, I’m a dietitian, and I want to keep track of my patients and their health status, especially during stressful times (looks around the room). I want to make sure that you can still enjoy your meals, and walk with you on the path to a better you.
+ROLE – Davey
+I’m Davey, I’m always trying to improve myself, so I googled how to be a better you, let’s look at what I found.
+
+WALKTHROUGH - Dave
+I landed on this page, here I am. I see a login, but I don’t have an account, but I see a search bar, so l do a search of my favorite food. What should I search for?
+WALKTHROUGH - Alberto
+I’m a dietitian and I have a patient that has been drinking too many beers after his coding class, and needs to cut back on his carbohydrate intake. Let me go ahead and get him set up with a patient profile.
+WALKTHROUGH - Joshua
+Well, my dietitian told me I need to take it easy on the carbs, he pointed me to this brand new application that he uses, A Better You.  It looks pretty cool, so I guess I’ll check it out.
+
+TEAM EFFORTS
+Alberto – 
+
+Davey - 
+
+Joshua -  
+
+Ziad -
+IMPROVEMENTS
+2.0 suggestions
+
