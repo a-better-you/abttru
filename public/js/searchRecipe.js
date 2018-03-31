@@ -78,7 +78,7 @@ function createSlider(response) {
     var activeCaption = $(`<a>`);
     activeCaption.attr({
         "href": response.hits[0].recipe.url,
- /*        "class": "btn btn-info", */
+        /*        "class": "btn btn-info", */
         "role": "button"
 
     });
@@ -86,28 +86,28 @@ function createSlider(response) {
     activeCaption.css("color", "black");
 
     var saveLink = response.hits[0].recipe.uri;
-    
-
-    // make function
-    var addFavBttn = $("<a>");
-    addFavBttn.addClass("btn btn default fav-this");
-    addFavBttn.attr({
-        "id": saveLink,
-        "class": "btn btn-info",
-        "role": "button"
-    });
-    addFavBttn.text("Fave This!");
 
 
-    // make function
-    var addSaveBttn = $("<a>");
-    addSaveBttn.addClass("btn btn default save-this");
-    addSaveBttn.attr({
-        "id": saveLink,
-        "class": "btn btn-info",
-        "role": "button"
-    });
-    addSaveBttn.text("Save This!");
+    // // make function
+    // var addFavBttn = $("<a>");
+    // addFavBttn.addClass("btn btn default fav-this");
+    // addFavBttn.attr({
+    //     "id": saveLink,
+    //     "class": "btn btn-info",
+    //     "role": "button"
+    // });
+    // addFavBttn.text("Fave This!");
+
+
+    // // make function
+    // var addSaveBttn = $("<a>");
+    // addSaveBttn.addClass("btn btn default save-this");
+    // addSaveBttn.attr({
+    //     "id": saveLink,
+    //     "class": "btn btn-info",
+    //     "role": "button"
+    // });
+    // addSaveBttn.text("Save This!");
 
 
 
@@ -115,9 +115,9 @@ function createSlider(response) {
     itemActive.append(activeCaption);
     itemActive.append(activeImg);
 
-    itemActive.append(addSaveBttn);
+    // itemActive.append(addSaveBttn);
 
-    itemActive.append(addFavBttn);
+    // itemActive.append(addFavBttn);
 
 
 
@@ -159,35 +159,35 @@ function createSlider(response) {
         itemCaption.text(response.hits[i].recipe.label);
         itemCaption.css("color", "black");
 
-        var saveLink = response.hits[i].recipe.uri;
+        // var saveLink = response.hits[i].recipe.uri;
 
-        // make function
-        var addFavBttn = $("<a>");
-        // addFavBttn.addClass("btn btn default fav-this");
-        addFavBttn.attr({
-            "id": saveLink,
-            "class": "btn btn-info fav-this",
-            "role": "button"
-        });
-        addFavBttn.text("Fave This!");
+        // // make function
+        // var addFavBttn = $("<a>");
+        // // addFavBttn.addClass("btn btn default fav-this");
+        // addFavBttn.attr({
+        //     "id": saveLink,
+        //     "class": "btn btn-info fav-this",
+        //     "role": "button"
+        // });
+        // addFavBttn.text("Fave This!");
 
 
-        // make function
-        var addSaveBttn = $("<a>");
-        // addSaveBttn.addClass("btn btn default save-this");
-        addSaveBttn.attr({
-            "id": saveLink,
-            "class": "btn btn-info save-this",
-            "role": "button"
-        });
-        addSaveBttn.text("Save This!");
+        // // make function
+        // var addSaveBttn = $("<a>");
+        // // addSaveBttn.addClass("btn btn default save-this");
+        // addSaveBttn.attr({
+        //     "id": saveLink,
+        //     "class": "btn btn-info save-this",
+        //     "role": "button"
+        // });
+        // addSaveBttn.text("Save This!");
 
         itemDiv.append(itemCaption);
         itemDiv.append(itemImg);
 
-        itemDiv.append(addSaveBttn);
+        // itemDiv.append(addSaveBttn);
 
-        itemDiv.append(addFavBttn);
+        // itemDiv.append(addFavBttn);
 
         $("#item-list").append(itemDiv);
 
