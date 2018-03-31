@@ -32,7 +32,7 @@ $(".search").on('click', function (event) {
             // console.log(this_id);
             // console.log(response.hits[i])
             let itemActive = $("#item-active");
-            var saveLink = response.hits[0].recipe.uri;
+            var saveLink = response.hits[0].recipe.url;
             let itemDiv = $("<div class='col-md-4 recipe'>").attr({
                 "class": "item",
                 "data-id": i
@@ -47,7 +47,7 @@ $(".search").on('click', function (event) {
 
                 var activeCaption = $(`<a>`);
                 activeCaption.attr({
-                    "href": response.hits[i].recipe.uri,
+                    "href": response.hits[i].recipe.url,
                     "role": "button"
                 });
                 activeCaption.text(response.hits[i].recipe.label);
@@ -55,7 +55,7 @@ $(".search").on('click', function (event) {
 
                 var addSaveBttn = $("<a>");
                 addSaveBttn.attr({
-                    "id": saveLink,
+                    "id": response.hits[i].recipe.url,
                     "class": "btn btn-info save-this",
                     "role": "button"
                 });
@@ -67,7 +67,7 @@ $(".search").on('click', function (event) {
                 var addFavBttn = $("<a>");
                 addFavBttn.addClass("btn btn default fav-this");
                 addFavBttn.attr({
-                    "id": saveLink,
+                    "id": response.hits[i].recipe.url,
                     "class": "btn btn-info",
                     "role": "button"
                 });
@@ -102,12 +102,12 @@ $(".search").on('click', function (event) {
             activeCaption.text(response.hits[i].recipe.label);
             activeCaption.css("color","black");
 
-            saveLink = response.hits[i].recipe.uri;
+            saveLink = response.hits[i].recipe.url;
 
             // make function
             addFavBttn = $("<a>");
             addFavBttn.attr({
-                "id": saveLink,
+                "id": response.hits[i].recipe.url,
                 "class": "btn btn-info fave-this",
                 "role": "button"
             });
@@ -116,7 +116,7 @@ $(".search").on('click', function (event) {
             // make function
             addSaveBttn = $("<a>");
             addSaveBttn.attr({
-                "id": saveLink,
+                "id": response.hits[i].recipe.url,
                 "class": "btn btn-info save-this",
                 "role": "button"
             });
