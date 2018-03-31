@@ -85,7 +85,7 @@ module.exports = function (app) {
     // ******* DOCTOR ROUTES ******* //
     app.post("/doctor", function (req, res) {
         console.log(req.body);
-        var userName = req.body.user_name;
+        var userName = req.body.doctor_name;
         req.session.user_name = userName;
         console.log("----------------------");
         console.log(userName);
