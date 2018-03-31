@@ -10,7 +10,7 @@ describe("A Better You", function() {
     this.timeout(100000);
     it("should send user to the home page", function(done){
         Nightmare({ show: true })
-          .goto("https://www.abetteryou.herokuapp.com")
+          .goto("http://www.abetteryou.herokuapp.com")
           .wait(1000) //set time limits
           // Evaluate the title
           .evaluate(function(){ return document.title; })
