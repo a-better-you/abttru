@@ -35,9 +35,11 @@
                 <li class="dropdown-select">
                     <select class="form-control form-control-lg" id="diet-restriction">
                         {{!--
-                        <option class="restrict-option">Crustacean-Free</option> --}} {{!--
+                        <option class="restrict-option">Crustacean-Free</option> --}}
+                        {{!--
                         <option class="restrict-option">Dairy-Free</option> --}}{{!--
-                        <option class="restrict-option">Kosher</option> --}} {{!--
+                        <option class="restrict-option">Kosher</option> --}}
+                        {{!--
                         <option class="restrict-option">Gluten-Free</option>
                         <option class="restrict-option">Low-Sugar</option>
                         <option class="restrict-option">Paleo</option> --}}
@@ -65,20 +67,20 @@
         <div class="col-md-2 col-sm-2">
             <a class="btn btn-default" href="/doctor">Doctor Login</a>
         </div>
-    </div> --}} {{#if errors}}
-    <div class="alert alert-danger">
-        {{#each errors}}
-        <h1>{{this.msg}}</h1>
-        {{/each}}
-    </div>
-    <form action="/doctor" method="get">
-        <input type="submit" class="alert alert-danger" value="GO BACK TO PATIENT REGISTRATION">
-    </form>
+    </div> --}}
+    {{#if errors}}
+        <div class="alert alert-danger">
+            {{#each errors}}
+                <h1>{{this.msg}}</h1>
+            {{/each}}
+        </div>
+        <form action="/doctor" method="get">
+            <input type="submit" class="alert alert-danger" value="GO BACK TO PATIENT REGISTRATION">
+        </form>
     {{/if}}
     <div class="row">
         <div class="col-md-12">
             <h1>WELCOME TO A BETTER YOU!</h1>
-            <h2>GUEST SEARCH</h2>
         </div>
     </div>
     <div class="row please-login">
@@ -98,12 +100,9 @@
                 </div>
             </div>
         </div>
-
     </div>
-   
     <div class="row">
         <div class="col-md-6">
-
         </div>
         <div class="col-md-6 patient-form">
             <form action="/profile" method="post">
@@ -126,7 +125,6 @@
                 </div>
             </form>
         </div>
-        
         <div class="col-md-6 doctor-form">
             <form action="/doctor" method="post">
                 <div class="form-group row">
@@ -186,4 +184,34 @@
         </div>
     </div>
 </div>
+{{!-- <footer id="footer">
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="text-center-align">
+            <div class="container footer" class="text-center-align">
+                <br>
+                <div class="text-center-align" id="copyright">
+                    <img src="css/A Better You.png" id="footer-logo">
+                </div>
+            </div>
+        </div>
+    </div>
+</footer> --}}
+<footer id="footer">
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container-fluid footer-place">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-footer">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-footer">
+                    <a href="/home">
+                        <img src="css/A Better You.png" id="footer-logo">
+                    </a>
+                </div>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</footer>
 <script src="js/searchRecipe.js" type="text/javascript"></script>
