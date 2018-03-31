@@ -14,9 +14,25 @@ module.exports = function (app) {
     app.post("/profile", function (req, res) {
         console.log(req.body);
         var userName = req.body.patient_name;
-        req.session.user_name = userName;
+        var userPassWord = req.body.password;
 
-        res.redirect('/profile');
+        db.patient.findAll({
+            where: {
+                patient_name: userName,
+                password: userPassWord
+            },
+        }).then(patient => {
+            console.log(patient);
+            if (patient.length == 0) {
+                res.redirect('/');
+            }
+            else {
+                req.session.user_name = userName;
+                res.redirect('/profile');
+            }
+        });
+
+
 
     });
 
@@ -85,13 +101,13 @@ module.exports = function (app) {
     // ******* DOCTOR ROUTES ******* //
     app.post("/doctor", function (req, res) {
         console.log(req.body);
-        var userName = req.body.doctor_name;
-        req.session.user_name = userName;
-        console.log("----------------------");
-        console.log(userName);
+        var doctorName = req.body.doctor_name;
+        var password = req.body.password;
+
         db.doctor.findAll({
             where: {
-                doctor_name: userName
+                doctor_name: doctorName,
+                password: password
             }
         }).then(function (response) {
             var doctorObj = response;
@@ -100,6 +116,7 @@ module.exports = function (app) {
                 res.redirect('/');
             }
             else {
+                req.session.doctor_name = doctorName;
                 res.redirect('/doctor/form');
             }
 
@@ -162,7 +179,7 @@ module.exports = function (app) {
             db.patient.create({
                 patient_name: req.body.patient_name,
                 user_name: 'default_username',
-                password: 'default_password'
+                password: req.body.password
             }),
                 db.healthStats.create({
                     patient_id: db.patient.id,
@@ -176,4 +193,21 @@ module.exports = function (app) {
 
     });
 
+    app.delete("/api/patient/:id", function (req, res) {
+        console.log(req.params.id);
+        db.patient.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).then(() => {
+            res.send({ id: req.params.id });
+        });
+
+
+    });
+
+
+
+
 };
+

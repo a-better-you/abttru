@@ -1,10 +1,10 @@
 {{!--
 <button class="change-status" data-id="{{id}}" data-newstatus="{{status}}">
 	{{#if status}}DEACTIVATE!{{else}}ACTIVATE!{{/if}}
-</button> --}} {{!--
+</button> --}}
+{{!--
 <link rel="stylesheet" href="/css/style.css" type="text/css" />
 <link rel="stylesheet" href="css/style.css" type="text/css" /> --}}
-
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <tr>
 	<td>{{patient_name}}</td>
@@ -13,5 +13,8 @@
 	<td>{{healthStat.diet_restriction}}</td>
 	<td>
 		<a href={ {savedRecipe.favorite}}>This Recipe</a>
+	</td>
+	<td>
+		<button name="button" class="delete-patient btn btn-warning" data-patient-id="{{id}}">Delete Patient</button>
 	</td>
 </tr>
