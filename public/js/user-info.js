@@ -6,6 +6,8 @@ let fave_recipe = $("#5").data().value;
 let responseObject;
 let id;
 let nextSlide = 0;
+var myModal = $("#login-modal");
+var isModalShowing = false;
 
 $(".search").on('click', function (event) {
     event.preventDefault();
@@ -22,43 +24,7 @@ $(".search").on('click', function (event) {
     }).done(function (response) {
 
         responseObject = response;
-        // console.log(response);
-        // console.log(responseObject);
-        // we create indicators - we will target this 
-        // in the for loop with <li> items
-        // let itemActive = $("#item-active");
 
-        // var activeImg = $("<img>").attr({
-        //     "src": response.hits[0].recipe.image,
-        //     "data-id": 0,
-        //     "class": "img-responsive"
-        // });
-
-        // var activeCaption = $(`<a>`);
-        // activeCaption.attr({
-        //     "href": response.hits[0].recipe.uri,
-        //     "class": "btn btn-info",
-        //     "role": "button"
-        // });
-        // activeCaption.text(response.hits[0].recipe.label);
-
-        // var saveLink = response.hits[0].recipe.uri;
-
-        // let activeImg = $("<img src = 'response.hits[0].recipe.image' alt = 'recipe'>");
-        // itemActive.append(activeCaption);
-        // itemActive.append(activeImg);
-        // itemActive.append(addSaveBttn);
-
-
-        // $('.carousel').carousel("pause");
-        // $("#panel-slider").show();
-
-        // console.log(response.hits[0].recipe.image);
-        // console.log(response.hits[1].recipe.image);
-        // start of plotly code
-        // id = 1;
-        // responseObject = response;
-        // createPlots(responseObject, 0);
 
         for (let i = 0; i < response.hits.length; i++) {
 
@@ -175,6 +141,14 @@ $(".search").on('click', function (event) {
             var id = this_id;
             var newFavorite = $(this).data("true");
             // var newFavoriteState = { favorite: newFavorite }
+            var header = "<h1>" + "A BETTER YOU" + "</h1>";
+            var itsFaved = "<h2>" + "This is now your favorite recipe!" + "</h2>";
+            if(isModalShowing) return;
+            isModalShowing = true;
+            $(".modal-header").append(header);
+            $(".modal-body").append(itsFaved);
+            myModal.attr("class", "modal fade in");
+            myModal.attr("style", "display: block");
             $.ajax({
                 url: "profile/fave",
                 method: "PUT",
@@ -185,6 +159,7 @@ $(".search").on('click', function (event) {
                 }
             }).done(function (response) {
                 console.log("This is your new favorite!");
+
             });
         });
 
@@ -194,6 +169,14 @@ $(".search").on('click', function (event) {
             console.log(uri);
             console.log(this_id);
             var id = this_id;
+            var header = "<h1>" + "A BETTER YOU" + "</h1>";
+            var itsFaved = "<h2>" + "Your reciped has been saved!" + "</h2>";
+            if(isModalShowing) return;
+            isModalShowing = true;
+            $(".modal-header").append(header);
+            $(".modal-body").append(itsFaved);
+            myModal.attr("class", "modal fade in");
+            myModal.attr("style", "display: block");
             $.ajax({
                 url: "/profile/save",
                 method: "POST",
@@ -203,13 +186,25 @@ $(".search").on('click', function (event) {
                 }
             }).done(function (response) {
                 console.log(response);
+
             });
         });
+
+     // Sets a listener for closing the modal and resetting parameters
+     $(".close").on("click", function(){
+        $(".header-content").empty();
+        $(".modal-body").empty();
+        $(".footer-content").empty();
+        myModal.attr("class", "modal fade out");
+        myModal.attr("style", "display: none");
+        isModalShowing = false;
+      });
+
     });
 });
 
 $(".right").on('click', function (event) {
-    console.log('right clicked modafoca!');
+    // console.log('right clicked modafoca!');
     nextSlide++;
     if (nextSlide > 4) {
         nextSlide = 0;
