@@ -141,11 +141,10 @@ $(".search").on('click', function (event) {
             var id = this_id;
             var newFavorite = $(this).data("true");
             // var newFavoriteState = { favorite: newFavorite }
-            var header = "<h1>" + "A BETTER YOU" + "</h1>";
+        
             var itsFaved = "<h2>" + "This is now your favorite recipe!" + "</h2>";
             if(isModalShowing) return;
             isModalShowing = true;
-            $(".modal-header").append(header);
             $(".modal-body").append(itsFaved);
             myModal.attr("class", "modal fade in");
             myModal.attr("style", "display: block");
@@ -169,11 +168,9 @@ $(".search").on('click', function (event) {
             console.log(uri);
             console.log(this_id);
             var id = this_id;
-            var header = "<h1>" + "A BETTER YOU" + "</h1>";
             var itsFaved = "<h2>" + "Your reciped has been saved!" + "</h2>";
             if(isModalShowing) return;
             isModalShowing = true;
-            $(".modal-header").append(header);
             $(".modal-body").append(itsFaved);
             myModal.attr("class", "modal fade in");
             myModal.attr("style", "display: block");
