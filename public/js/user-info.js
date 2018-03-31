@@ -2,7 +2,7 @@ let this_id = $("#1").data().value;
 let risk_factor = $("#2").data().value;
 let diet_recommendation = $("#3").data().value;
 let diet_restriction = $("#4").data().value;
-let fave_recipe = $("#5").data().value;
+// let fave_recipe = $("#5").data().value;
 let responseObject;
 let id;
 let nextSlide = 0;
