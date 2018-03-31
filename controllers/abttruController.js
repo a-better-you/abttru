@@ -35,7 +35,7 @@ module.exports = function (app) {
             // console.log(patient.map(x => x.savedRecipe.dataValues))
             // console.log(patient);
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
-            let hbsRecipe = { recipes: patient.map(x => x.savedRecipe.dataValues)};
+            // let hbsRecipe = { recipes: patient.map(x => x.savedRecipe.dataValues)};
             // console.log(hbsPatient);
             res.render("user-info", hbsPatient);
         }).catch(function (error) {
@@ -60,23 +60,26 @@ module.exports = function (app) {
         console.log(req.body.id);
         console.log("------------------------");
 
-            db.savedRecipes.update({
-                favorite: false
-            },{
-                where: { 
+        db.savedRecipes.update({
+            favorite: false
+        }, {
+                where: {
                     favorite: true,
-                    patient_id: req.body.id }
-            }).then(function (savedRecipes) {    
+                    patient_id: req.body.id
+                }
+            }).then(function (savedRecipes) {
                 db.savedRecipes.update({
                     favorite: req.body.favorite
-                },{
-                    where: { patient_id: req.body.id,
-                    recipe: req.body.recipe }
-            }).then(function (savedRecipe) {
-                console.log(savedRecipe);
- 
+                }, {
+                        where: {
+                            patient_id: req.body.id,
+                            recipe: req.body.recipe
+                        }
+                    }).then(function (savedRecipe) {
+                        console.log(savedRecipe);
+
+                    });
             });
-        });
     });
 
     // ******* DOCTOR ROUTES ******* //

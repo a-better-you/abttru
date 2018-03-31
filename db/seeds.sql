@@ -7,7 +7,7 @@ VALUES
 INSERT INTO healthStats
     (patient_id, diet_recommendation, risk_factor, diet_restriction)
 VALUES
-    ('1', 'low-sodium', 'high-cholesterol', 'gluten-free');
+    ('1', 'low-fat', 'high-cholesterol', 'sugar-conscious');
 INSERT INTO doctors
     (patient_id, doctor_name, user_name, password)
 VALUES

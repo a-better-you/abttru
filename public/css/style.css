@@ -1,18 +1,26 @@
 table {
     font-family: arial, sans-serif;
+    font-size: 20px;
     border-collapse: collapse;
+    border: 1px solid #ddd;
     width: 100%;
 }
 
 td, th {
+    font-weight: bolder;
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+    border: 1px solid #ddd;
 }
 
-tr:nth-child(even) {
-    background-color: #dddddd;
+td{
+   color: white;
 }
+
+/* tr:nth-child(even) {
+    background-color: #dddddd;
+} */
 
 .dropdown-select {
     padding: 8px;
@@ -26,4 +34,39 @@ body {
     background-size: cover;
     height: 100%;
 }
-  
+
+#brand-logo {
+    height: 61px;
+    width: 120px;
+}
+
+.container-fluid {
+    padding-left: 0;
+}
+
+.panel-default {
+    font-size: 20px;
+    background: rgba(44, 62, 79, 0.2);
+    padding: 0;
+
+}
+ .svg-container{
+    background: rgba(44, 62, 79, 0.2); 
+ }
+
+#doctor-panel {
+    padding: 5;
+}
+
+.patient-form {
+    display: none;
+}
+
+.doctor-form {
+    display: none;
+}
+
+.please-login {
+    margin: 10px 0px 10px 0px;
+    padding: 10px;
+}

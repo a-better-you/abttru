@@ -48,7 +48,7 @@ $(".search").on('click', function (event) {
         // itemActive.append(activeCaption);
         // itemActive.append(activeImg);
         // itemActive.append(addSaveBttn);
-        
+
 
         // $('.carousel').carousel("pause");
         // $("#panel-slider").show();
@@ -93,8 +93,8 @@ $(".search").on('click', function (event) {
                     "role": "button"
                 });
                 addSaveBttn.text("Save This!");
-                
-                console.log("its zero"); 
+
+                console.log("its zero");
 
                 // make function
                 var addFavBttn = $("<a>");
@@ -116,8 +116,9 @@ $(".search").on('click', function (event) {
                 id = 1;
                 responseObject = response;
                 createPlots(responseObject, i);
-        
-                continue; }
+
+                continue;
+            }
 
             activeImg = $("<img>").attr({
                 "src": response.hits[i].recipe.image,
@@ -129,7 +130,7 @@ $(".search").on('click', function (event) {
             activeCaption.attr({
                 "href": response.hits[i].recipe.url,
                 "target": "_blank",
-            "role": "button"
+                "role": "button"
             });
             activeCaption.text(response.hits[i].recipe.label);
 
@@ -175,7 +176,7 @@ $(".search").on('click', function (event) {
             $.ajax({
                 url: "profile/fave",
                 method: "PUT",
-                data: { 
+                data: {
                     favorite: true,
                     id: id,
                     recipe: uri
@@ -184,7 +185,7 @@ $(".search").on('click', function (event) {
                 console.log("This is your new favorite!");
             });
         });
-    
+
         $(".save-this").on('click', function (event) {
             console.log('saved');
             uri = event.currentTarget.id;
@@ -194,10 +195,10 @@ $(".search").on('click', function (event) {
             $.ajax({
                 url: "/profile/save",
                 method: "POST",
-                data: { 
+                data: {
                     save_recipe: uri,
                     id: id
-                 }
+                }
             }).done(function (response) {
                 console.log(response);
             });
@@ -260,7 +261,7 @@ function createPlots(response, i) {
     ];
 
     arrayDigest.forEach((nutrient, i) => {
-        // console.log(nutrient);
+        // console.log(nutrient.label, nutrient.unit);
         // push nutrient servings for each nutrient
         if (nutrient.label === "Fat" || nutrient.label === "Carbs" || nutrient.label === "Protein") {
             firstPlot.values.push(nutrient.total / reciYield);
@@ -286,21 +287,19 @@ function createPlots(response, i) {
         else if (i > 3 & i < 11) {
             // console.log(nutrient, i);
             // console.log(arrayDigest.slice(1, 5));
-            thirdPlot.values.push(nutrient.daily / reciYield);
+            thirdPlot.values.push((nutrient.total) / reciYield);
             thirdPlot.labels.push(nutrient.label);
 
         }
         else if (i > 10 & i < 24) {
             // console.log(nutrient, i);
             // console.log(arrayDigest.slice(1, 5));
-            fourthPlot.values.push(nutrient.daily / reciYield);
+            fourthPlot.values.push(nutrient.total / reciYield);
             fourthPlot.labels.push(nutrient.label);
 
         }
 
     });
-    // console.log(secondPlot);
-    // console.log(plotObject);
 
     // process nutrition data
     let totalNutrients = response.hits[1].recipe.digest;
@@ -368,12 +367,14 @@ function createPlots(response, i) {
         name: 'Vitamins',
         hoverinfo: 'label+percent+name',
         hole: .6,
-        type: 'pie'
+        type: 'pie',
 
     }];
 
     var layout = {
         title: 'Nutrient Breakdown',
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
         annotations: [
             {
                 font: {
@@ -415,11 +416,8 @@ function createPlots(response, i) {
         ],
         showlegend: false,
         height: 500,
-        width: 500,
-        grid: {
-            ygap: 0.8
-        },
-        // paper_bgcolor='rgb(254, 247, 234)'
+        width: 500
+        //plot_bgcolor='rgb(254, 247, 234, 0.2)'
     };
 
     Plotly.newPlot('tester', data, layout);
