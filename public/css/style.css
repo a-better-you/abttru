@@ -82,3 +82,22 @@ body {
     padding: 10px;
 }
 
+#copyright {
+    color: whitesmoke;
+    text-align: right;
+
+}
+
+#footer-logo {
+    float: right;
+    height: 61px;
+    width: 120px;
+}
+
+.footer-place {
+    padding-right: 0;
+}
+
+.patient-container {
+    padding-bottom: 80px;
+}
