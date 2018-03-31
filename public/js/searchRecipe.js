@@ -22,22 +22,19 @@ $(document).ready(function () {
     });
     $(document).on('change', '.login', function () {
         login_option = $("#login").val().toLowerCase().trim();
-        if(login_option==="patient")
-        {
+        if (login_option === "patient") {
             $(".patient-form").show();
             $(".doctor-form").hide();
         }
-        else if (login_option === "doctor")
-        {
+        else if (login_option === "doctor") {
             $(".patient-form").hide();
             $(".doctor-form").show();
         }
-        else
-        {
+        else {
             $(".patient-form").hide();
             $(".doctor-form").hide();
         }
-        
+
     });
 });
 
