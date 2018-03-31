@@ -3,21 +3,21 @@
 const Nightmare = require("nightmare");
 const expect = require("chai").expect;
 
-describe("Google", function() {
+describe("A Better You", function() {
     // The default timeout for tests in mocha is 2 seconds.
     // Extending it to 20 seconds to have time to load the pages
 
     this.timeout(100000);
     it("should send user to the home page", function(done){
         Nightmare({ show: true })
-          .goto("https://www.google.com")
+          .goto("https://www.abetteryou.herokuapp.com")
           .wait(1000) //set time limits
           // Evaluate the title
           .evaluate(function(){ return document.title; })
           .end()
           // Asset the title is as expected
           .then(function(title){
-              expect(title).to.equal("Google");
+              expect(title).to.equal("A Better you");
               done();
           })
           .catch(done);
