@@ -141,9 +141,9 @@ $(".search").on('click', function (event) {
             var id = this_id;
             var newFavorite = $(this).data("true");
             // var newFavoriteState = { favorite: newFavorite }
-        
+
             var itsFaved = "<h2>" + "This is now your favorite recipe!" + "</h2>";
-            if(isModalShowing) return;
+            if (isModalShowing) return;
             isModalShowing = true;
             $(".modal-body").append(itsFaved);
             myModal.attr("class", "modal fade in");
@@ -169,7 +169,7 @@ $(".search").on('click', function (event) {
             console.log(this_id);
             var id = this_id;
             var itsFaved = "<h2>" + "Your reciped has been saved!" + "</h2>";
-            if(isModalShowing) return;
+            if (isModalShowing) return;
             isModalShowing = true;
             $(".modal-body").append(itsFaved);
             myModal.attr("class", "modal fade in");
@@ -187,15 +187,15 @@ $(".search").on('click', function (event) {
             });
         });
 
-     // Sets a listener for closing the modal and resetting parameters
-     $(".close").on("click", function(){
-        $(".header-content").empty();
-        $(".modal-body").empty();
-        $(".footer-content").empty();
-        myModal.attr("class", "modal fade out");
-        myModal.attr("style", "display: none");
-        isModalShowing = false;
-      });
+        // Sets a listener for closing the modal and resetting parameters
+        $(".close").on("click", function () {
+            $(".header-content").empty();
+            $(".modal-body").empty();
+            $(".footer-content").empty();
+            myModal.attr("class", "modal fade out");
+            myModal.attr("style", "display: none");
+            isModalShowing = false;
+        });
 
     });
 });
