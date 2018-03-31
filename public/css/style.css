@@ -50,8 +50,19 @@ body {
     padding: 0;
 
 }
- .svg-container{
-    background: rgba(44, 62, 79, 0.2); 
+
+.ploty {
+   height: 750px;
+    width: 750px; 
+}
+
+ .svg-container {
+    background: rgba(44, 62, 79, 0.2);
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-weight: bolder;
+    font-size: 20px;
+
  }
 
 #doctor-panel {
@@ -70,3 +81,4 @@ body {
     margin: 10px 0px 10px 0px;
     padding: 10px;
 }
+
