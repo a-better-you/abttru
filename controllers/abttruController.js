@@ -6,10 +6,8 @@ module.exports = function (app) {
 
 
     app.get("/home", function (req, res) {
-        res.render(path.join(__dirname, "../views/main-page.handlebars"));
+        res.render(path.join(__dirname, "../views/home-page.handlebars"));
     });
-
-
 
     app.post("/profile", function (req, res) {
         console.log(req.body);
@@ -44,27 +42,40 @@ module.exports = function (app) {
         db.patient.belongsTo(db.savedRecipes, { foreignKey: 'id', constraints: false });
         db.patient.findAll({
             where: { patient_name: req.session.user_name },
-            include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats 
+            include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats
+
         }).then(patient => {
-            console.log(patient.map(x => x.dataValues));
-            // console.log(patient.map(x => x.healthStat.dataValues))
-            // console.log(patient.map(x => x.savedRecipe.dataValues))
-            // console.log(patient);
-            let hbsPatient = { patients: patient.map(x => x.dataValues) };
-            // let hbsRecipe = { recipes: patient.map(x => x.savedRecipe.dataValues)};
-            // console.log(hbsPatient);
-            res.render("user-info", hbsPatient);
+                // console.log(patient);
+                let hbsPatient = { patients: patient.map(x => x.dataValues) };
+                console.log(hbsPatient);
+            db.savedRecipes.findAll({
+                where: { patient_id: patient.map(x => x.dataValues.id).toString() },
+            }).then(savedRecipes => { 
+                // console.log(savedRecipes);
+                let recipeName = savedRecipes.map(x => x.dataValues.recipe_name);
+                console.log(recipeName);
+                let recipeImg = savedRecipes.map(x => x.dataValues.recipe_img);
+                console.log(recipeImg);
+                let recipeUrl = savedRecipes.map(x => x.dataValues.recipe);
+                console.log(recipeUrl);
+                let recipeUri = savedRecipes.map(x => x.dataValues.recipe_uri);
+                console.log(recipeUri);
+            });
+            res.render("patient-page", hbsPatient);
         }).catch(function (error) {
             console.log(error);
-        });;
+        });
     });
 
     app.post("/profile/save", function (req, res) {
         console.log(req.body);
         // Save a recipe with the data available to us in req.body
         db.savedRecipes.create({
-            recipe: req.body.save_recipe,
-            patient_id: req.body.id
+            patient_id: req.body.id,
+            recipe_name: req.body.recipe_name,
+            recipe_img: req.body.recipe_img,
+            recipe: req.body.recipe,
+            recipe_uri: req.body.recipe_uri,   
         }).then(function (savedRecipe) {
             res.send(savedRecipe);
         });
@@ -78,24 +89,21 @@ module.exports = function (app) {
 
         db.savedRecipes.update({
             favorite: false
-        }, {
-                where: {
-                    favorite: true,
-                    patient_id: req.body.id
+        }, { where: {
+                favorite: true,
+                patient_id: req.body.id
+            }
+        }).then(function (savedRecipes) {
+            db.savedRecipes.update({
+                favorite: req.body.favorite
+                }, { where: {
+                        patient_id: req.body.id,
+                        recipe: req.body.recipe
                 }
-            }).then(function (savedRecipes) {
-                db.savedRecipes.update({
-                    favorite: req.body.favorite
-                }, {
-                        where: {
-                            patient_id: req.body.id,
-                            recipe: req.body.recipe
-                        }
-                    }).then(function (savedRecipe) {
-                        console.log(savedRecipe);
-
-                    });
+            }).then(function (savedRecipe) {
+                    console.log(savedRecipe);
             });
+        });
     });
 
     // ******* DOCTOR ROUTES ******* //
@@ -132,7 +140,7 @@ module.exports = function (app) {
             include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats 
         }).then(patient => {
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
-            res.render("patient", hbsPatient);
+            res.render("doctor-page", hbsPatient);
         })
     });
 
@@ -141,7 +149,7 @@ module.exports = function (app) {
         }).then(patient => {
             hbsObj = { patients: patient.map(x => x.dataValues) };
             console.log(hbsObj);
-            res.render("patient", hbsObj);
+            res.render("doctor-page", hbsObj);
         });
     });
 
@@ -153,7 +161,7 @@ module.exports = function (app) {
             include: [{ model: db.healthStats }, { model: db.savedRecipes }], // load all healthStats 
         }).then(patient => {
             let hbsPatient = { patients: patient.map(x => x.dataValues) };
-            res.render("patient", hbsPatient);
+            res.render("doctor-page", hbsPatient);
         })
     });
 
@@ -165,7 +173,7 @@ module.exports = function (app) {
 
         if (errors) {
             console.log(`errors: ${JSON.stringify(errors)}`);
-            res.render('patient', { errors: errors });
+            res.render('doctor-page', { errors: errors });
         } else {
 
             const patientName = req.body.patient_name;
@@ -202,12 +210,7 @@ module.exports = function (app) {
         }).then(() => {
             res.send({ id: req.params.id });
         });
-
-
     });
-
-
-
 
 };
 

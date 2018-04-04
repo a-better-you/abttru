@@ -8,6 +8,10 @@ let id;
 let nextSlide = 0;
 var myModal = $("#login-modal");
 var isModalShowing = false;
+let image;
+let caption;
+let saveBttn;
+let faveBttn;
 
 $(".search").on('click', function (event) {
     event.preventDefault();
@@ -32,51 +36,56 @@ $(".search").on('click', function (event) {
             // console.log(this_id);
             // console.log(response.hits[i])
             let itemActive = $("#item-active");
-            var saveLink = response.hits[0].recipe.url;
             let itemDiv = $("<div class='col-md-4 recipe'>").attr({
                 "class": "item",
                 "data-id": i
             });
             if (i < 1) {
 
-                var activeImg = $("<img>").attr({
+                image = $("<img>").attr({
                     "src": response.hits[i].recipe.image,
                     "data-id": 0,
                     "class": "img-responsive"
                 });
 
-                var activeCaption = $(`<a>`);
-                activeCaption.attr({
+                caption = $(`<a>`);
+                caption.attr({
                     "href": response.hits[i].recipe.url,
+                    "target": "_blank",
                     "role": "button"
                 });
-                activeCaption.text(response.hits[i].recipe.label);
-                activeCaption.css("color", "black");
+                caption.text(response.hits[i].recipe.label);
+                caption.css("color", "black");
 
-                var addSaveBttn = $("<a>");
-                addSaveBttn.attr({
-                    "id": response.hits[i].recipe.url,
+                saveBttn = $("<a>");
+                saveBttn.attr({
+                    "id": response.hits[i].recipe.label,
+                    "src": response.hits[i].recipe.image,
+                    "value": response.hits[i].recipe.url,
+                    "uri": response.hits[i].recipe.uri,
                     "class": "btn btn-info save-this",
                     "role": "button"
                 });
-                addSaveBttn.text("Save This!");
+                saveBttn.text("Save This!");
 
                 console.log("its zero");
 
                 // make function
-                var addFavBttn = $("<a>");
-                addFavBttn.addClass("btn btn default fav-this");
-                addFavBttn.attr({
-                    "id": response.hits[i].recipe.url,
-                    "class": "btn btn-info",
+                faveBttn = $("<a>");
+                faveBttn.attr({
+                    "id": response.hits[i].recipe.label,
+                    "src": response.hits[i].recipe.image,
+                    "value": response.hits[i].recipe.url,
+                    "uri": response.hits[i].recipe.uri,
+                    "class": "btn btn-info fave-this",
                     "role": "button"
                 });
-                addFavBttn.text("Fave This!");
+                faveBttn.text("Fave This!");
 
-                itemActive.append(activeCaption);
-                itemActive.append(activeImg);
-                itemActive.append(addSaveBttn);
-                itemActive.append(addFavBttn);
+                itemActive.append(caption);
+                itemActive.append(image);
+                itemActive.append(saveBttn);
+                itemActive.append(faveBttn);
 
                 $('.carousel').carousel("pause");
                 $("#panel-slider").show();
@@ -87,45 +96,50 @@ $(".search").on('click', function (event) {
                 continue;
             }
 
-            activeImg = $("<img>").attr({
+            image = $("<img>").attr({
+                "id": response.hits[i].recipe.uri,
                 "src": response.hits[i].recipe.image,
                 "data-id": i,
                 "class": "img-responsive"
             });
 
-            activeCaption = $(`<a>`);
-            activeCaption.attr({
+            caption = $(`<a>`);
+            caption.attr({
                 "href": response.hits[i].recipe.url,
                 "target": "_blank",
                 "role": "button"
             });
-            activeCaption.text(response.hits[i].recipe.label);
-            activeCaption.css("color", "black");
-
-            saveLink = response.hits[i].recipe.url;
+            caption.text(response.hits[i].recipe.label);
+            caption.css("color", "black");
 
             // make function
-            addFavBttn = $("<a>");
-            addFavBttn.attr({
-                "id": response.hits[i].recipe.url,
-                "class": "btn btn-info fave-this",
-                "role": "button"
-            });
-            addFavBttn.text("Fave This!");
-
-            // make function
-            addSaveBttn = $("<a>");
-            addSaveBttn.attr({
-                "id": response.hits[i].recipe.url,
+            saveBttn = $("<a>");
+            saveBttn.attr({
+                "id": response.hits[i].recipe.label,
+                "src": response.hits[i].recipe.image,
+                "value": response.hits[i].recipe.url,
+                "uri": response.hits[i].recipe.uri,
                 "class": "btn btn-info save-this",
                 "role": "button"
             });
-            addSaveBttn.text("Save This!");
+            saveBttn.text("Save This!");
 
-            itemDiv.append(activeCaption);
-            itemDiv.append(activeImg);
-            itemDiv.append(addSaveBttn);
-            itemDiv.append(addFavBttn);
+            // make function
+            faveBttn = $("<a>");
+            faveBttn.attr({
+                "id": response.hits[i].recipe.label,
+                "src": response.hits[i].recipe.image,
+                "value": response.hits[i].recipe.url,
+                "uri": response.hits[i].recipe.uri,
+                "class": "btn btn-info fave-this",
+                "role": "button"
+            });
+            faveBttn.text("Fave This!");
+
+            itemDiv.append(caption);
+            itemDiv.append(image);
+            itemDiv.append(saveBttn);
+            itemDiv.append(faveBttn);
 
             $("#item-list").append(itemDiv);
 
@@ -133,10 +147,50 @@ $(".search").on('click', function (event) {
 
         console.log($(`#item-active`).hasClass("active"));
 
+        $(".save-this").on('click', function (event) {
+            console.log('saved');
+            name = event.currentTarget.id;
+            src = event.currentTarget.getAttribute('src');
+            recipe = event.currentTarget.getAttribute('value');
+            uri = event.currentTarget.getAttribute('uri');
+
+            console.log(event.currentTarget);
+            console.log(this_id);
+            console.log(name);
+            console.log(src);
+            console.log(recipe);
+            console.log(uri);
+
+            let id = this_id;
+            let itsFaved = "<h2>" + "Your reciped has been saved!" + "</h2>";
+            if (isModalShowing) return;
+            isModalShowing = true;
+            $(".modal-body").append(itsFaved);
+            myModal.attr("class", "modal fade in");
+            myModal.attr("style", "display: block");
+            $.ajax({
+                url: "/profile/save",
+                method: "POST",
+                data: {
+                    id: id,
+                    recipe_name: name,
+                    recipe_img: src,
+                    recipe: recipe,
+                    recipe_uri: uri
+                }
+            }).done(function (response) {
+                console.log(response);
+
+            });
+        });
+
         $(".fave-this").on('click', function (event) {
             console.log("favorited");
-            uri = event.currentTarget.id;
-            console.log(uri);
+            name = event.currentTarget.id;
+            src = event.currentTarget.getAttribute('src');
+            recipe = event.currentTarget.getAttribute('value');
+            uri = event.currentTarget.getAttribute('uri');
+            console.log(recipe);
             console.log(this_id);
             var id = this_id;
             var newFavorite = $(this).data("true");
@@ -154,7 +208,9 @@ $(".search").on('click', function (event) {
                 data: {
                     favorite: true,
                     id: id,
-                    recipe: uri
+                    recipe: recipe,
+                    // recipe_uri: uri,
+                    // recipe_title: src
                 }
             }).done(function (response) {
                 console.log("This is your new favorite!");
@@ -162,30 +218,7 @@ $(".search").on('click', function (event) {
             });
         });
 
-        $(".save-this").on('click', function (event) {
-            console.log('saved');
-            uri = event.currentTarget.id;
-            console.log(uri);
-            console.log(this_id);
-            var id = this_id;
-            var itsFaved = "<h2>" + "Your reciped has been saved!" + "</h2>";
-            if (isModalShowing) return;
-            isModalShowing = true;
-            $(".modal-body").append(itsFaved);
-            myModal.attr("class", "modal fade in");
-            myModal.attr("style", "display: block");
-            $.ajax({
-                url: "/profile/save",
-                method: "POST",
-                data: {
-                    save_recipe: uri,
-                    id: id
-                }
-            }).done(function (response) {
-                console.log(response);
 
-            });
-        });
 
         // Sets a listener for closing the modal and resetting parameters
         $(".close").on("click", function () {

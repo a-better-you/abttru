@@ -3,6 +3,7 @@ table {
     font-size: 20px;
     border-collapse: collapse;
     border: 1px solid #ddd;
+    border-spacing: 0;
     width: 100%;
 }
 
@@ -18,15 +19,20 @@ td{
    color: white;
 }
 
+
 /* tr:nth-child(even) {
     background-color: #dddddd;
 } */
 
 .dropdown-select {
-    padding: 8px;
+    padding: 5px 5px 0px 20px;
     /* padding-bottom: 19.5px; */
 }
+.navbar-right {
+    padding: 5px 20px 5px 20px
+}
 
+html,
 body {
     /* background-image: url("test.jpg"); */
     background-image: url("test.jpg");
