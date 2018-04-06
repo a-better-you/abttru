@@ -32,7 +32,7 @@ $(".search").on('click', function (event) {
 
         for (let i = 0; i < response.hits.length; i++) {
 
-            // console.log(response.hits[i])
+            console.log(response.hits[i])
             // console.log(this_id);
             // console.log(response.hits[i])
             let itemActive = $("#item-active");
@@ -70,6 +70,17 @@ $(".search").on('click', function (event) {
 
                 console.log("its zero");
 
+                                // function makeButton(iterator){}
+                                // button = $("<a>");
+                                // button.attr({
+                                //     "id": response.hits[iterator].recipe.label,
+                                //     "src": response.hits[iteratori].recipe.image,
+                                //     "value": response.hits[iterator].recipe.url,
+                                //     "uri": response.hits[iterator].recipe.uri,
+                                //     "class": "btn btn-info fave-this",
+                                //     "role": "button"
+                                // });
+                                // faveBttn.text("Fave This!");
                 // make function
                 faveBttn = $("<a>");
                 faveBttn.attr({
@@ -178,9 +189,8 @@ $(".search").on('click', function (event) {
                     recipe: recipe,
                     recipe_uri: uri
                 }
-            }).done(function (response) {
+            }).then(function (response) {
                 console.log(response);
-
             });
         });
 
@@ -209,12 +219,9 @@ $(".search").on('click', function (event) {
                     favorite: true,
                     id: id,
                     recipe: recipe,
-                    // recipe_uri: uri,
-                    // recipe_title: src
                 }
-            }).done(function (response) {
+            }).then(function (response) {
                 console.log("This is your new favorite!");
-
             });
         });
 
@@ -228,6 +235,8 @@ $(".search").on('click', function (event) {
             myModal.attr("class", "modal fade out");
             myModal.attr("style", "display: none");
             isModalShowing = false;
+            // Reload the page to get the updated list
+            location.reload();
         });
 
     });

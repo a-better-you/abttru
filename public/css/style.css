@@ -19,6 +19,10 @@ td{
    color: white;
 }
 
+a {
+    /* color:rgba(44, 62, 79, 0.2); */
+    color: whitesmoke;
+}
 
 /* tr:nth-child(even) {
     background-color: #dddddd;

@@ -1,9 +1,11 @@
-var path = require("path");
-var db = require("../models");
-var expressValidator = require("express-validator");
-let hbsObj;
-module.exports = function (app) {
+const path = require("path");
+const db = require("../models");
+const expressValidator = require("express-validator");
+const axios = require('axios');
+let hbs;
+let faveRecipe;
 
+module.exports = function (app) {
 
     app.get("/home", function (req, res) {
         res.render(path.join(__dirname, "../views/home-page.handlebars"));
@@ -29,9 +31,6 @@ module.exports = function (app) {
                 res.redirect('/profile');
             }
         });
-
-
-
     });
 
     app.get("/profile", function (req, res) {
@@ -46,22 +45,37 @@ module.exports = function (app) {
 
         }).then(patient => {
                 // console.log(patient);
-                let hbsPatient = { patients: patient.map(x => x.dataValues) };
-                console.log(hbsPatient);
+                let hbsPatient = { patients: patient.map(x => x.dataValues), recipes: [], faveRecipe: [] };
+                
             db.savedRecipes.findAll({
                 where: { patient_id: patient.map(x => x.dataValues.id).toString() },
             }).then(savedRecipes => { 
-                // console.log(savedRecipes);
+                console.log(savedRecipes);
+                hbsPatient.recipes = savedRecipes.map(x => x.dataValues);
+                
                 let recipeName = savedRecipes.map(x => x.dataValues.recipe_name);
-                console.log(recipeName);
+                // console.log(recipeName);
                 let recipeImg = savedRecipes.map(x => x.dataValues.recipe_img);
-                console.log(recipeImg);
+                // console.log(recipeImg);
                 let recipeUrl = savedRecipes.map(x => x.dataValues.recipe);
-                console.log(recipeUrl);
+                // console.log(recipeUrl);
                 let recipeUri = savedRecipes.map(x => x.dataValues.recipe_uri);
-                console.log(recipeUri);
-            });
-            res.render("patient-page", hbsPatient);
+                // console.log(recipeUri);
+                // console.log(recipeUri[0].replace(/[#]/gi, '%23'));
+
+                //NEED TO REPLACE # with %23!!//
+                axios.get('https://api.edamam.com/search?r=' + recipeUri[0].replace(/[#]/gi, '%23') + '&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99')
+                    .then(response => {
+                        faveRecipe = response.data;
+                        // console.log(faveRecipe);
+                        // console.log(response.data.explanation);
+                    }).catch(error => {
+                        console.log(error);
+                });
+            }).then(() => {
+                console.log(hbsPatient);
+                res.render("patient-page", hbsPatient);});
+            
         }).catch(function (error) {
             console.log(error);
         });
