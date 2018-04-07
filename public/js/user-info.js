@@ -236,11 +236,42 @@ $(".search").on('click', function (event) {
             myModal.attr("style", "display: none");
             isModalShowing = false;
             // Reload the page to get the updated list
-            location.reload();
+            // location.reload();
         });
 
     });
 });
+
+// $(".change-favorite").on('click', function (event) {
+//     console.log("favorited");
+//     name = event.currentTarget.id;
+//     src = event.currentTarget.getAttribute('src');
+//     recipe = event.currentTarget.getAttribute('value');
+//     uri = event.currentTarget.getAttribute('uri');
+//     console.log(recipe);
+//     console.log(this_id);
+//     var id = this_id;
+//     var newFavorite = $(this).data("true");
+//     // var newFavoriteState = { favorite: newFavorite }
+
+//     var itsFaved = "<h2>" + "This is now your favorite recipe!" + "</h2>";
+//     if (isModalShowing) return;
+//     isModalShowing = true;
+//     $(".modal-body").append(itsFaved);
+//     myModal.attr("class", "modal fade in");
+//     myModal.attr("style", "display: block");
+//     $.ajax({
+//         url: "profile/fave",
+//         method: "PUT",
+//         data: {
+//             favorite: true,
+//             id: id,
+//             recipe: recipe,
+//         }
+//     }).then(function (response) {
+//         console.log("This is your new favorite!");
+//     });
+// });
 
 $(".right").on('click', function (event) {
     // console.log('right clicked modafoca!');

@@ -1,6 +1,6 @@
 	{{#each recipes}}
 		<p></p><a href="{{this.recipe}}" target="_blank">{{this.recipe_name}}</a></p>
-		<button class="fave-this" data-id="{{this.id}}" data-favorite="{{this.recipe.favorite}}">
+		<button class="change-favorite" data-id="{{this.id}}" data-favorite="{{this.favorite}}">
 			{{#if favorite}}My Favorite{{else}}Make Favorite{{/if}}
 		</button>
 	{{/each}}
