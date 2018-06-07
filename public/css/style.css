@@ -1,11 +1,19 @@
-html,
+html {     
+    position: relative;
+    height: auto;
+    min-height: 100% !important;
+}
+
+
 body {
-    height: 100%;
-    /* background-image: url("test.jpg"); */
     background-image: url("test.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    
+    /* display: block;
+    overflow: auto; */
+    position: relative;
+    height: auto;
+    min-height: 100% !important;
 }
 
 table {
@@ -63,7 +71,7 @@ a {
 
 }
 
-.ploty {
+/* .ploty {
    height: 750px;
     width: 750px; 
 }
@@ -75,7 +83,14 @@ a {
     font-weight: bolder;
     font-size: 20px;
 
- }
+ } */
+
+ /* .svg-container {
+     width: 100% !important;
+     height: auto !important;
+ } */
+
+
 
 #doctor-panel {
     padding: 5;
@@ -112,4 +127,24 @@ a {
 
 .patient-container {
     padding-bottom: 80px;
+}
+
+.recipe {
+    width: 100px;
+    height: 100px;
+}
+
+.recipe,
+.rec-name {
+    float: left;
+}
+
+.saved-recipes {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 25px;
+}
+
+.bottom {
+    margin-bottom:100px;
 }

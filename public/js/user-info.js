@@ -32,80 +32,31 @@ $(".search").on('click', function (event) {
 
         for (let i = 0; i < response.hits.length; i++) {
 
+            // function makeButton(name){
+            //     name = $("<button>");
+            //     name.attr({
+            //         "id": response.hits[i].recipe.label,
+            //         "src": response.hits[i].recipe.image,
+            //         "value": response.hits[i].recipe.url,
+            //         "uri": response.hits[i].recipe.uri,
+            //         "class": "btn btn-info " + name,
+            //         "data-toggle": "modal",
+            //         "data-target": "#login-modal",
+            //         "role": "button"
+            //     });
+            //    name.text(name + " this!");
+            //    console.log(name);
+            // }
+            // makeButton(saveBttn);
+            // makeButton(faveBttn);
+
             console.log(response.hits[i])
-            // console.log(this_id);
-            // console.log(response.hits[i])
+
             let itemActive = $("#item-active");
             let itemDiv = $("<div class='col-md-4 recipe'>").attr({
                 "class": "item",
                 "data-id": i
             });
-            if (i < 1) {
-
-                image = $("<img>").attr({
-                    "src": response.hits[i].recipe.image,
-                    "data-id": 0,
-                    "class": "img-responsive"
-                });
-
-                caption = $(`<a>`);
-                caption.attr({
-                    "href": response.hits[i].recipe.url,
-                    "target": "_blank",
-                    "role": "button"
-                });
-                caption.text(response.hits[i].recipe.label);
-                caption.css("color", "black");
-
-                saveBttn = $("<a>");
-                saveBttn.attr({
-                    "id": response.hits[i].recipe.label,
-                    "src": response.hits[i].recipe.image,
-                    "value": response.hits[i].recipe.url,
-                    "uri": response.hits[i].recipe.uri,
-                    "class": "btn btn-info save-this",
-                    "role": "button"
-                });
-                saveBttn.text("Save This!");
-
-                console.log("its zero");
-
-                                // function makeButton(iterator){}
-                                // button = $("<a>");
-                                // button.attr({
-                                //     "id": response.hits[iterator].recipe.label,
-                                //     "src": response.hits[iteratori].recipe.image,
-                                //     "value": response.hits[iterator].recipe.url,
-                                //     "uri": response.hits[iterator].recipe.uri,
-                                //     "class": "btn btn-info fave-this",
-                                //     "role": "button"
-                                // });
-                                // faveBttn.text("Fave This!");
-                // make function
-                faveBttn = $("<a>");
-                faveBttn.attr({
-                    "id": response.hits[i].recipe.label,
-                    "src": response.hits[i].recipe.image,
-                    "value": response.hits[i].recipe.url,
-                    "uri": response.hits[i].recipe.uri,
-                    "class": "btn btn-info fave-this",
-                    "role": "button"
-                });
-                faveBttn.text("Fave This!");
-
-                itemActive.append(caption);
-                itemActive.append(image);
-                itemActive.append(saveBttn);
-                itemActive.append(faveBttn);
-
-                $('.carousel').carousel("pause");
-                $("#panel-slider").show();
-                id = 1;
-                responseObject = response;
-                createPlots(responseObject, i);
-
-                continue;
-            }
 
             image = $("<img>").attr({
                 "id": response.hits[i].recipe.uri,
@@ -123,62 +74,65 @@ $(".search").on('click', function (event) {
             caption.text(response.hits[i].recipe.label);
             caption.css("color", "black");
 
-            // make function
-            saveBttn = $("<a>");
+            saveBttn = $("<button>");
             saveBttn.attr({
                 "id": response.hits[i].recipe.label,
                 "src": response.hits[i].recipe.image,
                 "value": response.hits[i].recipe.url,
                 "uri": response.hits[i].recipe.uri,
-                "class": "btn btn-info save-this",
+                "class": "btn btn-info save",
+                "data-toggle": "modal",
+                "data-target": "#login-modal",
                 "role": "button"
             });
             saveBttn.text("Save This!");
 
             // make function
-            faveBttn = $("<a>");
+            faveBttn = $("<button>");
             faveBttn.attr({
                 "id": response.hits[i].recipe.label,
                 "src": response.hits[i].recipe.image,
                 "value": response.hits[i].recipe.url,
                 "uri": response.hits[i].recipe.uri,
-                "class": "btn btn-info fave-this",
+                "class": "btn btn-info fave",
+                "data-toggle": "modal",
+                "data-target": "#login-modal",
                 "role": "button"
             });
             faveBttn.text("Fave This!");
 
-            itemDiv.append(caption);
-            itemDiv.append(image);
-            itemDiv.append(saveBttn);
-            itemDiv.append(faveBttn);
+            if(i < 1) {
+                itemActive.append(caption)
+                .append(image)
+                .append(saveBttn)
+                .append(faveBttn);
+                continue;
+            }
+
+            itemDiv.append(caption)
+            .append(image)
+            .append(saveBttn)
+            .append(faveBttn);
+
+            console.log(itemDiv);
 
             $("#item-list").append(itemDiv);
+            $('.carousel').carousel("pause");
+            $("#panel-slider").show();
+            id = 1;
+            responseObject = response;
+            createPlots(responseObject, i);
 
         }
 
-        console.log($(`#item-active`).hasClass("active"));
-
-        $(".save-this").on('click', function (event) {
-            console.log('saved');
+        $(".save").on('click', function (event) {
             name = event.currentTarget.id;
             src = event.currentTarget.getAttribute('src');
             recipe = event.currentTarget.getAttribute('value');
             uri = event.currentTarget.getAttribute('uri');
-
-            console.log(event.currentTarget);
-            console.log(this_id);
-            console.log(name);
-            console.log(src);
-            console.log(recipe);
-            console.log(uri);
-
             let id = this_id;
             let itsFaved = "<h2>" + "Your reciped has been saved!" + "</h2>";
-            if (isModalShowing) return;
-            isModalShowing = true;
             $(".modal-body").append(itsFaved);
-            myModal.attr("class", "modal fade in");
-            myModal.attr("style", "display: block");
             $.ajax({
                 url: "/profile/save",
                 method: "POST",
@@ -194,24 +148,15 @@ $(".search").on('click', function (event) {
             });
         });
 
-        $(".fave-this").on('click', function (event) {
-            console.log("favorited");
+        $(".fave").on('click', function (event) {
             name = event.currentTarget.id;
             src = event.currentTarget.getAttribute('src');
             recipe = event.currentTarget.getAttribute('value');
             uri = event.currentTarget.getAttribute('uri');
-            console.log(recipe);
-            console.log(this_id);
             var id = this_id;
             var newFavorite = $(this).data("true");
-            // var newFavoriteState = { favorite: newFavorite }
-
             var itsFaved = "<h2>" + "This is now your favorite recipe!" + "</h2>";
-            if (isModalShowing) return;
-            isModalShowing = true;
             $(".modal-body").append(itsFaved);
-            myModal.attr("class", "modal fade in");
-            myModal.attr("style", "display: block");
             $.ajax({
                 url: "profile/fave",
                 method: "PUT",
@@ -224,54 +169,60 @@ $(".search").on('click', function (event) {
                 console.log("This is your new favorite!");
             });
         });
-
-
-
-        // Sets a listener for closing the modal and resetting parameters
-        $(".close").on("click", function () {
-            $(".header-content").empty();
-            $(".modal-body").empty();
-            $(".footer-content").empty();
-            myModal.attr("class", "modal fade out");
-            myModal.attr("style", "display: none");
-            isModalShowing = false;
-            // Reload the page to get the updated list
-            // location.reload();
-        });
-
     });
 });
 
-// $(".change-favorite").on('click', function (event) {
-//     console.log("favorited");
-//     name = event.currentTarget.id;
-//     src = event.currentTarget.getAttribute('src');
-//     recipe = event.currentTarget.getAttribute('value');
-//     uri = event.currentTarget.getAttribute('uri');
-//     console.log(recipe);
-//     console.log(this_id);
-//     var id = this_id;
-//     var newFavorite = $(this).data("true");
-//     // var newFavoriteState = { favorite: newFavorite }
+$(".change-favorite").on('click', function (event) {
+    name = event.currentTarget.id;
+    src = event.currentTarget.getAttribute('src');
+    recipe = event.currentTarget.getAttribute('value');
+    uri = event.currentTarget.getAttribute('uri');
+    var id = this_id;
+    var newFavorite = $(this).data("true");
+    var itsFaved = "<h2>" + "This is now your favorite recipe!" + "</h2>";
+    $(".modal-body").append(itsFaved);
+    $.ajax({
+        url: "profile/fave",
+        method: "PUT",
+        data: {
+            favorite: true,
+            id: id,
+            recipe: recipe,
+        }
+    }).then(function () {
+        console.log("This is your new favorite!");
+    });
+});
 
-//     var itsFaved = "<h2>" + "This is now your favorite recipe!" + "</h2>";
-//     if (isModalShowing) return;
-//     isModalShowing = true;
-//     $(".modal-body").append(itsFaved);
-//     myModal.attr("class", "modal fade in");
-//     myModal.attr("style", "display: block");
-//     $.ajax({
-//         url: "profile/fave",
-//         method: "PUT",
-//         data: {
-//             favorite: true,
-//             id: id,
-//             recipe: recipe,
-//         }
-//     }).then(function (response) {
-//         console.log("This is your new favorite!");
-//     });
-// });
+$(".delete-recipe").on('click', function (event) {
+    event.preventDefault();
+    uri = event.currentTarget.getAttribute('value');
+    var id = this_id;
+    var itsDeleted = "<h2>" + "This recipe has been deleted" + "</h2>";
+    $(".modal-body").append(itsDeleted);
+    $.ajax({
+        url: "profile/delete",
+        method: "DELETE",
+        data: {
+            id: id,
+            uri: uri,
+        }
+    }).then(function () {
+        console.log("Recipe Deleted!");
+    });
+})
+
+// Sets a listener for closing the modal and resetting parameters
+$(".close").on("click", function () {
+    $(".header-content").empty();
+    $(".modal-body").empty();
+    $(".footer-content").empty();
+    myModal.attr("class", "modal fade out");
+    myModal.attr("style", "display: none");
+    isModalShowing = false;
+    // Reload the page to get the updated list
+    window.location.reload(false);
+});
 
 $(".right").on('click', function (event) {
     // console.log('right clicked modafoca!');
@@ -285,7 +236,7 @@ $(".right").on('click', function (event) {
 });
 
 $(".left").on('click', function (event) {
-    console.log('right clicked modafoca!');
+    // console.log('right clicked modafoca!');
     nextSlide--;
     if (nextSlide < 0) {
         nextSlide = 4;
@@ -294,9 +245,6 @@ $(".left").on('click', function (event) {
     // console.log(nextSlide);
     createPlots(responseObject, nextSlide);
 });
-
-
-
 
 function createPlots(response, i) {
     let arrayDigest = response.hits[i].recipe.digest;
@@ -438,6 +386,68 @@ function createPlots(response, i) {
 
     }];
 
+    var dataOne = [{
+        values: firstPlot.values,
+        labels: firstPlot.labels,
+        domain: {
+            x: [0, .48],
+            y: [0, .49]
+        },
+        name: 'Macronutrients',
+        hoverinfo: 'label+percent+name',
+        hole: .6,
+        type: 'pie',
+        marker: {
+            colors: ultimateColors[0]
+        }
+    }];
+
+    var dataTwo = [{
+        values: secondPlot.values,
+        labels: secondPlot.labels,
+        text: 'Fats',
+        textposition: 'inside',
+        domain: {
+            x: [0, .48],
+            y: [0, .49]
+        },
+        name: 'Lipids',
+        hoverinfo: 'label+percent+name',
+        hole: .6,
+        type: 'pie',
+        marker: {
+            colors: ultimateColors[1]
+        }
+    }];
+
+    var dataThree = [{
+        values: thirdPlot.values,
+        labels: thirdPlot.labels,
+        domain: {
+            x: [0, .48],
+            y: [.51, 1]
+        },
+        name: 'Minerals',
+        hoverinfo: 'label+percent+name',
+        hole: .6,
+        type: 'pie'
+    }];
+
+    var dataFour = [{
+        values: fourthPlot.values,
+        labels: fourthPlot.labels,
+        text: 'Vitamins',
+        textposition: 'inside',
+        domain: {
+            x: [0.52, 1],
+            y: [0.52, 1]
+        },
+        name: 'Vitamins',
+        hoverinfo: 'label+percent+name',
+        hole: .6,
+        type: 'pie'
+    }];
+
     var layout = {
         title: 'Nutrient Breakdown',
         titlefont:
@@ -491,6 +501,72 @@ function createPlots(response, i) {
         //plot_bgcolor='rgb(254, 247, 234, 0.2)'
     };
 
+    var layoutOne = {
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        annotations:[{
+            font: {
+                size: 14
+            },
+            showarrow: false,
+            text: 'Minerals',
+            x: 0.15,
+            y: 0.8
+        }],
+        showlegend: false,
+        height: 600,
+        width: 600
+      };
+
+    var layoutTwo = {
+      paper_bgcolor: 'transparent',
+      plot_bgcolor: 'transparent',
+      annotations:[{
+        font: { size: 14 },
+        showarrow: false,
+        text: 'Vitamins',
+        x: 0.85,
+        y: 0.8
+      }],
+      showlegend: false,
+      height: 600,
+      width: 600
+    };
+    
+    var layoutThree = {
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        annotations:[{
+          font: { size: 14 },
+          showarrow: false,
+          text: 'Macros',
+          x: 0.15,
+          y: 0.2
+        }],
+        showlegend: false,
+        height: 600,
+        width: 600
+    };
+
+    var layoutFour = {
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
+        annotations:[{
+          font: { size: 14 },
+          showarrow: false,
+          text: 'Lipids',
+          x: 0.82,
+          y: 0.2
+        }],
+        showlegend: false,
+        height: 600,
+        width: 600
+    };
+
     Plotly.newPlot('tester', data, layout);
+    // Plotly.newPlot('tester-1', dataOne, layoutOne);
+    // Plotly.newPlot('tester-2', dataTwo, layoutTwo);
+    // Plotly.newPlot('tester-3', dataThree, layoutThree);
+    // Plotly.newPlot('tester-4', dataFour, layoutFour);
 
 }

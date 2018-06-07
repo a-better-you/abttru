@@ -12,7 +12,7 @@ module.exports = function (app) {
     });
 
     app.post("/profile", function (req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         var userName = req.body.patient_name;
         var userPassWord = req.body.password;
 
@@ -22,7 +22,7 @@ module.exports = function (app) {
                 password: userPassWord
             },
         }).then(patient => {
-            console.log(patient);
+            // console.log(patient);
             if (patient.length == 0) {
                 res.redirect('/');
             }
@@ -50,7 +50,7 @@ module.exports = function (app) {
             db.savedRecipes.findAll({
                 where: { patient_id: patient.map(x => x.dataValues.id).toString() },
             }).then(savedRecipes => { 
-                console.log(savedRecipes);
+                // console.log(savedRecipes);
                 hbsPatient.recipes = savedRecipes.map(x => x.dataValues);
                 
                 let recipeName = savedRecipes.map(x => x.dataValues.recipe_name);
@@ -62,16 +62,18 @@ module.exports = function (app) {
                 let recipeUri = savedRecipes.map(x => x.dataValues.recipe_uri);
                 // console.log(recipeUri);
                 // console.log(recipeUri[0].replace(/[#]/gi, '%23'));
+                // let formattedUri = recipeUri[0].replace(/[#]/gi, '%23', /[:]/gi, '%3A', /[/]/, '%2F');
 
-                //NEED TO REPLACE # with %23!!//
-                axios.get('https://api.edamam.com/search?r=' + recipeUri[0].replace(/[#]/gi, '%23') + '&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99')
-                    .then(response => {
-                        faveRecipe = response.data;
-                        // console.log(faveRecipe);
-                        // console.log(response.data.explanation);
-                    }).catch(error => {
-                        console.log(error);
-                });
+                // // res.json(savedRecipes);
+                // //NEED TO REPLACE # with %23!!//
+                // axios.get('https://api.edamam.com/search?r=' + formattedUri + '&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99')
+                //     .then(response => {
+                //         // faveRecipe = response.data;
+                //         // console.log(faveRecipe);
+                //         // console.log(response.data.explanation);
+                //     }).catch(error => {
+                //         console.log(error);
+                // });
             }).then(() => {
                 console.log(hbsPatient);
                 res.render("patient-page", hbsPatient);});
@@ -117,6 +119,18 @@ module.exports = function (app) {
             }).then(function (savedRecipe) {
                     console.log(savedRecipe);
             });
+        });
+    });
+
+    app.delete("/profile/delete", function (req, res) {
+        console.log(req.body);
+        db.savedRecipes.destroy({
+            where: {
+                patient_id: req.body.id,
+                recipe_uri: req.body.uri
+            }
+        }).then(function (res) {
+            console.log(res)
         });
     });
 
