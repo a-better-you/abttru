@@ -16,12 +16,6 @@ let faveBttn;
 $(".search").on('click', function (event) {
     event.preventDefault();
     userQ = $("#user-input").val().trim();
-    // console.log(userQ);
-    // console.log("--------------------");
-    // console.log(risk_factor);
-    // console.log(diet_recommendation);
-    // console.log(diet_restriction);
-    // console.log(fave_recipe);
     $.ajax({
         url: `https://api.edamam.com/search?q=${userQ}&app_id=76461587&app_key=b829a690de0595f2fa5b7cb02db4cd99&from=0&to=5&calories=591-722&Diet=${risk_factor}&Health=${diet_recommendation}`,
         method: "GET"
@@ -32,25 +26,25 @@ $(".search").on('click', function (event) {
 
         for (let i = 0; i < response.hits.length; i++) {
 
-            // function makeButton(name){
-            //     name = $("<button>");
-            //     name.attr({
-            //         "id": response.hits[i].recipe.label,
-            //         "src": response.hits[i].recipe.image,
-            //         "value": response.hits[i].recipe.url,
-            //         "uri": response.hits[i].recipe.uri,
-            //         "class": "btn btn-info " + name,
-            //         "data-toggle": "modal",
-            //         "data-target": "#login-modal",
-            //         "role": "button"
-            //     });
-            //    name.text(name + " this!");
-            //    console.log(name);
-            // }
-            // makeButton(saveBttn);
-            // makeButton(faveBttn);
-
-            console.log(response.hits[i])
+            function makeButton(i,name){
+                button = $("<button>");
+                button.attr({
+                    "id": response.hits[i].recipe.label,
+                    "src": response.hits[i].recipe.image,
+                    "value": response.hits[i].recipe.url,
+                    "uri": response.hits[i].recipe.uri,
+                    "class": "btn btn-info " + name,
+                    "data-toggle": "modal",
+                    "data-target": "#login-modal",
+                    "role": "button"
+                });
+               button.text(name + " This!");
+                // if(i < 1) {
+                //     itemActive.append(button)
+                // } else {
+                //     itemDiv.append(button)
+                // }
+            }
 
             let itemActive = $("#item-active");
             let itemDiv = $("<div class='col-md-4 recipe'>").attr({
@@ -74,47 +68,21 @@ $(".search").on('click', function (event) {
             caption.text(response.hits[i].recipe.label);
             caption.css("color", "black");
 
-            saveBttn = $("<button>");
-            saveBttn.attr({
-                "id": response.hits[i].recipe.label,
-                "src": response.hits[i].recipe.image,
-                "value": response.hits[i].recipe.url,
-                "uri": response.hits[i].recipe.uri,
-                "class": "btn btn-info save",
-                "data-toggle": "modal",
-                "data-target": "#login-modal",
-                "role": "button"
-            });
-            saveBttn.text("Save This!");
-
-            // make function
-            faveBttn = $("<button>");
-            faveBttn.attr({
-                "id": response.hits[i].recipe.label,
-                "src": response.hits[i].recipe.image,
-                "value": response.hits[i].recipe.url,
-                "uri": response.hits[i].recipe.uri,
-                "class": "btn btn-info fave",
-                "data-toggle": "modal",
-                "data-target": "#login-modal",
-                "role": "button"
-            });
-            faveBttn.text("Fave This!");
+            makeButton(i, "Save");
+            makeButton(i, "Fave");
 
             if(i < 1) {
                 itemActive.append(caption)
                 .append(image)
-                .append(saveBttn)
-                .append(faveBttn);
+                makeButton(i, "Save");
+                makeButton(i, "Fave");
                 continue;
             }
 
             itemDiv.append(caption)
             .append(image)
-            .append(saveBttn)
-            .append(faveBttn);
-
-            console.log(itemDiv);
+            makeButton(i, "Save");
+            makeButton(i, "Fave");
 
             $("#item-list").append(itemDiv);
             $('.carousel').carousel("pause");
@@ -153,9 +121,9 @@ $(".search").on('click', function (event) {
             src = event.currentTarget.getAttribute('src');
             recipe = event.currentTarget.getAttribute('value');
             uri = event.currentTarget.getAttribute('uri');
-            var id = this_id;
-            var newFavorite = $(this).data("true");
-            var itsFaved = "<h2>" + "This is now your favorite recipe!" + "</h2>";
+            let id = this_id;
+            let newFavorite = $(this).data("true");
+            let itsFaved = "<h2>" + "This is now your favorite recipe!" + "</h2>";
             $(".modal-body").append(itsFaved);
             $.ajax({
                 url: "profile/fave",
@@ -166,7 +134,7 @@ $(".search").on('click', function (event) {
                     recipe: recipe,
                 }
             }).then(function (response) {
-                console.log("This is your new favorite!");
+                console.log(response);
             });
         });
     });
